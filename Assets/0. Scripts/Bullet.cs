@@ -8,8 +8,8 @@ public class Bullet : MonoBehaviour
     public int Power { get; set; }
     void Start()
     {
-        Speed = 5.0f;
-        Power = 10;
+        Speed = 20.0f;
+        Power = 25;
     }
 
     void Update()

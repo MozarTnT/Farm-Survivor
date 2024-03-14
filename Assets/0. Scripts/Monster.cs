@@ -10,7 +10,6 @@ public abstract class Monster : MonoBehaviour
         Run,
         Hit,
         Dead,
-
     }
 
 
@@ -36,8 +35,15 @@ public abstract class Monster : MonoBehaviour
     private SpriteAnimation sa;
     private State state = State.Run;
 
+    private float attTimer;
+
     // -- Test
     public Transform target;
+
+    public void SetTarget(Transform target)
+    { 
+        this.target = target;
+    }
 
     public virtual void Init()
     {
@@ -50,10 +56,9 @@ public abstract class Monster : MonoBehaviour
 
     void Update()
     {
-        if (target == null)
-        {
+        if (target == null || data.HP <= 0)
             return;
-        }
+        
 
         if(data.HitDelay >= 0)
         {
@@ -65,13 +70,15 @@ public abstract class Monster : MonoBehaviour
             state = State.Run;
             sa.SetSprite(run, 0.2f / data.Speed);
         }
-        
-    
 
+        Direction();
 
+    }
+
+    void Direction()
+    {
         float distance = Vector3.Distance(target.position, transform.position);
-
-        if(distance > 1.0f)
+        if (distance > 1.0f)
         {
             Vector2 dis = target.position - transform.position;
             Vector2 dir = dis.normalized * Time.deltaTime * data.Speed;
@@ -82,6 +89,16 @@ public abstract class Monster : MonoBehaviour
                 sr.flipX = dir.normalized.x > 0 ? false : true;
             }
         }
+        else
+        {
+            attTimer += Time.deltaTime;
+            if(attTimer >= data.AttDelay)
+            {
+                attTimer = 0;
+                target.GetComponent<Player>().Hit(data.Power);
+            }
+        }
+
     }
 
 
@@ -102,10 +119,18 @@ public abstract class Monster : MonoBehaviour
 
             if(data.HP <= 0)
             {
-                sa.SetSprite(dead, 0.1f, 1f, () => Destroy(gameObject)); // Enemy 제거
+                GetComponent<Collider2D>().enabled = false;
+                tag = "Untagged";
+                sa.SetSprite(dead, 0.1f, 1.0f, End); // Enemy 제거
             }
 
             Destroy(collision.gameObject); // 총알 삭제
         }
     }
+
+    void End()
+    {
+        Destroy(gameObject);
+    }
+
 }

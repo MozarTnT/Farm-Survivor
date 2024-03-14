@@ -14,7 +14,8 @@ public class GreenZombie : Monster
         data.Speed = 2.0f;
         data.Power = 1;
         data.HP = 100;
-
+        data.AttDelay = 1.0f;
+        
         base.Init();
     }
 }

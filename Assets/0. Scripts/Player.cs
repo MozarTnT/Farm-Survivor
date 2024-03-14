@@ -4,6 +4,14 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public class Data
+    {
+        public int HP { get; set; }
+        public float Exp { get; set; }
+        public int Level { get; set; }
+        public float Speed { get; set; }
+    }
+
     public enum State
     {
         Stand,
@@ -18,33 +26,75 @@ public class Player : MonoBehaviour
     [SerializeField] private List<Sprite> dead;
 
     [SerializeField] private Transform firePos;
+    [SerializeField] private Bullet bullet;
+    [SerializeField] private Transform bibleTrans;
+    [SerializeField] private Transform bible;
 
-    [SerializeField] private float speed = 5.0f;
-
-
+    [SerializeField] private float fireDelay;
 
     public Transform target;
+    private Data data = new Data();
+
+    private float fireTimer = 0;
 
     void Start()
     {
         GetComponent<SpriteAnimation>().SetSprite(stand, 0.1f);
+        data.HP = 100;
+        data.Speed = 3.0f;
     }
 
+    
     void Update()
     {
-        if (target == null)
-            return;
-
         Move();
-        FireRotate();
-        Fire();
+        FindMonster();
+
+        if(target != null)
+        {
+            FireRotate();
+            Fire();
+        }
+
+        bibleTrans.Rotate(Vector3.back * Time.deltaTime * 5f);
+
+        if(Input.GetKeyDown(KeyCode.F5))
+        {
+            Instantiate(bible, bibleTrans);
+
+            bibleTrans.rotation = Quaternion.identity;
+
+            float rot = 360 / bibleTrans.childCount;
+            float addRot = 0;
+            for(int i = 0; i < bibleTrans.childCount; i++)
+            {
+                bibleTrans.GetChild(0).rotation = Quaternion.Euler(0f, 0f, addRot);
+                addRot += rot;
+            }
+        } 
+
+        if(Input.GetKeyDown(KeyCode.F6))
+        {
+            Destroy(bibleTrans.GetChild(bibleTrans.childCount - 1).gameObject);
+
+            bibleTrans.rotation = Quaternion.identity;
+
+            float rot = 360 / bibleTrans.childCount;
+            float addRot = 0;
+            for (int i = 0; i < bibleTrans.childCount; i++)
+            {
+                bibleTrans.GetChild(0).rotation = Quaternion.Euler(0f, 0f, addRot);
+                addRot += rot;
+            }
+        }
+
     }
 
     private void Move()
     {
         // Move
-        float x = Input.GetAxisRaw("Horizontal") * Time.deltaTime * speed;
-        float y = Input.GetAxisRaw("Vertical") * Time.deltaTime * speed;
+        float x = Input.GetAxisRaw("Horizontal") * Time.deltaTime * data.Speed;
+        float y = Input.GetAxisRaw("Vertical") * Time.deltaTime * data.Speed;
 
         float cX = Mathf.Clamp(transform.position.x + x, -19f, 19f);
         float cY = Mathf.Clamp(transform.position.y + y, -19.2f, 19.4f);
@@ -69,7 +119,7 @@ public class Player : MonoBehaviour
         else if ((x != 0 || y != 0) && state != State.Run)
         {
             state = State.Run;
-            GetComponent<SpriteAnimation>().SetSprite(run, 1 / speed);
+            GetComponent<SpriteAnimation>().SetSprite(run, 1 / data.Speed);
         }
 
 
@@ -85,9 +135,9 @@ public class Player : MonoBehaviour
     }
 
 
-    private float fireTimer = 0;
-    [SerializeField] private float fireDelay;
-    [SerializeField] private Bullet bullet;
+
+
+  
     private void Fire()
     {
         fireTimer += Time.deltaTime;
@@ -95,6 +145,46 @@ public class Player : MonoBehaviour
         {
             fireTimer = 0;
             Instantiate(bullet, firePos.GetChild(0)).transform.SetParent(null);
+        }
+    }
+
+    public void Hit(int dmg)
+    {
+        if (data.HP <= 0)
+            return;
+
+        data.HP -= dmg;
+        Debug.Log($"Player HP : {data.HP} ");
+
+    }
+
+
+    private void FindMonster()
+    {
+        target = null;
+        GameObject[] objs = GameObject.FindGameObjectsWithTag("Monster");
+
+        if(objs.Length > 0)
+        {
+            float distance = float.MaxValue;
+            int findIndex = -1;
+            for (int i = 0; i < objs.Length; i++)
+            {
+                float dis = Vector2.Distance(objs[i].transform.position, transform.position);
+                if(dis <= 6)
+                {
+                    if (dis <= distance)
+                    {
+                        findIndex = i;
+                        distance = dis;
+                    }
+                }
+            }
+
+            if(findIndex != -1)
+            {
+                target = objs[findIndex].transform;
+            }
         }
     }
 }
