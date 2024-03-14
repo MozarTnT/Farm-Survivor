@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class GreenZombie : Monster
 {
-
     void Start()
     {
         Init();
