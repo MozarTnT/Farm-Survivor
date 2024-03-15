@@ -6,6 +6,7 @@ TagManager:
   tags:
   - pBullet
   - Monster
+  - Exp
   layers:
   - Default
   - TransparentFX

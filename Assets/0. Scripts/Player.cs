@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
+using System;
 
 public class Player : MonoBehaviour
 {
@@ -33,7 +35,7 @@ public class Player : MonoBehaviour
     [SerializeField] private float fireDelay;
 
     public Transform target;
-    private Data data = new Data();
+    public Data data = new Data();
 
     private float fireTimer = 0;
 
@@ -56,7 +58,9 @@ public class Player : MonoBehaviour
             Fire();
         }
 
-        bibleTrans.Rotate(Vector3.back * Time.deltaTime * 5f);
+        FindExp();
+
+        bibleTrans.Rotate(Vector3.back * Time.deltaTime * 300f);
 
         if(Input.GetKeyDown(KeyCode.F5))
         {
@@ -68,7 +72,7 @@ public class Player : MonoBehaviour
             float addRot = 0;
             for(int i = 0; i < bibleTrans.childCount; i++)
             {
-                bibleTrans.GetChild(0).rotation = Quaternion.Euler(0f, 0f, addRot);
+                bibleTrans.GetChild(i).rotation = Quaternion.Euler(0f, 0f, addRot);
                 addRot += rot;
             }
         } 
@@ -83,7 +87,7 @@ public class Player : MonoBehaviour
             float addRot = 0;
             for (int i = 0; i < bibleTrans.childCount; i++)
             {
-                bibleTrans.GetChild(0).rotation = Quaternion.Euler(0f, 0f, addRot);
+                bibleTrans.GetChild(i).rotation = Quaternion.Euler(0f, 0f, addRot);
                 addRot += rot;
             }
         }
@@ -184,6 +188,24 @@ public class Player : MonoBehaviour
             if(findIndex != -1)
             {
                 target = objs[findIndex].transform;
+            }
+        }
+    }
+
+    public void FindExp()
+    {
+        GameObject[] objs = GameObject.FindGameObjectsWithTag("Exp");
+
+        if(objs.Length > 0) 
+        {
+            foreach(var item in objs.Select((value, index) => (value, index)))
+            {
+                float distance = Vector2.Distance(transform.position, item.value.transform.position);
+                if(distance <= 3)
+                {
+                    item.value.GetComponent<Exp>().Target = transform;
+
+                }
             }
         }
     }

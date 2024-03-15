@@ -20,7 +20,7 @@ public class FollowCam : MonoBehaviour
         pos.y = Mathf.Clamp(pos.y, -15f, 15f);
 
         // 타겟을 타겟의 위치에 따라 따라다니기
-        transform.position = Vector3.Lerp(pos, transform.position, Time.deltaTime * 1f);
+        transform.position = Vector3.Lerp(transform.position, pos, Time.deltaTime * 5f);
 
     }
 }
