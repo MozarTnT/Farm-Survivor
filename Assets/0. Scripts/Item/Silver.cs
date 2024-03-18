@@ -2,12 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bronze : Exp
+public class Silver : Exp
 {
     void Start()
     {
-        ExpValue = 5;
+        ExpValue = 50;
     }
-
 
 }

@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Exp : MonoBehaviour
+public abstract class Exp : MonoBehaviour
 {
-    protected float exp;
+    protected float ExpValue { get; set; }
 
     private float speed;
 
@@ -28,7 +28,7 @@ public class Exp : MonoBehaviour
         float distance = Vector2.Distance(transform.position, target.position);
         if(distance <= 0.1f)
         {
-            GameObject.FindAnyObjectByType<UI>().Exp += 10;
+            GameObject.FindAnyObjectByType<UI>().topUI.Exp += ExpValue;
             Destroy(gameObject);
         }
     }

@@ -12,11 +12,10 @@ public abstract class Monster : MonoBehaviour
         Dead,
     }
 
-
-
     [System.Serializable]
     public class Data
     {
+        public int Level { get; set; }
         public int HP { get; set; }
         public int Power { get; set; }
         public int Defence { get; set; }
@@ -28,6 +27,8 @@ public abstract class Monster : MonoBehaviour
     [SerializeField] protected List<Sprite> run;
     [SerializeField] protected List<Sprite> hit;
     [SerializeField] protected List<Sprite> dead;
+
+    private Exp[] exps;
 
     protected Data data = new Data();
 
@@ -44,6 +45,12 @@ public abstract class Monster : MonoBehaviour
     { 
         this.target = target;
     }
+
+    public void SetExp(Exp[] exps)
+    {
+        this.exps = exps;
+    }
+
 
     public virtual void Init()
     {
@@ -130,6 +137,17 @@ public abstract class Monster : MonoBehaviour
 
     void End()
     {
+        int rand = Random.Range(0, 100);
+        if(rand < 95)
+        {
+            int expIndex = data.Level <= 2 ? 0 : data.Level <= 5 ? Random.Range(0, 2) : Random.Range(0, 3);
+            Instantiate(exps[expIndex], transform.position, Quaternion.identity);
+        }
+        else
+        {
+            // 아이템 박스
+        }
+       
         Destroy(gameObject);
     }
 

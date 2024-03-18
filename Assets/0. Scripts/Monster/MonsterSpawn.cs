@@ -9,6 +9,7 @@ public class MonsterSpawn : MonoBehaviour
 
     [SerializeField] private Monster m;
     [SerializeField] private Player player;
+    [SerializeField] private Exp[] exps;
 
     void Start()
     {
@@ -23,7 +24,6 @@ public class MonsterSpawn : MonoBehaviour
             spawnTimer = 0;
             spawnDelay = Random.Range(5, 15);
             Spawn();
-
         }
     }
 
@@ -37,11 +37,11 @@ public class MonsterSpawn : MonoBehaviour
         rangeCollider = rangeObject.GetComponent<Collider2D>();
     }
 
-
     public void Spawn()
     {
         Monster mon = Instantiate(m, Return_RandomPosition(), Quaternion.identity);
         mon.SetTarget(player.transform);
+        mon.SetExp(exps);
     }
 
     Vector3 Return_RandomPosition()
