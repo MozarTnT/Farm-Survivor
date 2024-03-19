@@ -18,6 +18,9 @@ public class MonsterSpawn : MonoBehaviour
 
     void Update()
     {
+        if (GameManager.instance != null && GameManager.instance.state != GameState.Play)
+            return;
+
         spawnTimer += Time.deltaTime;
         if(spawnTimer >= spawnDelay)
         {

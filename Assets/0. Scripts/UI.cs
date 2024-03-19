@@ -1,8 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
+using static UnityEditor.Progress;
 
 public class UI : MonoBehaviour
 {
@@ -39,7 +42,7 @@ public class UI : MonoBehaviour
         public float maxExp;
 
 
-        private float exp;
+        private float exp = 0;
         public float Exp
         {
             get { return exp; }
@@ -51,6 +54,7 @@ public class UI : MonoBehaviour
                     exp = 0;
                     maxExp += 50;
                     Level++;
+                    GameManager.instance.UI.OnShowLevelUpPopUp(true);
                 }
                 float val = exp / maxExp * 1270;
                 expImg.rectTransform.sizeDelta = new Vector2(val + 10, 44);
@@ -65,16 +69,26 @@ public class UI : MonoBehaviour
 
     [System.Serializable]
     public class LevelUp
-    { 
-        
+    {
+        public Image icon;
+        public Text level;
+        public Text title;
+        public Text desc;
     }
+
+    [SerializeField] private List<LevelUp> levelupUIs;
+    [SerializeField] private GameObject levelupPopup;
 
     [System.Serializable]
     public class Result
     {
+        public Image title;
 
+        [HideInInspector]
+        public float[] deadTitleValue = new float[5] {0.21f, 0.4f, 0.59f, 0.78f, 1f};
     }
 
+    [SerializeField] private Result result;
 
     private float sec;
     private int min;
@@ -84,13 +98,16 @@ public class UI : MonoBehaviour
         topUI.maxExp = 50;
         topUI.Level = 1;
         topUI.KillCount = 0;
+
+      
     }
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.F1))
         {
-            topUI.Exp += 10;
+            //topUI.Exp += 10;
+            DeadTitleStart();
         }
 
 
@@ -103,5 +120,46 @@ public class UI : MonoBehaviour
 
         topUI.timeTxt.text = string.Format("{0:D2}:{1:D2}", min, (int)sec); // 2자리까지만 표현
 
+    }
+
+
+    public void OnShowLevelUpPopUp(bool isShow)
+    {
+        GameManager.instance.state = GameState.Stop;
+        levelupPopup.SetActive(isShow);
+
+        if(isShow == true)
+        {
+            Transform bg = levelupPopup.transform.GetChild(0).GetChild(0);
+            bg.transform.localScale = new Vector3(0.6f, 0.6f, 0.6f);
+            bg.DOScale(Vector3.one, 0.2f)
+                .SetEase(Ease.InQuint);
+        }
+        else
+        {
+            GameManager.instance.state = GameState.Play;
+        }
+
+    }
+
+    public void OnItemSelect(int index)
+    {
+
+    }
+
+    public void DeadTitleStart()
+    {
+        GameManager.instance.state = GameState.Stop;
+        result.title.fillAmount = 0;
+        StartCoroutine(CDeadTitle());
+    }
+
+    IEnumerator CDeadTitle()
+    {
+        foreach (var item in result.deadTitleValue)
+        {
+            result.title.fillAmount = item;
+            yield return new WaitForSeconds(0.2f);
+        }
     }
 }

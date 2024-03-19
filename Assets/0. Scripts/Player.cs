@@ -41,6 +41,7 @@ public class Player : MonoBehaviour
 
     void Start()
     {
+        GameManager.instance.state = GameState.Play;
         GetComponent<SpriteAnimation>().SetSprite(stand, 0.1f);
         data.HP = 100;
         data.Speed = 3.0f;
@@ -49,6 +50,10 @@ public class Player : MonoBehaviour
     
     void Update()
     {
+        if (GameManager.instance != null && GameManager.instance.state != GameState.Play)
+            return;
+
+
         Move();
         FindMonster();
 

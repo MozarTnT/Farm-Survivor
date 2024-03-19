@@ -14,6 +14,9 @@ public class Bullet : MonoBehaviour
 
     void Update()
     {
+        if (GameManager.instance != null && GameManager.instance.state != GameState.Play)
+            return;
+
         transform.Translate(Vector2.up * Time.deltaTime * Speed);
     }
 }

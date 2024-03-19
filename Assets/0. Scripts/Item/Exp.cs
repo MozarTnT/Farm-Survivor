@@ -20,6 +20,11 @@ public abstract class Exp : MonoBehaviour
     }
     void Update()
     {
+
+        if (GameManager.instance != null && GameManager.instance.state != GameState.Play)
+            return;
+
+
         if (target == null)
             return;
         
@@ -28,7 +33,7 @@ public abstract class Exp : MonoBehaviour
         float distance = Vector2.Distance(transform.position, target.position);
         if(distance <= 0.1f)
         {
-            GameObject.FindAnyObjectByType<UI>().topUI.Exp += ExpValue;
+            GameManager.instance.UI.topUI.Exp += ExpValue;
             Destroy(gameObject);
         }
     }

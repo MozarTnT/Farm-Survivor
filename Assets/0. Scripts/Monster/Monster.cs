@@ -63,6 +63,11 @@ public abstract class Monster : MonoBehaviour
 
     void Update()
     {
+
+        if (GameManager.instance != null && GameManager.instance.state != GameState.Play)
+            return;
+
+
         if (target == null || data.HP <= 0)
             return;
         
