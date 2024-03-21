@@ -195,7 +195,9 @@ public class UI : MonoBehaviour
                 GameManager.instance.P.BibleAdd();
                 break;
             case ItemType.Boots:
+                Debug.Log($"Old Speed : {GameManager.instance.P.data.Speed}");
                 GameManager.instance.P.data.Speed += (GameManager.instance.P.data.Speed * 0.1f); // 10% 증가
+                Debug.Log($"New Speed : {GameManager.instance.P.data.Speed}");
                 break;
             case ItemType.Heal:
                 GameManager.instance.P.data.HP = 100; // 풀피 회복

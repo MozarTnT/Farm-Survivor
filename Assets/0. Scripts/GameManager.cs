@@ -23,7 +23,23 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
+    [System.Serializable]
+    public class CharSprite
+    {
+        public List<Sprite> stand;
+        public List<Sprite> run;
+        public List<Sprite> dead;
+    }
+
+    public List<CharSprite> charSprites;
+
+
+
     public GameState state = GameState.Stop;
+
+
+    public int charSelectIndex = 0;
+
 
     private Bullet b;
 
@@ -74,10 +90,18 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void OnSelect()
+    {
+        SceneManager.LoadScene("CharacterSelect");
+
+
+    }
+
     public void OnGame()
     {
         SceneManager.LoadScene("Game");
         SceneManager.LoadScene("UI", LoadSceneMode.Additive);
     }
 
+    
 }

@@ -2,16 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
-using System;
 
 public class Player : MonoBehaviour
 {
     public class Data
     {
         public int HP { get; set; }
+        public int MaxHP { get; set; }
         public float Exp { get; set; }
         public int Level { get; set; }
         public float Speed { get; set; }
+        public float FireDelay { get; set; }
+        public float Power { get; set; }
     }
 
     public enum State
@@ -23,16 +25,15 @@ public class Player : MonoBehaviour
 
     State state = State.Stand;
 
-    [SerializeField] private List<Sprite> stand;
-    [SerializeField] private List<Sprite> run;
-    [SerializeField] private List<Sprite> dead;
+    private List<Sprite> stand;
+    private List<Sprite> run;
+    private List<Sprite> dead;
 
+    [SerializeField] private RectTransform hpRect;
     [SerializeField] private Transform firePos;
     [SerializeField] private Bullet bullet;
     [SerializeField] private Transform bibleTrans;
     [SerializeField] private Transform bible;
-
-    [SerializeField] private float fireDelay;
 
     public Transform target;
     public Data data = new Data();
@@ -42,12 +43,47 @@ public class Player : MonoBehaviour
     void Start()
     {
         GameManager.instance.state = GameState.Play;
+
+
+        // 캐릭터 선택에 따른 Sprite 적용
+        int index = GameManager.instance.charSelectIndex;
+
+        stand = GameManager.instance.charSprites[index].stand;
+        run = GameManager.instance.charSprites[index].run;
+        dead = GameManager.instance.charSprites[index].dead;
+
+
         GetComponent<SpriteAnimation>().SetSprite(stand, 0.1f);
-        data.HP = 100;
+        data.HP = data.MaxHP = 100;
         data.Speed = 3.0f;
+        data.FireDelay = 0.8f;
+        data.Power = 10.0f;
+
+        switch (index)
+        {
+            case 0:
+                data.Speed += (data.Speed * 0.1f);
+                break;
+
+            case 1:
+                data.Power += (data.Power * 0.2f);
+                break;
+
+            case 2:
+                data.FireDelay -= 0.1f;
+                break;
+
+            case 3:
+                break;
+
+        }
+
+
+
+
     }
 
-    
+
     void Update()
     {
         if (GameManager.instance != null && GameManager.instance.state != GameState.Play)
@@ -148,10 +184,12 @@ public class Player : MonoBehaviour
     private void Fire()
     {
         fireTimer += Time.deltaTime;
-        if (fireTimer >= fireDelay)
+        if (fireTimer >= data.FireDelay)
         {
             fireTimer = 0;
-            Instantiate(bullet, firePos.GetChild(0)).transform.SetParent(null);
+            Bullet b = Instantiate(bullet, firePos.GetChild(0));
+            b.transform.SetParent(null);
+            b.SetPower(power:data.Power);
         }
     }
 
@@ -161,7 +199,16 @@ public class Player : MonoBehaviour
             return;
 
         data.HP -= dmg;
+
+        float sizeX = ((float)data.HP / (float)data.MaxHP) * 120.0f;
+        hpRect.sizeDelta = new Vector2(sizeX, 30.0f);
+
         Debug.Log($"Player HP : {data.HP} ");
+
+        if(data.HP <= 0)
+        {
+            GameManager.instance.UI.DeadTitleStart();
+        }
 
     }
 

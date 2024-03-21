@@ -123,7 +123,7 @@ public abstract class Monster : MonoBehaviour
         if (collision.CompareTag("pBullet"))
         {
             Bullet b = collision.GetComponent<Bullet>();
-            data.HP -= b.Power;
+            data.HP -= (int)b.Power;
 
             state = State.Hit;
             data.HitDelay = 0.5f;
