@@ -13,7 +13,7 @@ public class MonsterSpawn : MonoBehaviour
 
     void Start()
     {
-        spawnDelay = Random.Range(1, 5);
+        spawnDelay = Random.Range(1, 3);
     }
 
     void Update()
@@ -25,7 +25,7 @@ public class MonsterSpawn : MonoBehaviour
         if(spawnTimer >= spawnDelay)
         {
             spawnTimer = 0;
-            spawnDelay = Random.Range(5, 15);
+            spawnDelay = Random.Range(3, 7);
             Spawn();
         }
     }

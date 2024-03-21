@@ -9,11 +9,35 @@ public enum GameState
     Stop,
 }
 
+public enum ItemType
+{
+    Bullet_Att,
+    Bullet_Spd,
+    Bible,
+    Heal,
+    Boots,
+}
+
+
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
     public GameState state = GameState.Stop;
+
+    private Bullet b;
+
+    public Bullet B
+    { 
+        get
+        {
+            if(b == null)
+            {
+                b = GameObject.FindObjectOfType<Bullet>();
+            }
+            return b;
+        }
+    }
 
     private UI ui;
     public UI UI 

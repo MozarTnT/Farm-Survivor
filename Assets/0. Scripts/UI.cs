@@ -1,11 +1,11 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
-using static UnityEditor.Progress;
+using System.Linq;
+
 
 public class UI : MonoBehaviour
 {
@@ -66,7 +66,6 @@ public class UI : MonoBehaviour
 
     public Top topUI;
 
-
     [System.Serializable]
     public class LevelUp
     {
@@ -79,13 +78,21 @@ public class UI : MonoBehaviour
     [SerializeField] private List<LevelUp> levelupUIs;
     [SerializeField] private GameObject levelupPopup;
 
+    // 아이템 데이터
+    [SerializeField] private ItemData[] itemDatas;
+
+    List<ItemData> levelUpItemData = new List<ItemData>();
+
+
     [System.Serializable]
     public class Result
     {
+        public GameObject obj;
+        public GameObject backObj;
         public Image title;
 
         [HideInInspector]
-        public float[] deadTitleValue = new float[5] {0.21f, 0.4f, 0.59f, 0.78f, 1f};
+        public float[] deadTitleValue = new float[7] {0.21f, 0.4f, 0.59f, 0.78f, 0.85f, 0.92f, 1f};
     }
 
     [SerializeField] private Result result;
@@ -99,7 +106,6 @@ public class UI : MonoBehaviour
         topUI.Level = 1;
         topUI.KillCount = 0;
 
-      
     }
 
     void Update()
@@ -107,7 +113,7 @@ public class UI : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F1))
         {
             //topUI.Exp += 10;
-            DeadTitleStart();
+            //DeadTitleStart();
         }
 
 
@@ -128,8 +134,10 @@ public class UI : MonoBehaviour
         GameManager.instance.state = GameState.Stop;
         levelupPopup.SetActive(isShow);
 
-        if(isShow == true)
+        if (isShow == true)
         {
+            ItemShuffle();
+
             Transform bg = levelupPopup.transform.GetChild(0).GetChild(0);
             bg.transform.localScale = new Vector3(0.6f, 0.6f, 0.6f);
             bg.DOScale(Vector3.one, 0.2f)
@@ -142,24 +150,82 @@ public class UI : MonoBehaviour
 
     }
 
+    public void ItemShuffle()
+    {
+        levelUpItemData.Clear();
+        List <ItemData> itemData = itemDatas.ToList();
+
+        for (int i = 0; i < levelupUIs.Count; i++)
+        {
+            int rand = Random.Range(0, itemData.Count);
+            levelUpItemData.Add(itemData[rand]);
+            itemData.RemoveAt(rand);
+        }
+
+        // UI 표현
+        for (int i = 0; i < levelupUIs.Count; i++)
+        {
+            LevelUp ui = levelupUIs[i];
+            ItemData data = levelUpItemData[i];
+
+            ui.icon.sprite = data.Icon;
+            ui.title.text = data.Title;
+            ui.desc.text = data.Desc;
+
+        }
+
+    }
+
     public void OnItemSelect(int index)
     {
+        ItemData data = levelUpItemData[index];
+        Debug.Log(data.Title);
 
+        switch(data.Type)
+        {
+            case ItemType.Bullet_Att:
+                //GameManager.instance.B.Power += (GameManager.instance.B.Power * 0.1f);
+                break;
+            case ItemType.Bullet_Spd:
+                Debug.Log(GameManager.instance.B.Speed);
+                GameManager.instance.B.Speed += (GameManager.instance.B.Speed * 0.1f);
+                Debug.Log(GameManager.instance.B.Speed);
+                break;
+            case ItemType.Bible:
+                GameManager.instance.P.BibleAdd();
+                break;
+            case ItemType.Boots:
+                GameManager.instance.P.data.Speed += (GameManager.instance.P.data.Speed * 0.1f); // 10% 증가
+                break;
+            case ItemType.Heal:
+                GameManager.instance.P.data.HP = 100; // 풀피 회복
+                break;
+        }
     }
 
     public void DeadTitleStart()
     {
         GameManager.instance.state = GameState.Stop;
+        result.obj.SetActive(true);
+        result.backObj.SetActive(false);
         result.title.fillAmount = 0;
-        StartCoroutine(CDeadTitle());
+        StopCoroutine("CDeadTitle");
+        StartCoroutine("CDeadTitle");
     }
 
     IEnumerator CDeadTitle()
     {
+        yield return new WaitForSeconds(0.5f);
+        Debug.Log(result.deadTitleValue.Length);
+
         foreach (var item in result.deadTitleValue)
         {
             result.title.fillAmount = item;
             yield return new WaitForSeconds(0.2f);
         }
+
+        yield return new WaitForSeconds(0.2f);
+        result.backObj.SetActive(true);
+
     }
 }

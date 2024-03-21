@@ -64,37 +64,35 @@ public class Player : MonoBehaviour
         }
 
         FindExp();
-
+        bibleTrans.position = transform.position;
         bibleTrans.Rotate(Vector3.back * Time.deltaTime * 300f);
 
-        if(Input.GetKeyDown(KeyCode.F5))
+    }
+
+    public void BibleAdd()
+    {
+        Instantiate(bible, bibleTrans);
+
+        SetBible();
+    }
+
+    public void BibleDelete()
+    {
+        Destroy(bibleTrans.GetChild(bibleTrans.childCount - 1).gameObject);
+
+        SetBible();
+    }
+
+    void SetBible()
+    {
+        bibleTrans.rotation = Quaternion.identity;
+
+        float rot = 360 / bibleTrans.childCount;
+        float addRot = 0;
+        for (int i = 0; i < bibleTrans.childCount; i++)
         {
-            Instantiate(bible, bibleTrans);
-
-            bibleTrans.rotation = Quaternion.identity;
-
-            float rot = 360 / bibleTrans.childCount;
-            float addRot = 0;
-            for(int i = 0; i < bibleTrans.childCount; i++)
-            {
-                bibleTrans.GetChild(i).rotation = Quaternion.Euler(0f, 0f, addRot);
-                addRot += rot;
-            }
-        } 
-
-        if(Input.GetKeyDown(KeyCode.F6))
-        {
-            Destroy(bibleTrans.GetChild(bibleTrans.childCount - 1).gameObject);
-
-            bibleTrans.rotation = Quaternion.identity;
-
-            float rot = 360 / bibleTrans.childCount;
-            float addRot = 0;
-            for (int i = 0; i < bibleTrans.childCount; i++)
-            {
-                bibleTrans.GetChild(i).rotation = Quaternion.Euler(0f, 0f, addRot);
-                addRot += rot;
-            }
+            bibleTrans.GetChild(i).rotation = Quaternion.Euler(0f, 0f, addRot);
+            addRot += rot;
         }
 
     }
