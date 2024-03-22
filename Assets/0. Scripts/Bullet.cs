@@ -9,7 +9,6 @@ public class Bullet : MonoBehaviour
     void Start()
     {
         Speed = 20.0f;
-        
     }
 
     void Update()

@@ -75,11 +75,7 @@ public class Player : MonoBehaviour
 
             case 3:
                 break;
-
         }
-
-
-
 
     }
 
