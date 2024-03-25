@@ -27,8 +27,8 @@ public class TitleAnimation : MonoBehaviour
     void SetAnimation()
     {
         titleTrans.DOMoveY(630, 1.0f).SetDelay(0.3f).SetEase(Ease.InQuad)
-            .OnComplete(() => startTrans.DOMoveY(150, 1.0f).SetDelay(0.3f).SetEase(Ease.InQuad)
-            .OnComplete(() => SetShaker()));
+            .OnComplete(() => startTrans.DOMoveY(150, 1.0f).SetDelay(0.3f).SetEase(Ease.InQuad));
+         
          
             //.OnComplete(() => )
             
