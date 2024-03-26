@@ -79,6 +79,9 @@ public class UI : MonoBehaviour
     [SerializeField] private GameObject levelupPopup;
     [SerializeField] private Text killCountText;
 
+    [SerializeField] private GameObject booster;
+    [SerializeField] private Image boosterImage;
+
     // 아이템 데이터
     [SerializeField] private ItemData[] itemDatas;
 
@@ -98,10 +101,14 @@ public class UI : MonoBehaviour
 
     [SerializeField] private Result result;
 
+    private Player p;
+
     private float sec;
     private int min;
 
     private int killText;
+
+
 
     void Start()
     {
@@ -109,12 +116,22 @@ public class UI : MonoBehaviour
         topUI.Level = 1;
         topUI.KillCount = 0;
 
+        if (GameManager.instance.P.isBooster == true)
+        {
+            booster.SetActive(true);
+        }
+
     }
 
     void Update()
     {
         SetKillCount();
         SetTimer();
+
+        if (GameManager.instance.P.isBooster == true)
+        {
+            ShowBooster();
+        }
 
         if (Input.GetKeyDown(KeyCode.F1))
         {
@@ -124,6 +141,10 @@ public class UI : MonoBehaviour
 
     }
 
+    public void ShowBooster()
+    {
+        boosterImage.fillAmount = GameManager.instance.P.Stamina;
+    }
 
     public void SetKillCount()
     {
@@ -165,10 +186,6 @@ public class UI : MonoBehaviour
         }
 
     }
-
-
-
-
 
     public void ItemShuffle()
     {
@@ -224,6 +241,12 @@ public class UI : MonoBehaviour
             case ItemType.Heal:
                 GameManager.instance.P.data.HP = 100; // 풀피 회복
                 break;
+            case ItemType.Magnet:
+                Debug.Log("자석 획득");
+                GameManager.instance.P.itemDistanceLimit = 3.7f;
+                GameManager.instance.P.magnet.SetActive(true);
+                break;
+
         }
     }
 

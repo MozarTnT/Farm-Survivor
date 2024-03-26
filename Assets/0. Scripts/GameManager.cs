@@ -16,6 +16,7 @@ public enum ItemType
     Bible,
     Heal,
     Boots,
+    Magnet,
 }
 
 

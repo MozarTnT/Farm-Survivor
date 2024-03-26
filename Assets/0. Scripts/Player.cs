@@ -30,16 +30,29 @@ public class Player : MonoBehaviour
     private List<Sprite> run;
     private List<Sprite> dead;
 
+    [SerializeField] private RectTransform backHpRect;
     [SerializeField] private RectTransform hpRect;
     [SerializeField] private Transform firePos;
     [SerializeField] private Bullet bullet;
     [SerializeField] private Transform bibleTrans;
     [SerializeField] private Transform bible;
 
+    [SerializeField] public GameObject magnet;
+
     public Transform target;
     public Data data = new Data();
 
     private float fireTimer = 0;
+    public bool isBooster = false;
+
+    public float Stamina { get; set; } = 1;
+    private int maxStamina = 1;
+    private int minStamina = 0;
+
+    public float staminaUpSpeed = 0.5f;
+    public float staminaDownSpeed = 0.8f;
+
+    public float itemDistanceLimit = 1.5f;
 
     void Start()
     {
@@ -76,8 +89,11 @@ public class Player : MonoBehaviour
                 break;
 
             case 3:
+                isBooster = true;
                 break;
         }
+
+        
 
     }
 
@@ -90,8 +106,10 @@ public class Player : MonoBehaviour
 
         Move();
         FindMonster();
+        SetHPPosition();
+        BoosterMode();
 
-        if(target != null)
+        if (target != null)
         {
             FireRotate();
             Fire();
@@ -102,6 +120,17 @@ public class Player : MonoBehaviour
         bibleTrans.Rotate(Vector3.back * Time.deltaTime * 300f);
 
     }
+
+    public void SetHPPosition()
+    {
+        Vector3 newPosition = transform.position;
+
+        newPosition.y = transform.position.y -1f;
+
+        backHpRect.position = newPosition;
+    }
+
+
 
     public void BibleAdd()
     {
@@ -162,11 +191,29 @@ public class Player : MonoBehaviour
             state = State.Run;
             GetComponent<SpriteAnimation>().SetSprite(run, 1 / data.Speed);
         }
-
-
-
     }
 
+
+    private void BoosterMode()
+    {
+        if (isBooster == true)
+        {
+            if (Input.GetKey(KeyCode.LeftShift) && Stamina > minStamina)
+            {
+             
+                data.Speed = 5.0f;
+
+                Stamina -= staminaDownSpeed * Time.deltaTime;
+            }
+            else
+            {
+                data.Speed = 3.0f;
+                Stamina += staminaUpSpeed * Time.deltaTime;
+            }
+
+            Stamina = Mathf.Clamp(Stamina, minStamina, maxStamina);
+        }
+    }
     private void FireRotate()
     {
         // 타켓을 찾아 방향 전환
@@ -205,6 +252,7 @@ public class Player : MonoBehaviour
 
         if(data.HP <= 0)
         {
+            isBooster = false;
             GameManager.instance.UI.DeadTitleStart();
         }
 
@@ -249,7 +297,8 @@ public class Player : MonoBehaviour
             foreach(var item in objs.Select((value, index) => (value, index)))
             {
                 float distance = Vector2.Distance(transform.position, item.value.transform.position);
-                if(distance <= 1.5f)
+
+                if(distance <= itemDistanceLimit)
                 {
                     item.value.GetComponent<Exp>().Target = transform;
 
