@@ -6,7 +6,20 @@ public class Bronze : Exp
 {
     void Start()
     {
-        ExpValue = 5;
+        int rand = Random.Range(0, 100);
+        if(rand < 33)
+        {
+            ExpValue = 5.8f;
+        }
+        else if(rand < 66 && rand >= 33)
+        {
+            ExpValue = 6.47f;
+        }
+        else
+        {
+            ExpValue = 7.35f;
+        }
+    
     }
 
 
