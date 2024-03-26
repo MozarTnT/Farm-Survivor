@@ -122,8 +122,8 @@ public abstract class Monster : MonoBehaviour
         }
         if (collision.CompareTag("pBullet"))
         {
-            Bullet b = collision.GetComponent<Bullet>();
-            data.HP -= (int)b.Power;
+            //Bullet b = collision.GetComponent<Bullet>();
+            data.HP -= (int)GameManager.instance.P.data.Power;
 
             state = State.Hit;
             data.HitDelay = 0.5f;
@@ -134,11 +134,31 @@ public abstract class Monster : MonoBehaviour
                 GetComponent<Collider2D>().enabled = false;
                 tag = "Untagged";
                 sa.SetSprite(dead, 0.1f, 1.0f, End); // Enemy 제거
+                GameManager.instance.killCount++;
             }
 
             Destroy(collision.gameObject); // 총알 삭제
         }
+        if (collision.CompareTag("Bible"))
+        {
+            data.HP -= (int)GameManager.instance.P.data.BiblePower;
+
+            state = State.Hit;
+            data.HitDelay = 0.3f;
+            sa.SetSprite(hit, 0.1f);
+
+            if (data.HP <= 0)
+            {
+                GetComponent<Collider2D>().enabled = false;
+                tag = "Untagged";
+                sa.SetSprite(dead, 0.1f, 1.0f, End); // Enemy 제거           
+                GameManager.instance.killCount++;
+            }
+        }
     }
+
+
+
 
     void End()
     {

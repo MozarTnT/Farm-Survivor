@@ -77,6 +77,7 @@ public class UI : MonoBehaviour
 
     [SerializeField] private List<LevelUp> levelupUIs;
     [SerializeField] private GameObject levelupPopup;
+    [SerializeField] private Text killCountText;
 
     // 아이템 데이터
     [SerializeField] private ItemData[] itemDatas;
@@ -100,6 +101,8 @@ public class UI : MonoBehaviour
     private float sec;
     private int min;
 
+    private int killText;
+
     void Start()
     {
         topUI.maxExp = 50;
@@ -110,13 +113,26 @@ public class UI : MonoBehaviour
 
     void Update()
     {
+        SetKillCount();
+        SetTimer();
+
         if (Input.GetKeyDown(KeyCode.F1))
         {
             //topUI.Exp += 10;
             //DeadTitleStart();
         }
 
+    }
 
+
+    public void SetKillCount()
+    {
+        killText = GameManager.instance.killCount;
+        killCountText.text = $": {killText}";
+    }
+
+    public void SetTimer()
+    {
         sec += Time.deltaTime;
         if (sec >= 60.0f)
         {
@@ -125,8 +141,8 @@ public class UI : MonoBehaviour
         }
 
         topUI.timeTxt.text = string.Format("{0:D2}:{1:D2}", min, (int)sec); // 2자리까지만 표현
-
     }
+
 
 
     public void OnShowLevelUpPopUp(bool isShow)
@@ -149,6 +165,10 @@ public class UI : MonoBehaviour
         }
 
     }
+
+
+
+
 
     public void ItemShuffle()
     {
@@ -184,7 +204,9 @@ public class UI : MonoBehaviour
         switch(data.Type)
         {
             case ItemType.Bullet_Att:
-                //GameManager.instance.B.Power += (GameManager.instance.B.Power * 0.1f);
+                Debug.Log(GameManager.instance.P.data.Power);
+                GameManager.instance.P.data.Power += (GameManager.instance.P.data.Power * 0.1f);
+                Debug.Log(GameManager.instance.P.data.Power);
                 break;
             case ItemType.Bullet_Spd:
                 Debug.Log(GameManager.instance.B.Speed);
@@ -230,4 +252,7 @@ public class UI : MonoBehaviour
         result.backObj.SetActive(true);
 
     }
+
+
+
 }

@@ -14,6 +14,7 @@ public class Player : MonoBehaviour
         public float Speed { get; set; }
         public float FireDelay { get; set; }
         public float Power { get; set; }
+        public float BiblePower { get; set; }
     }
 
     public enum State
@@ -53,11 +54,12 @@ public class Player : MonoBehaviour
         dead = GameManager.instance.charSprites[index].dead;
 
 
-        GetComponent<SpriteAnimation>().SetSprite(stand, 0.1f);
+        GetComponent<SpriteAnimation>().SetSprite(stand, 0.2f);
         data.HP = data.MaxHP = 100;
         data.Speed = 3.0f;
         data.FireDelay = 0.8f;
-        data.Power = 10.0f;
+        data.Power = 20.0f;
+        data.BiblePower = 50.0f;
 
         switch (index)
         {
@@ -153,7 +155,7 @@ public class Player : MonoBehaviour
         if (x == 0 && y == 0 && state != State.Stand)
         {
             state = State.Stand;
-            GetComponent<SpriteAnimation>().SetSprite(stand, 0.1f);
+            GetComponent<SpriteAnimation>().SetSprite(stand, 0.2f);
         }
         else if ((x != 0 || y != 0) && state != State.Run)
         {
@@ -247,7 +249,7 @@ public class Player : MonoBehaviour
             foreach(var item in objs.Select((value, index) => (value, index)))
             {
                 float distance = Vector2.Distance(transform.position, item.value.transform.position);
-                if(distance <= 3)
+                if(distance <= 1.5f)
                 {
                     item.value.GetComponent<Exp>().Target = transform;
 

@@ -39,7 +39,7 @@ public class GameManager : MonoBehaviour
 
 
     public int charSelectIndex = 0;
-
+    public int killCount = 0;
 
     private Bullet b;
 
