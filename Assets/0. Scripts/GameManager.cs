@@ -1,7 +1,8 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
+
 
 public enum GameState
 {
@@ -31,6 +32,10 @@ public class GameManager : MonoBehaviour
         public List<Sprite> run;
         public List<Sprite> dead;
     }
+
+    [SerializeField] private GameObject loadGame;
+    [SerializeField] private GameObject TopUI;
+    [SerializeField] private GameObject btnUI;
 
     public List<CharSprite> charSprites;
 
@@ -91,12 +96,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void OnSelect()
-    {
-        SceneManager.LoadScene("CharacterSelect");
-
-
-    }
+    
 
     public void OnGame()
     {

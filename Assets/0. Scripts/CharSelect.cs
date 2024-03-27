@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class CharSelect : MonoBehaviour
 {
@@ -62,9 +64,9 @@ public class CharSelect : MonoBehaviour
         GameManager.instance.OnGame();
     }
 
-    public void TitleAnimation()
+    public void HomeBtnOnClicked()
     {
-
+        SceneManager.LoadScene("Title");
     }
 
 }
