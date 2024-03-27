@@ -69,6 +69,14 @@ public class TitleEvent : MonoBehaviour
         btnUI.SetActive(true);
     }
 
+    public void SendMessageBtn()
+    {
+        Application.OpenURL("https://mozartnt.tistory.com/");
+    
+    }
+
+
+
     public void OnGame()
     {
         SceneManager.LoadScene("Game");
