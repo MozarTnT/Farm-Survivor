@@ -252,9 +252,10 @@ public class UI : MonoBehaviour
                 GameManager.instance.P.magnet.SetActive(true);
                 break;
             case ItemType.Trident:
-                Debug.Log("»ïÁöÃ¢ È¹µæ");
-                GameManager.instance.P.AddTrident();
-
+                //Debug.Log("»ïÁöÃ¢ È¹µæ");
+                Player player = GameManager.instance.P;
+                player.isTridentOn = true;
+                player.InvokeRepeating("AddTrident", 0, 2.5f);
                 break;
 
         }

@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using System.Linq;
+using UnityEngine;
 
 public class Player : MonoBehaviour
 {
@@ -15,6 +15,7 @@ public class Player : MonoBehaviour
         public float FireDelay { get; set; }
         public float Power { get; set; }
         public float BiblePower { get; set; }
+        public float TridentPower { get; set; }
     }
 
     public enum State
@@ -39,8 +40,8 @@ public class Player : MonoBehaviour
     [SerializeField] private Transform bibleTrans;
     [SerializeField] private Transform bible;
 
-    [SerializeField] private Transform trident;
-
+    [SerializeField] private GameObject trident;
+    [SerializeField] public Transform tridentPos;
 
 
     [SerializeField] public GameObject magnet;
@@ -49,6 +50,9 @@ public class Player : MonoBehaviour
     public Data data = new Data();
 
     private float fireTimer = 0;
+
+    public bool isTridentOn = false;
+
     public bool isBooster = false;
 
     public float Stamina { get; set; } = 1;
@@ -60,11 +64,13 @@ public class Player : MonoBehaviour
 
     public float itemDistanceLimit = 1.5f;
 
+
     void Start()
     {
+
         GameManager.instance.state = GameState.Play;
 
-
+        
         // 캐릭터 선택에 따른 Sprite 적용
         int index = GameManager.instance.charSelectIndex;
 
@@ -79,6 +85,7 @@ public class Player : MonoBehaviour
         data.FireDelay = 0.8f;
         data.Power = 20.0f;
         data.BiblePower = 50.0f;
+        data.TridentPower = 15.0f;
 
         switch (index)
         {
@@ -99,8 +106,6 @@ public class Player : MonoBehaviour
                 break;
         }
 
-        
-
     }
 
 
@@ -120,20 +125,16 @@ public class Player : MonoBehaviour
             FireRotate();
             Fire();
         }
-
         FindExp();
-
-
 
         bibleTrans.position = transform.position;
         bibleTrans.Rotate(Vector3.back * Time.deltaTime * 300f);
 
-        if(Input.GetKeyDown(KeyCode.F2))
-        {
-            AddTrident();
-        }
+
+
 
     }
+
 
     public void SetHPPosition()
     {
@@ -177,15 +178,38 @@ public class Player : MonoBehaviour
 
     private void SetTrident()
     {
-        trident.transform.position = transform.position;
+        trident.transform.position = tridentPos.position;
+    }
+
+    public void SetTridentPosition()
+    {
+
+        if (transform.localScale.x > 0)
+        {
+            Vector2 vector2;
+            vector2.x = transform.position.x + 1;
+            vector2.y = transform.position.y;
+
+            tridentPos.position = vector2;
+        }
+        else if (transform.localScale.x < 0)
+        {
+            Vector2 vector2;
+            vector2.x = transform.position.x + -1;
+            vector2.y = transform.position.y;
+
+            tridentPos.position = vector2;
+        }
     }
 
     public void AddTrident()
     {
-        Instantiate(trident);
+        Debug.Log("AddTrident");
         SetTrident();
+        GameObject newTrident = Instantiate(trident);
     }
-
+   
+   
     private void Move()
     {
         // Move
