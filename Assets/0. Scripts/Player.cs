@@ -32,10 +32,16 @@ public class Player : MonoBehaviour
 
     [SerializeField] private RectTransform backHpRect;
     [SerializeField] public RectTransform hpRect;
+
     [SerializeField] private Transform firePos;
     [SerializeField] private Bullet bullet;
+
     [SerializeField] private Transform bibleTrans;
     [SerializeField] private Transform bible;
+
+    [SerializeField] private Transform trident;
+
+
 
     [SerializeField] public GameObject magnet;
 
@@ -122,6 +128,11 @@ public class Player : MonoBehaviour
         bibleTrans.position = transform.position;
         bibleTrans.Rotate(Vector3.back * Time.deltaTime * 300f);
 
+        if(Input.GetKeyDown(KeyCode.F2))
+        {
+            AddTrident();
+        }
+
     }
 
     public void SetHPPosition()
@@ -162,6 +173,17 @@ public class Player : MonoBehaviour
             addRot += rot;
         }
 
+    }
+
+    private void SetTrident()
+    {
+        trident.transform.position = transform.position;
+    }
+
+    public void AddTrident()
+    {
+        Instantiate(trident);
+        SetTrident();
     }
 
     private void Move()

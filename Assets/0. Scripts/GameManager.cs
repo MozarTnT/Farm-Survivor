@@ -18,6 +18,7 @@ public enum ItemType
     Heal,
     Boots,
     Magnet,
+    Trident,
 }
 
 

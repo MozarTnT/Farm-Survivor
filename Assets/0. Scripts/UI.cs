@@ -251,6 +251,11 @@ public class UI : MonoBehaviour
                 GameManager.instance.P.itemDistanceLimit = 3.7f;
                 GameManager.instance.P.magnet.SetActive(true);
                 break;
+            case ItemType.Trident:
+                Debug.Log("»ïÁöÃ¢ È¹µæ");
+                GameManager.instance.P.AddTrident();
+
+                break;
 
         }
     }
