@@ -6,8 +6,8 @@ using static UnityEngine.GraphicsBuffer;
 
 public class TitleAnimation : MonoBehaviour
 {
-    [SerializeField] private Transform titleTrans;
-    [SerializeField] private Transform startTrans;
+    [SerializeField] private Transform topUITrans;
+    [SerializeField] private Transform buttonTrans;
     [SerializeField] private Transform cameraTrans;
 
     private Tween cameraTween;
@@ -34,8 +34,8 @@ public class TitleAnimation : MonoBehaviour
 
     void SetAnimation()
     {
-        titleTrans.DOMoveY(630, 1.0f).SetDelay(0.3f).SetEase(Ease.InQuad)
-            .OnComplete(() => startTrans.DOMoveY(150, 1.0f).SetDelay(0.3f).SetEase(Ease.InQuad));
+        topUITrans.DOMoveY(720, 1.0f).SetDelay(0.3f).SetEase(Ease.InQuad)
+            .OnComplete(() => buttonTrans.DOMoveY(70, 1.0f).SetDelay(0.3f).SetEase(Ease.InQuad));
          
          
             //.OnComplete(() => )
@@ -44,8 +44,8 @@ public class TitleAnimation : MonoBehaviour
 
     void SetShaker()
     {
-        titleTrans.DOShakePosition(5.0f, 5.0f).SetDelay(0.2f);
-        startTrans.DOShakePosition(5.0f, 5.0f).SetDelay(0.2f);
+        topUITrans.DOShakePosition(5.0f, 5.0f).SetDelay(0.2f);
+        buttonTrans.DOShakePosition(5.0f, 5.0f).SetDelay(0.2f);
     }
 
     void SetCamaraAnimation(float targetX)
@@ -59,6 +59,8 @@ public class TitleAnimation : MonoBehaviour
                  }
              });
     }
+
+
 
     private void OnDestroy()
     {
