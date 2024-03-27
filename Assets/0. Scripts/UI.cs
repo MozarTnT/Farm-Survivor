@@ -16,6 +16,7 @@ public class UI : MonoBehaviour
         public Text killTxt;
         public Text timeTxt;
         public Text lvTxt;
+        public Text expTxt;
 
         private int killCount;
         public int KillCount
@@ -41,7 +42,6 @@ public class UI : MonoBehaviour
         [HideInInspector]
         public float maxExp;
 
-
         private float exp = 0;
         public float Exp
         {
@@ -56,8 +56,9 @@ public class UI : MonoBehaviour
                     Level++;
                     GameManager.instance.UI.OnShowLevelUpPopUp(true);
                 }
-                float val = exp / maxExp * 1270;
+                float val = exp / maxExp * 640;
                 expImg.rectTransform.sizeDelta = new Vector2(val + 10, 44);
+                expTxt.text = $"{(exp/maxExp * 100f).ToString("F2")} %"; // 소수점 2자리 버리기
 
             }
         }
@@ -99,9 +100,8 @@ public class UI : MonoBehaviour
         public float[] deadTitleValue = new float[7] {0.21f, 0.4f, 0.59f, 0.78f, 0.85f, 0.92f, 1f};
     }
 
-    [SerializeField] private Result result;
 
-    private Player p;
+    [SerializeField] private Result result;
 
     private float sec;
     private int min;
@@ -112,9 +112,12 @@ public class UI : MonoBehaviour
 
     void Start()
     {
-        topUI.maxExp = 50;
+        topUI.maxExp = 100;
         topUI.Level = 1;
         topUI.KillCount = 0;
+        topUI.Exp = 0;
+      
+        
 
         if (GameManager.instance.P.isBooster == true)
         {
@@ -240,6 +243,8 @@ public class UI : MonoBehaviour
                 break;
             case ItemType.Heal:
                 GameManager.instance.P.data.HP = 100; // 풀피 회복
+                float sizeX = ((float)GameManager.instance.P.data.HP / (float)GameManager.instance.P.data.MaxHP) * 120.0f;
+                GameManager.instance.P.hpRect.sizeDelta = new Vector2(sizeX, 30.0f);
                 break;
             case ItemType.Magnet:
                 Debug.Log("자석 획득");

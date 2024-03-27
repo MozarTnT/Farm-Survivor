@@ -31,7 +31,7 @@ public class Player : MonoBehaviour
     private List<Sprite> dead;
 
     [SerializeField] private RectTransform backHpRect;
-    [SerializeField] private RectTransform hpRect;
+    [SerializeField] public RectTransform hpRect;
     [SerializeField] private Transform firePos;
     [SerializeField] private Bullet bullet;
     [SerializeField] private Transform bibleTrans;
@@ -116,6 +116,9 @@ public class Player : MonoBehaviour
         }
 
         FindExp();
+
+
+
         bibleTrans.position = transform.position;
         bibleTrans.Rotate(Vector3.back * Time.deltaTime * 300f);
 
@@ -131,6 +134,7 @@ public class Player : MonoBehaviour
     }
 
 
+  
 
     public void BibleAdd()
     {
