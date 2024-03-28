@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 using System.Linq;
+using static UI;
 
 
 public class UI : MonoBehaviour
@@ -65,6 +66,16 @@ public class UI : MonoBehaviour
 
     }
 
+    public class ItemCount
+    {
+        public int bulletdmgCnt { get; set; }
+        public int bulletspdCnt { get; set; }
+        public int bootsCnt { get; set; }
+        public int magnetCnt { get; set; }
+        public int bibleCnt { get; set; }
+        public int tridentCnt { get; set; }
+    }
+
     public Top topUI;
 
     [System.Serializable]
@@ -108,7 +119,7 @@ public class UI : MonoBehaviour
 
     private int killText;
 
-
+    public ItemCount itemCount;
 
     void Start()
     {
@@ -116,8 +127,8 @@ public class UI : MonoBehaviour
         topUI.Level = 1;
         topUI.KillCount = 0;
         topUI.Exp = 0;
-      
-        
+
+        itemCountSetUp();
 
         if (GameManager.instance.P.isBooster == true)
         {
@@ -142,6 +153,16 @@ public class UI : MonoBehaviour
             //DeadTitleStart();
         }
 
+    }
+
+    public void itemCountSetUp()
+    {
+        itemCount.bulletdmgCnt = 0;
+        itemCount.bulletspdCnt = 0;
+        itemCount.bootsCnt = 0;
+        itemCount.magnetCnt = 0;
+        itemCount.bibleCnt = 0;
+        itemCount.tridentCnt = 0;
     }
 
     public void ShowBooster()
@@ -225,20 +246,20 @@ public class UI : MonoBehaviour
         {
             case ItemType.Bullet_Att:
                 Debug.Log(GameManager.instance.P.data.Power);
-                GameManager.instance.P.data.Power += (GameManager.instance.P.data.Power * 0.1f);
+                CaseBulletAttSetUp();
                 Debug.Log(GameManager.instance.P.data.Power);
                 break;
             case ItemType.Bullet_Spd:
                 Debug.Log(GameManager.instance.B.Speed);
-                GameManager.instance.B.Speed += (GameManager.instance.B.Speed * 0.1f);
+                CaseBulletSpdSetUp();
                 Debug.Log(GameManager.instance.B.Speed);
                 break;
             case ItemType.Bible:
-                GameManager.instance.P.BibleAdd();
+                CaseBibleSetUp();
                 break;
             case ItemType.Boots:
                 Debug.Log($"Old Speed : {GameManager.instance.P.data.Speed}");
-                GameManager.instance.P.data.Speed += (GameManager.instance.P.data.Speed * 0.1f); // 10% 증가
+                CaseBootsSetUp();
                 Debug.Log($"New Speed : {GameManager.instance.P.data.Speed}");
                 break;
             case ItemType.Heal:
@@ -248,12 +269,85 @@ public class UI : MonoBehaviour
                 break;
             case ItemType.Magnet:
                 Debug.Log("자석 획득");
-                GameManager.instance.P.itemDistanceLimit = 3.7f;
-                GameManager.instance.P.magnet.SetActive(true);
+                CaseMagnetSetUp();
+                break;
+            case ItemType.Trident:
+                //Debug.Log("삼지창 획득");
+                itemCount.tridentCnt++;
+                Player player = GameManager.instance.P;
+                player.isTridentOn = true;
+                player.InvokeRepeating("AddTrident", 0, 2.5f);
                 break;
 
         }
     }
+
+    private void CaseBulletAttSetUp()
+    {
+        itemCount.bulletdmgCnt++;
+        float r = Random.Range(0.2f, 0.3f); // 20~30 %
+        GameManager.instance.P.data.Power += (GameManager.instance.P.weaponValue.c_BulletPower + (float)(GameManager.instance.P.data.Power * r));
+        // 랜덤값 20~30% + 무기상수
+    }
+    private void CaseBulletSpdSetUp()
+    {
+        itemCount.bulletspdCnt++;
+        float r = Random.Range(0.08f, 0.12f); // 8 ~ 12%
+        GameManager.instance.B.Speed += (GameManager.instance.P.weaponValue.c_BulletSpd + (GameManager.instance.B.Speed * r));
+        // 랜덤값 8~12% + 무기상수
+    }
+    private void CaseBibleSetUp()
+    {
+        if (itemCount.bibleCnt < 4) // 갯수 4 아래일때는 도끼 추가
+        {
+            itemCount.bibleCnt++;
+            GameManager.instance.P.BibleAdd();
+        }
+        else if (itemCount.bibleCnt >= 4)// 갯수 4 이상일때는 도끼 추가
+        {
+            float r = Random.Range(0.08f, 0.12f);
+            GameManager.instance.P.data.BiblePower += (GameManager.instance.P.weaponValue.c_Bible + (GameManager.instance.P.data.BiblePower * r));
+        }
+    }
+    private void CaseBootsSetUp()
+    {
+        if (itemCount.bootsCnt < 4)
+        {
+            itemCount.bootsCnt++;
+            float r = Random.Range(0.1f, 0.15f);
+            GameManager.instance.P.data.Speed += (GameManager.instance.P.weaponValue.c_Boots + (GameManager.instance.P.data.Speed * r));
+        }
+       else if (itemCount.bootsCnt >= 4)
+        {
+            // 3개가 넘어갈 경우 처리 추가
+        }
+
+    }
+    private void CaseMagnetSetUp()
+    {
+        if(itemCount.magnetCnt < 3) // 테스트 필요
+        {
+            itemCount.magnetCnt++;
+            GameManager.instance.P.data.itemDistanceLimit += GameManager.instance.P.weaponValue.c_Magnet; // 기본 1.5f 최대 3.7f 목표 3번까지만 나오기
+
+            Vector2 vector2 = GameManager.instance.P.magnetScale.localScale;
+            vector2.x = (float)GameManager.instance.P.data.itemDistanceLimit;
+            vector2.y = (float)GameManager.instance.P.data.itemDistanceLimit;
+            GameManager.instance.P.magnetScale.localScale = vector2;
+
+            GameManager.instance.P.magnet.SetActive(true);
+        }
+        else
+        {
+            // 3개 넘어갈 경우 처리 추가
+        }
+    }
+    private void CaseTridentSetUp()
+    {
+
+    }
+
+
 
     public void DeadTitleStart()
     {

@@ -8,6 +8,7 @@ TagManager:
   - Monster
   - Exp
   - Bible
+  - Trident
   layers:
   - Default
   - TransparentFX

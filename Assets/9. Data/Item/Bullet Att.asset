@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Bullet Att
   m_EditorClassIdentifier: 
   itemName: "\uAE30\uBCF8 \uCD1D\uC54C"
+  type: 0
   icon: {fileID: -1002307068, guid: d71a3dc7aa20fad4f9a99fc76a9254ba, type: 3}
   title: "\uCD1D\uC54C - \uACF5\uACA9\uB825"
-  desc: "\uCD1D\uC54C \uACF5\uACA9\uB825 10% \uC99D\uAC00"
+  desc: "\uAE30\uBCF8 \uCD1D\uC54C\uC774 \uAC15\uB825\uD574\uC9D1\uB2C8\uB2E4."

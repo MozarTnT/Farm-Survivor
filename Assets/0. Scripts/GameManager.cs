@@ -18,6 +18,7 @@ public enum ItemType
     Heal,
     Boots,
     Magnet,
+    Trident,
 }
 
 
@@ -39,10 +40,7 @@ public class GameManager : MonoBehaviour
 
     public List<CharSprite> charSprites;
 
-
-
     public GameState state = GameState.Stop;
-
 
     public int charSelectIndex = 0;
     public int killCount = 0;
