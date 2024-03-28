@@ -24,4 +24,5 @@ public class ItemData : ScriptableObject
     // 아이템 설명
     [SerializeField] private string desc;
     public string Desc { get { return desc; } }
+
 }

@@ -13,6 +13,7 @@ public class MonsterSpawn : MonoBehaviour
 
     void Start()
     {
+        
         spawnDelay = Random.Range(1, 3);
     }
 
@@ -25,9 +26,10 @@ public class MonsterSpawn : MonoBehaviour
         if(spawnTimer >= spawnDelay)
         {
             spawnTimer = 0;
-            spawnDelay = Random.Range(3, 7);
+            spawnDelay = Random.Range(3, 5);
             Spawn();
         }
+     
     }
 
     // ·£´ý ½ºÆù 
@@ -46,6 +48,7 @@ public class MonsterSpawn : MonoBehaviour
         mon.SetTarget(player.transform);
         mon.SetExp(exps);
     }
+
 
     Vector3 Return_RandomPosition()
     {

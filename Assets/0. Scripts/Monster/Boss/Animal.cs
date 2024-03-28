@@ -28,7 +28,7 @@ public abstract class Animal : MonoBehaviour
         public float AttDelay { get; set; }
     }
 
-    private State state = State.Idle;
+    //private State state = State.Idle;
 
 
     protected Data data = new Data();

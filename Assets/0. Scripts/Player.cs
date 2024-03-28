@@ -19,6 +19,8 @@ public class Player : MonoBehaviour
         public float itemDistanceLimit { get; set; }
     }
 
+
+
     public enum State
     {
         Stand,
@@ -28,11 +30,12 @@ public class Player : MonoBehaviour
 
     public class WeaponValue
     {
-        public int c_BulletPower = 10;
-        public int c_BulletSpd = 3;
-        public int c_Bible = 5;
+        public float c_BulletPower = 10.0f;
+        public float c_BulletSpd = 3.0f;
+        public float c_Bible = 5.0f;
         public float c_Boots = 0.5f;
         public float c_Magnet = 0.73f;
+        public float c_Trident = 5.0f;
     }
 
     State state = State.Stand;
@@ -75,11 +78,9 @@ public class Player : MonoBehaviour
     public float staminaUpSpeed = 0.5f;
     public float staminaDownSpeed = 0.8f;
 
-    
 
     void Start()
     {
-
         GameManager.instance.state = GameState.Play;
 
         
@@ -137,8 +138,8 @@ public class Player : MonoBehaviour
         bibleTrans.Rotate(Vector3.back * Time.deltaTime * 300f);
 
 
-
     }
+
 
 
     public void SetPower()
@@ -148,7 +149,7 @@ public class Player : MonoBehaviour
         data.FireDelay = 0.8f;
         data.Power = 20.0f;
         data.BiblePower = 50.0f;
-        data.TridentPower = 15.0f;
+        data.TridentPower = 30.0f;
         data.itemDistanceLimit = 1.5f;
     }
 
@@ -264,7 +265,6 @@ public class Player : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.LeftShift) && Stamina > minStamina)
             {
-             
                 data.Speed = 5.0f;
 
                 Stamina -= staminaDownSpeed * Time.deltaTime;

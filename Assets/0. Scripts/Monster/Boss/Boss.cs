@@ -96,7 +96,7 @@ public abstract class Boss : MonoBehaviour
             Vector2 dir = dis.normalized * Time.deltaTime * data.Speed;
             transform.Translate(dir);
 
-            if (dir.normalized.x > 0)
+            if (dir.normalized.x != 0)
             {
                 sr.flipX = dir.normalized.x < 0 ? false : true;
             }
@@ -128,7 +128,7 @@ public abstract class Boss : MonoBehaviour
             data.HP -= (int)GameManager.instance.P.data.Power;
 
             state = State.Hit;
-            data.HitDelay = 0.5f;
+            data.HitDelay = 0.3f;
             sa.SetSprite(hit, 0.3f);
 
             if (data.HP <= 0)
@@ -164,14 +164,14 @@ public abstract class Boss : MonoBehaviour
             data.HP -= (int)GameManager.instance.P.data.TridentPower;
 
             state = State.Hit;
-            data.HitDelay = 0.1f;
+            data.HitDelay = 0.3f;
             sa.SetSprite(hit, 0.3f);
 
             if (data.HP <= 0)
             {
                 GetComponent<Collider2D>().enabled = false;
                 tag = "Untagged";
-                sa.SetSprite(dead, 0.1f, 1.0f, End); // Enemy 제거           
+                sa.SetSprite(dead, 1.0f, 3.0f, End); // Enemy 제거           
                 GameManager.instance.killCount++;
             }
         }
