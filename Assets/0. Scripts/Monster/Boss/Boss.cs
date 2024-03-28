@@ -124,7 +124,7 @@ public abstract class Boss : MonoBehaviour
         }
         if (collision.CompareTag("pBullet"))
         {
-            //Bullet b = collision.GetComponent<Bullet>();
+            Bullet b = collision.GetComponent<Bullet>();
             data.HP -= (int)GameManager.instance.P.data.Power;
 
             state = State.Hit;
@@ -139,7 +139,7 @@ public abstract class Boss : MonoBehaviour
                 GameManager.instance.killCount++;
             }
 
-            Destroy(collision.gameObject); // ÃÑ¾Ë »èÁ¦
+            BulletPooling.Instance.AddpBullet(b); // ÃÑ¾Ë »èÁ¦
         }
 
         if (collision.CompareTag("Bible"))

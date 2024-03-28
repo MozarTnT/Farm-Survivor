@@ -48,7 +48,7 @@ public class Player : MonoBehaviour
     [SerializeField] public RectTransform hpRect;
     [SerializeField] public Transform magnetScale;
 
-    [SerializeField] private Transform firePos;
+    [SerializeField] public Transform firePos;
     [SerializeField] private Bullet bullet;
 
     [SerializeField] private Transform bibleTrans;
@@ -292,8 +292,8 @@ public class Player : MonoBehaviour
         if (fireTimer >= data.FireDelay)
         {
             fireTimer = 0;
-            Bullet b = Instantiate(bullet, firePos.GetChild(0));
-            b.transform.SetParent(null);
+            Bullet b = BulletPooling.Instance.GetPBullet();
+            b.transform.SetParent(BulletPooling.Instance.pBulletParent);
             b.SetPower(power:data.Power);
         }
     }
