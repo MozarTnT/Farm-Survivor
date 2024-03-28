@@ -16,6 +16,7 @@ public class Player : MonoBehaviour
         public float Power { get; set; }
         public float BiblePower { get; set; }
         public float TridentPower { get; set; }
+        public float itemDistanceLimit { get; set; }
     }
 
     public enum State
@@ -23,6 +24,15 @@ public class Player : MonoBehaviour
         Stand,
         Run,
         Dead,
+    }
+
+    public class WeaponValue
+    {
+        public int c_BulletPower = 10;
+        public int c_BulletSpd = 3;
+        public int c_Bible = 5;
+        public float c_Boots = 0.5f;
+        public float c_Magnet = 0.73f;
     }
 
     State state = State.Stand;
@@ -33,6 +43,7 @@ public class Player : MonoBehaviour
 
     [SerializeField] private RectTransform backHpRect;
     [SerializeField] public RectTransform hpRect;
+    [SerializeField] public Transform magnetScale;
 
     [SerializeField] private Transform firePos;
     [SerializeField] private Bullet bullet;
@@ -47,7 +58,9 @@ public class Player : MonoBehaviour
     [SerializeField] public GameObject magnet;
 
     public Transform target;
+
     public Data data = new Data();
+    public WeaponValue weaponValue = new WeaponValue();
 
     private float fireTimer = 0;
 
@@ -62,8 +75,7 @@ public class Player : MonoBehaviour
     public float staminaUpSpeed = 0.5f;
     public float staminaDownSpeed = 0.8f;
 
-    public float itemDistanceLimit = 1.5f;
-
+    
 
     void Start()
     {
@@ -78,14 +90,9 @@ public class Player : MonoBehaviour
         run = GameManager.instance.charSprites[index].run;
         dead = GameManager.instance.charSprites[index].dead;
 
-
         GetComponent<SpriteAnimation>().SetSprite(stand, 0.2f);
-        data.HP = data.MaxHP = 100;
-        data.Speed = 3.0f;
-        data.FireDelay = 0.8f;
-        data.Power = 20.0f;
-        data.BiblePower = 50.0f;
-        data.TridentPower = 15.0f;
+
+        SetPower();
 
         switch (index)
         {
@@ -114,7 +121,6 @@ public class Player : MonoBehaviour
         if (GameManager.instance != null && GameManager.instance.state != GameState.Play)
             return;
 
-
         Move();
         FindMonster();
         SetHPPosition();
@@ -132,9 +138,19 @@ public class Player : MonoBehaviour
 
 
 
-
     }
 
+
+    public void SetPower()
+    {
+        data.HP = data.MaxHP = 100;
+        data.Speed = 3.0f;
+        data.FireDelay = 0.8f;
+        data.Power = 20.0f;
+        data.BiblePower = 50.0f;
+        data.TridentPower = 15.0f;
+        data.itemDistanceLimit = 1.5f;
+    }
 
     public void SetHPPosition()
     {
@@ -145,8 +161,6 @@ public class Player : MonoBehaviour
         backHpRect.position = newPosition;
     }
 
-
-  
 
     public void BibleAdd()
     {
@@ -272,10 +286,6 @@ public class Player : MonoBehaviour
         firePos.rotation = Quaternion.AngleAxis(angle + 90, Vector3.forward);
     }
 
-
-
-
-  
     private void Fire()
     {
         fireTimer += Time.deltaTime;
@@ -348,7 +358,7 @@ public class Player : MonoBehaviour
             {
                 float distance = Vector2.Distance(transform.position, item.value.transform.position);
 
-                if(distance <= itemDistanceLimit)
+                if(distance <= data.itemDistanceLimit)
                 {
                     item.value.GetComponent<Exp>().Target = transform;
 
