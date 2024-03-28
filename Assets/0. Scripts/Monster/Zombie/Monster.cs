@@ -57,7 +57,7 @@ public abstract class Monster : MonoBehaviour
         sr = GetComponent<SpriteRenderer>();
         sa = GetComponent<SpriteAnimation>();
 
-        sa.SetSprite(run, 0.2f / data.Speed);
+        sa.SetSprite(run, 0.3f / data.Speed);
     }
 
 
@@ -80,7 +80,7 @@ public abstract class Monster : MonoBehaviour
         else if (state == State.Hit)
         {
             state = State.Run;
-            sa.SetSprite(run, 0.2f / data.Speed);
+            sa.SetSprite(run, 0.3f / data.Speed);
         }
 
         Direction();
@@ -127,7 +127,7 @@ public abstract class Monster : MonoBehaviour
 
             state = State.Hit;
             data.HitDelay = 0.5f;
-            sa.SetSprite(hit, 0.1f);
+            sa.SetSprite(hit, 0.3f);
 
             if(data.HP <= 0)
             {
@@ -145,14 +145,14 @@ public abstract class Monster : MonoBehaviour
             data.HP -= (int)GameManager.instance.P.data.BiblePower;
 
             state = State.Hit;
-            data.HitDelay = 0.1f;
-            sa.SetSprite(hit, 0.1f);
+            data.HitDelay = 0.3f;
+            sa.SetSprite(hit, 0.3f);
 
             if (data.HP <= 0)
             {
                 GetComponent<Collider2D>().enabled = false;
                 tag = "Untagged";
-                sa.SetSprite(dead, 0.1f, 1.0f, End); // Enemy 제거           
+                sa.SetSprite(dead, 0.3f, 1.0f, End); // Enemy 제거           
                 GameManager.instance.killCount++;
             }
         }
@@ -163,7 +163,7 @@ public abstract class Monster : MonoBehaviour
 
             state = State.Hit;
             data.HitDelay = 0.1f;
-            sa.SetSprite(hit, 0.1f);
+            sa.SetSprite(hit, 0.3f);
 
             if (data.HP <= 0)
             {
