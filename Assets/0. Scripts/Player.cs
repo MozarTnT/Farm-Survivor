@@ -54,6 +54,10 @@ public class Player : MonoBehaviour
 
     public float itemDistanceLimit = 1.5f;
 
+
+    
+   
+
     void Start()
     {
         GameManager.instance.state = GameState.Play;
@@ -91,6 +95,7 @@ public class Player : MonoBehaviour
             case 3:
                 isBooster = true;
                 break;
+            
         }
 
         
@@ -122,7 +127,11 @@ public class Player : MonoBehaviour
         bibleTrans.position = transform.position;
         bibleTrans.Rotate(Vector3.back * Time.deltaTime * 300f);
 
+        
+
     }
+
+    
 
     public void SetHPPosition()
     {

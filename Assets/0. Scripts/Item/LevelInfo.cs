@@ -7,6 +7,7 @@ public class LevelInfo : MonoBehaviour
 {
     public ItemData data;
     public int level;
+    public GameManager gameManager;
 
     Image icon;
     Text textLevel;
@@ -30,8 +31,8 @@ public class LevelInfo : MonoBehaviour
         switch(data.Type)
         {
             case ItemType.Bible:
-                break;
             case ItemType.Bullet_Spd:
+               
                 break;
             case ItemType.Bullet_Att:
                 break;
@@ -44,9 +45,9 @@ public class LevelInfo : MonoBehaviour
         }
         level++;
 
-        /*if(level == data.Damages.Length)
+        if(level == data.Damages.Length)
         {
             GetComponent<Button>().interactable = false;
-        }*/
+        }
     }
 }

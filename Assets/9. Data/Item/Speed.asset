@@ -17,3 +17,8 @@ MonoBehaviour:
   icon: {fileID: -966295699, guid: d71a3dc7aa20fad4f9a99fc76a9254ba, type: 3}
   title: "\uC2E0\uBC1C"
   desc: "\uC774\uB3D9\uC18D\uB3C4 10% \uC99D\uAC00 \\n\uCD94\uAC00\uAE30\uB2A5 \uC5C6\uC74C"
+  damages:
+  - 0
+  - 0
+  - 0
+  counts: 000000000000000000000000

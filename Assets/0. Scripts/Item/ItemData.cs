@@ -24,4 +24,14 @@ public class ItemData : ScriptableObject
     // 아이템 설명
     [SerializeField] private string desc;
     public string Desc { get { return desc; } }
+
+
+
+    [Header("# Level Data")]
+
+    [SerializeField] private float[] damages;
+    public float[] Damages { get { return damages; } }
+
+    [SerializeField] private int[] counts;
+    public int[] Counts { get { return Counts; } }
 }
