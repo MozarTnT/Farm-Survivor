@@ -66,8 +66,26 @@ public class UI : MonoBehaviour
 
     }
 
-
     public Top topUI;
+
+    [System.Serializable]
+    public class ItemLevelUI
+    {
+        public GameObject gunObject;
+        public GameObject tridentObject;
+        public GameObject bibleObject;
+        public GameObject magnetObject;
+        public GameObject bootsObject;
+
+        public Text gunLevel;
+        public Text tridentLevel;
+        public Text bibleLevel;
+        public Text magnetLevel;
+        public Text bootsLevel;
+    }
+
+    public ItemLevelUI itemLevelUI;
+
 
     [System.Serializable]
     public class LevelUp
@@ -89,6 +107,11 @@ public class UI : MonoBehaviour
     [SerializeField] public GameObject bossGameObject;
     // 아이템 데이터
     [SerializeField] private ItemData[] itemDatas;
+
+    [SerializeField] public GameObject bossHP;
+    [SerializeField] private Image bossHPImg;
+    [SerializeField] private Text bossHPTxt;
+
 
     List<ItemData> levelUpItemData = new List<ItemData>();
 
@@ -145,16 +168,34 @@ public class UI : MonoBehaviour
     {
         SetKillCount();
         SetTimer();
+        itemLevelSetUP();
+        BossHP();
 
         if (GameManager.instance.P.isBooster == true)
         {
             ShowBooster();
         }
 
-
     }
 
+    private void BossHP()
+    {
+        float slimeHP = 0f;
+        GameManager.instance.P.FindKingSlime(slimeHP);
 
+        bossHPImg.fillAmount = GameManager.instance.P.FindKingSlime(slimeHP) / 2000.0f;
+
+        bossHPTxt.text = $"{(bossHPImg.fillAmount * 100.0f).ToString("F2")}%";
+    }
+
+    private void itemLevelSetUP()
+    {
+        itemLevelUI.gunLevel.text = $"Lv.{itemCount.bulletdmgCnt}";
+        itemLevelUI.tridentLevel.text = $"Lv.{itemCount.tridentCnt}";
+        itemLevelUI.bibleLevel.text = $"Lv.{itemCount.bibleCnt}";
+        itemLevelUI.magnetLevel.text = $"Lv.{itemCount.magnetCnt}";
+        itemLevelUI.bootsLevel.text = $"Lv.{itemCount.bootsCnt}";
+    }
 
     public void ShowBooster()
     {
@@ -273,6 +314,11 @@ public class UI : MonoBehaviour
 
     private void CaseBulletAttSetUp()
     {
+        if (itemLevelUI.gunObject != null && !itemLevelUI.gunObject.activeSelf)
+        {
+            itemLevelUI.gunObject.SetActive(true);
+        }
+
         itemCount.bulletdmgCnt++;
         float r = Random.Range(0.2f, 0.3f); // 20~30 %
         GameManager.instance.P.data.Power += (GameManager.instance.P.weaponValue.c_BulletPower + (GameManager.instance.P.data.Power * r));
@@ -291,6 +337,11 @@ public class UI : MonoBehaviour
     }
     private void CaseBibleSetUp()
     {
+        if (itemLevelUI.bibleObject != null && !itemLevelUI.bibleObject.activeSelf)
+        {
+            itemLevelUI.bibleObject.SetActive(true);
+        }
+
         itemCount.bibleCnt++;
         if (itemCount.bibleCnt < 4) // 갯수 4 아래일때는 도끼 추가
         {
@@ -311,6 +362,11 @@ public class UI : MonoBehaviour
     }
     private void CaseBootsSetUp()
     {
+        if (itemLevelUI.bootsObject != null && !itemLevelUI.bootsObject.activeSelf)
+        {
+            itemLevelUI.bootsObject.SetActive(true);
+        }
+
         itemCount.bootsCnt++;
 
         if (itemCount.bootsCnt < 4)
@@ -331,6 +387,11 @@ public class UI : MonoBehaviour
     }
     private void CaseMagnetSetUp()
     {
+        if (itemLevelUI.magnetObject != null && !itemLevelUI.magnetObject.activeSelf)
+        {
+            itemLevelUI.magnetObject.SetActive(true);
+        }
+
         itemCount.magnetCnt++;
 
         if (itemCount.magnetCnt < 3) // 테스트 필요
@@ -353,6 +414,11 @@ public class UI : MonoBehaviour
     }
     private void CaseTridentSetUp()
     {
+        if (itemLevelUI.tridentObject != null && !itemLevelUI.tridentObject.activeSelf)
+        {
+            itemLevelUI.tridentObject.SetActive(true);
+        }
+
         itemCount.tridentCnt++;
 
         if(itemCount.tridentCnt <= 1)

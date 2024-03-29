@@ -11,11 +11,11 @@ public class KingSlime : Boss
 
     public override void Init()
     {
-        data.Speed = 1.5f;
+        data.Speed = 2.5f;
         data.Power = 10;
-        data.HP = 1000;
+        data.HP = 2000.0f;
         data.AttDelay = 0.5f;
-        data.Defence = 0.3f;
+        data.Defence = 0.63f;
 
 
         base.Init();

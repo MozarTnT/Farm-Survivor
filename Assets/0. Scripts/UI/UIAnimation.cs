@@ -8,15 +8,9 @@ public class UIAnimation : MonoBehaviour
     [SerializeField] private Transform slimeTrans;
     [SerializeField] private Transform slimeTextTrans;
 
-
-    void Start()
+    private void OnEnable()
     {
         SlimeAction();
-    }
-
-    void Update()
-    {
-        
     }
 
     private void SlimeAction()
@@ -30,8 +24,5 @@ public class UIAnimation : MonoBehaviour
                 GameManager.instance.UI.uiAnimation.gameObject.SetActive(false);
                 GameManager.instance.UI.bossGameObject.gameObject.SetActive(false);
             });
-
     }
-
-
 }

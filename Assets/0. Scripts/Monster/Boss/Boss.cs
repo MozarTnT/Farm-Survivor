@@ -30,7 +30,7 @@ public abstract class Boss : MonoBehaviour
 
     private Exp[] exps;
 
-    protected Data data = new Data();
+    public Data data = new Data();
 
     private SpriteRenderer sr;
     private SpriteAnimation sa;
@@ -175,7 +175,7 @@ public abstract class Boss : MonoBehaviour
             {
                 GetComponent<Collider2D>().enabled = false;
                 tag = "Untagged";
-                sa.SetSprite(dead, 1.0f, 3.0f, End); // Enemy 제거           
+                sa.SetSprite(dead, 0.3f, 1.0f, End); // Enemy 제거           
                 GameManager.instance.killCount++;
             }
         }
@@ -199,6 +199,9 @@ public abstract class Boss : MonoBehaviour
         }
 
         Destroy(gameObject);
+
+        GameManager.instance.UI.bossHP.gameObject.SetActive(false);
+
     }
 
 }
