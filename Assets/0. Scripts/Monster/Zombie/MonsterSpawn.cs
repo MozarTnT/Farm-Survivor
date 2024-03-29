@@ -13,7 +13,6 @@ public class MonsterSpawn : MonoBehaviour
 
     void Start()
     {
-        
         spawnDelay = Random.Range(1, 3);
     }
 
@@ -44,7 +43,9 @@ public class MonsterSpawn : MonoBehaviour
 
     public void Spawn()
     {
-        Monster mon = Instantiate(m, Return_RandomPosition(), Quaternion.identity);
+        Monster mon = MonsterPooling.Instance.GetPGreenZombie();
+        mon.GetComponent<Collider2D>().enabled = true;
+        mon.transform.position = Return_RandomPosition();
         mon.SetTarget(player.transform);
         mon.SetExp(exps);
     }

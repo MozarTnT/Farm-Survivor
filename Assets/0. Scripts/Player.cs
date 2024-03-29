@@ -57,6 +57,7 @@ public class Player : MonoBehaviour
     [SerializeField] private GameObject trident;
     [SerializeField] public Transform tridentPos;
 
+    [SerializeField] public Transform zombie_Parent;
 
     [SerializeField] public GameObject magnet;
 
@@ -83,7 +84,6 @@ public class Player : MonoBehaviour
     {
         GameManager.instance.state = GameState.Play;
 
-        
         // 캐릭터 선택에 따른 Sprite 적용
         int index = GameManager.instance.charSelectIndex;
 
@@ -136,7 +136,6 @@ public class Player : MonoBehaviour
 
         bibleTrans.position = transform.position;
         bibleTrans.Rotate(Vector3.back * Time.deltaTime * 300f);
-
 
     }
 

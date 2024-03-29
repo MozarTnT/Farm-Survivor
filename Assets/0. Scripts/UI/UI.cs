@@ -355,7 +355,7 @@ public class UI : MonoBehaviour
     {
         itemCount.tridentCnt++;
 
-        if(itemCount.tridentCnt == 1)
+        if(itemCount.tridentCnt <= 1)
         {
             Player player = GameManager.instance.P;
             player.isTridentOn = true;

@@ -16,9 +16,9 @@ public abstract class Boss : MonoBehaviour
     public class Data
     {
         public int Level { get; set; }
-        public int HP { get; set; }
+        public float HP { get; set; }
         public int Power { get; set; }
-        public int Defence { get; set; }
+        public float Defence { get; set; }
         public float Speed { get; set; }
         public float HitDelay { get; set; }
         public float AttDelay { get; set; }
@@ -125,8 +125,8 @@ public abstract class Boss : MonoBehaviour
         if (collision.CompareTag("pBullet"))
         {
             Bullet b = collision.GetComponent<Bullet>();
-            data.HP -= (int)GameManager.instance.P.data.Power;
-
+            data.HP -= GameManager.instance.P.data.Power * (1 - data.Defence);
+            Debug.Log($"보스 체력 = {data.HP}");
             state = State.Hit;
             data.HitDelay = 0.3f;
             sa.SetSprite(hit, 0.3f);
@@ -144,7 +144,9 @@ public abstract class Boss : MonoBehaviour
 
         if (collision.CompareTag("Bible"))
         {
-            data.HP -= (int)GameManager.instance.P.data.BiblePower;
+            data.HP -= GameManager.instance.P.data.BiblePower * (1 - data.Defence);
+            Debug.Log($"보스 체력 = {data.HP}");
+
 
             state = State.Hit;
             data.HitDelay = 0.3f;
@@ -162,6 +164,8 @@ public abstract class Boss : MonoBehaviour
         if (collision.CompareTag("Trident"))
         {
             data.HP -= (int)GameManager.instance.P.data.TridentPower;
+            Debug.Log($"보스 체력 = {data.HP}");
+
 
             state = State.Hit;
             data.HitDelay = 0.3f;

@@ -25,11 +25,10 @@ public class BulletPooling : Singleton<BulletPooling>
             pBulletQueue.Enqueue(b);
 
             qBullet = pBulletQueue.Dequeue();
-
         }
         else
         {
-            Debug.Log("Reusing bullet from the pool.");
+            Debug.Log("Reusing bullet.");
             Quaternion quaternion = GameManager.instance.P.firePos.transform.rotation;
             qBullet = pBulletQueue.Dequeue();
             qBullet.transform.position = p.transform.GetChild(0).position;
@@ -45,8 +44,5 @@ public class BulletPooling : Singleton<BulletPooling>
         b.gameObject.SetActive(false);
         pBulletQueue.Enqueue(b);
     }
-
-
-
 
 }

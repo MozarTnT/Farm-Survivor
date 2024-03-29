@@ -7,22 +7,38 @@ using UnityEngine;
 
 public class MonsterPooling : Singleton<MonsterPooling>
 {
+    [SerializeField] private GreenZombie pGreenZombie;
+    [SerializeField] public Transform zombie_Parent;
 
-    public GameObject rangeObject;
-    BoxCollider2D rangeCollider;
+    Queue<GreenZombie> pGreenZombiesQueue = new Queue<GreenZombie>();
 
-    void Start()
+    public GreenZombie GetPGreenZombie()
     {
-        
+        Player p = GameManager.instance.P;
+        GreenZombie qGreenZombie = null;
+
+        if(pGreenZombiesQueue.Count == 0)
+        {
+            Debug.Log("Creating New Zombie");
+            GreenZombie gz = Instantiate(pGreenZombie);
+            gz.transform.SetParent(zombie_Parent);
+            pGreenZombiesQueue.Enqueue(gz);
+
+            qGreenZombie = pGreenZombiesQueue.Dequeue();
+        }
+        else
+        {
+            Debug.Log("Reusing Zombie.");
+            qGreenZombie = pGreenZombiesQueue.Dequeue();
+            qGreenZombie.gameObject.SetActive(true);
+        }
+        return qGreenZombie;
     }
 
-    void Update()
+    public void AddpGreenZombie(GreenZombie gz)
     {
-        
+        gz.gameObject.SetActive(false);
+        pGreenZombiesQueue.Enqueue(gz);
     }
 
-    private void Awake()
-    {
-        rangeCollider = rangeObject.GetComponent<BoxCollider2D>();
-    }
 }

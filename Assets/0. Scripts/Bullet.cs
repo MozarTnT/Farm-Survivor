@@ -9,6 +9,10 @@ public class Bullet : MonoBehaviour
     void Start()
     {
         transform.SetParent(BulletPooling.Instance.pBulletParent);
+    }
+
+    private void OnEnable()
+    {
         Speed = 25.0f;
     }
 
@@ -19,6 +23,7 @@ public class Bullet : MonoBehaviour
         transform.Translate(Vector2.up * Time.deltaTime * Speed);
         
     }
+
 
     public void SetPower(float power)
     {
