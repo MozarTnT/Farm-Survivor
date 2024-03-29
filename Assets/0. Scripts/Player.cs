@@ -61,6 +61,8 @@ public class Player : MonoBehaviour
 
     [SerializeField] public GameObject magnet;
 
+    [SerializeField] public KingSlime kingSlime;
+
     public Transform target;
 
     public Data data = new Data();
@@ -78,6 +80,7 @@ public class Player : MonoBehaviour
 
     public float staminaUpSpeed = 0.5f;
     public float staminaDownSpeed = 0.8f;
+
 
 
     void Start()
@@ -139,7 +142,15 @@ public class Player : MonoBehaviour
 
     }
 
-
+    public float FindKingSlime(float hp)
+    {
+        KingSlime king = FindAnyObjectByType<KingSlime>();
+        if (king != null)
+        {
+            hp = king.data.HP;
+        }
+        return hp;
+    }
 
     public void SetPower()
     {

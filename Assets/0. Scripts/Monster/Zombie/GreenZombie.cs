@@ -23,9 +23,8 @@ public class GreenZombie : Monster
         data.AttDelay = 1.0f;
         data.Defence = 0.1f + (GameManager.instance.UI.topUI.Level / 100.0f);
 
-        Debug.Log(0.1f + (GameManager.instance.UI.topUI.Level / 100.0f));
-        
-        
+        //Debug.Log(0.1f + (GameManager.instance.UI.topUI.Level / 100.0f));
+       
         base.Init();
     }
 }

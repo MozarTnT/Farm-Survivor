@@ -14,7 +14,6 @@ public class BossSpawn : MonoBehaviour
     private bool slimeSpawn = false;
     void Start()
     {
-
         spawnDelay = Random.Range(1, 3);
     }
 
@@ -33,6 +32,7 @@ public class BossSpawn : MonoBehaviour
 
             GameManager.instance.UI.uiAnimation.gameObject.SetActive(true);
             GameManager.instance.UI.bossGameObject.gameObject.SetActive(true);
+            GameManager.instance.UI.bossHP.gameObject.SetActive(true);
         }
 
 
