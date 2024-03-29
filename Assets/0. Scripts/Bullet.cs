@@ -8,16 +8,22 @@ public class Bullet : MonoBehaviour
     public float Power { get; set; }
     void Start()
     {
-        Speed = 20.0f;
+        transform.SetParent(BulletPooling.Instance.pBulletParent);
+    }
+
+    private void OnEnable()
+    {
+        Speed = 25.0f;
     }
 
     void Update()
     {
         if (GameManager.instance != null && GameManager.instance.state != GameState.Play)
             return;
-
         transform.Translate(Vector2.up * Time.deltaTime * Speed);
+        
     }
+
 
     public void SetPower(float power)
     {

@@ -16,9 +16,9 @@ public abstract class Monster : MonoBehaviour
     public class Data
     {
         public int Level { get; set; }
-        public int HP { get; set; }
+        public float HP { get; set; }
         public int Power { get; set; }
-        public int Defence { get; set; }
+        public float Defence { get; set; }
         public float Speed { get; set; }
         public float HitDelay { get; set; }
         public float AttDelay { get; set; }
@@ -57,7 +57,7 @@ public abstract class Monster : MonoBehaviour
         sr = GetComponent<SpriteRenderer>();
         sa = GetComponent<SpriteAnimation>();
 
-        sa.SetSprite(run, 0.2f / data.Speed);
+        sa.SetSprite(run, 0.3f / data.Speed);
     }
 
 
@@ -80,7 +80,7 @@ public abstract class Monster : MonoBehaviour
         else if (state == State.Hit)
         {
             state = State.Run;
-            sa.SetSprite(run, 0.2f / data.Speed);
+            sa.SetSprite(run, 0.3f / data.Speed);
         }
 
         Direction();
@@ -122,12 +122,12 @@ public abstract class Monster : MonoBehaviour
         }
         if (collision.CompareTag("pBullet"))
         {
-            //Bullet b = collision.GetComponent<Bullet>();
-            data.HP -= (int)GameManager.instance.P.data.Power;
+            Bullet b = collision.GetComponent<Bullet>();
+            data.HP -= GameManager.instance.P.data.Power * (1 - data.Defence);
 
             state = State.Hit;
             data.HitDelay = 0.5f;
-            sa.SetSprite(hit, 0.1f);
+            sa.SetSprite(hit, 0.3f);
 
             if(data.HP <= 0)
             {
@@ -137,33 +137,33 @@ public abstract class Monster : MonoBehaviour
                 GameManager.instance.killCount++;
             }
 
-            Destroy(collision.gameObject); // 총알 삭제
+            BulletPooling.Instance.AddpBullet(b); // 총알 삭제
         }
 
         if (collision.CompareTag("Bible"))
         {
-            data.HP -= (int)GameManager.instance.P.data.BiblePower;
-
+            data.HP -= GameManager.instance.P.data.BiblePower * (1 - data.Defence);
+            Debug.Log(GameManager.instance.P.data.BiblePower * (1 - data.Defence));
             state = State.Hit;
-            data.HitDelay = 0.1f;
-            sa.SetSprite(hit, 0.1f);
+            data.HitDelay = 0.3f;
+            sa.SetSprite(hit, 0.3f);
 
             if (data.HP <= 0)
             {
                 GetComponent<Collider2D>().enabled = false;
                 tag = "Untagged";
-                sa.SetSprite(dead, 0.1f, 1.0f, End); // Enemy 제거           
+                sa.SetSprite(dead, 0.3f, 1.0f, End); // Enemy 제거           
                 GameManager.instance.killCount++;
             }
         }
 
         if (collision.CompareTag("Trident"))
         {
-            data.HP -= (int)GameManager.instance.P.data.TridentPower;
+            data.HP -= (int)GameManager.instance.P.data.TridentPower; // 창은 방어도 무시
 
             state = State.Hit;
             data.HitDelay = 0.1f;
-            sa.SetSprite(hit, 0.1f);
+            sa.SetSprite(hit, 0.3f);
 
             if (data.HP <= 0)
             {
@@ -181,6 +181,8 @@ public abstract class Monster : MonoBehaviour
 
     void End()
     {
+        Collider2D collision = GetComponent<Collider2D>(); 
+        GreenZombie gz = collision.GetComponent<GreenZombie>();
         int rand = Random.Range(0, 100);
         if(rand < 95)
         {
@@ -191,8 +193,8 @@ public abstract class Monster : MonoBehaviour
         {
             // 아이템 박스
         }
-       
-        Destroy(gameObject);
+        MonsterPooling.Instance.AddpGreenZombie(gz);
+       // Destroy(gameObject);
     }
 
 }

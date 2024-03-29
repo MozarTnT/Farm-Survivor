@@ -22,6 +22,8 @@ public class ItemData : ScriptableObject
     public string Title { get { return title; } }
 
     // 아이템 설명
+    [TextArea]
     [SerializeField] private string desc;
     public string Desc { get { return desc; } }
+
 }
