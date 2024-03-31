@@ -11,6 +11,7 @@ public class TitleEvent : MonoBehaviour
     [SerializeField] private GameObject TopUI;
     [SerializeField] private GameObject btnUI;
     [SerializeField] private GameObject settingUI;
+    [SerializeField] private GameObject loginAnnouncementUI;
 
     [SerializeField] TitleAnimation titleAnimation;
     void Start()
@@ -23,6 +24,10 @@ public class TitleEvent : MonoBehaviour
         
     }
 
+    public void LoginExitBtnOnClicked()
+    {
+        loginAnnouncementUI.SetActive(false);
+    }
     public void OnSelectNewGame() // 새 게임 시작
     {
         SceneManager.LoadScene("CharacterSelect");
