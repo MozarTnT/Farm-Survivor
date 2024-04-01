@@ -9,6 +9,9 @@ public class CharSelect : MonoBehaviour
 {
     [SerializeField] private Transform titleTrans;
     [SerializeField] private Transform[] charTrans;
+
+    [SerializeField] private Text moneyText;
+
     void Start()
     {
         foreach(var item in charTrans)
@@ -18,9 +21,9 @@ public class CharSelect : MonoBehaviour
 
         //int aniIndex = 0;
 
-        titleTrans.DOMoveY(520, 2f)
+        titleTrans.DOMoveY(520, 1f)
             .SetDelay(0.5f)
-            .SetEase(Ease.OutBounce)
+            .SetEase(Ease.InQuad)
             .OnComplete( () => StartCoroutine(CharacterAnimation()) );
     }
 
@@ -55,7 +58,7 @@ public class CharSelect : MonoBehaviour
 
     void Update()
     {
-        
+        moneyText.text = GameManager.instance.gamePoint.ToString();
     }
 
     public void CharSel(int index)

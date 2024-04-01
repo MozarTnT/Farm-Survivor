@@ -45,6 +45,12 @@ public class GameManager : MonoBehaviour
     public int charSelectIndex = 0;
     public int killCount = 0;
 
+    public string gameID;
+
+
+    public int gamePoint { get; set; } = 1000;
+
+
     private Bullet b;
 
     public Bullet B

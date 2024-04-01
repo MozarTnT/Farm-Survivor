@@ -38,11 +38,11 @@ public class UserDataConnection : MonoBehaviour
         Debug.Log(str_id);
         Debug.Log(str_pw);
 
-        await api_create_account(str_id, str_pw);
+        await api_create_account(str_id, str_pw); // 비동기 완료
     }
 
 
-    public async Task api_create_account(string id, string pw)
+    public async Task api_create_account(string id, string pw) // 비동기 대기 (백그라운드에서 우선적으로 시행되는 방식)
     {
         // POST할 URL
         string url = "http://ted-rpi4-dev.duckdns.org:62431/api/create_account";
