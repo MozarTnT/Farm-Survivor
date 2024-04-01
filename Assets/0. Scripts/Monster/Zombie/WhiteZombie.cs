@@ -7,7 +7,6 @@ public class WhiteZombie : Monster
     void Start()
     {
         transform.SetParent(GameManager.instance.P.zombie_Parent);
-
     }
 
     private void OnEnable()
