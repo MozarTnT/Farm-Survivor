@@ -187,11 +187,14 @@ public abstract class Boss : MonoBehaviour
 
     void End()
     {
+
         int rand = Random.Range(0, 100);
         if (rand < 95)
         {
             int expIndex = data.Level <= 2 ? 0 : data.Level <= 5 ? Random.Range(0, 2) : Random.Range(0, 3);
-            Instantiate(exps[expIndex], transform.position, Quaternion.identity);
+            Gold gc = ItemPooling.Instance.GetPGoldCoin();
+            gc.transform.position = transform.position;
+            gc.transform.rotation = transform.rotation; 
         }
         else
         {
@@ -199,7 +202,6 @@ public abstract class Boss : MonoBehaviour
         }
 
         Destroy(gameObject);
-
         GameManager.instance.UI.bossHP.gameObject.SetActive(false);
 
     }

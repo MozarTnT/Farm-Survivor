@@ -6,6 +6,8 @@ public class Bronze : Exp
 {
     void Start()
     {
+        transform.SetParent(ItemPooling.Instance.coin_Parent);
+
         int rand = Random.Range(0, 100);
         if(rand < 33)
         {

@@ -20,6 +20,9 @@ public abstract class Exp : MonoBehaviour
     }
     void Update()
     {
+        Collider2D collision = GetComponent<Collider2D>();
+        Bronze bc = collision.GetComponent<Bronze>();
+        Gold gc = collision.GetComponent<Gold>();
 
         if (GameManager.instance != null && GameManager.instance.state != GameState.Play)
             return;
@@ -34,7 +37,22 @@ public abstract class Exp : MonoBehaviour
         if(distance <= 0.1f)
         {
             GameManager.instance.UI.topUI.Exp += ExpValue;
-            Destroy(gameObject);
+            if (GameObject.FindAnyObjectByType<Bronze>() != null )
+            {
+                ItemPooling.Instance.AddpBronzeCoin(bc);
+
+            }
+            else if (GameObject.FindAnyObjectByType<Gold>() != null)
+            {
+                ItemPooling.Instance.AddpGoldCoin(gc);
+
+            }
+            else
+            {
+
+            }
+
+            //Destroy(gameObject);
         }
     }
 

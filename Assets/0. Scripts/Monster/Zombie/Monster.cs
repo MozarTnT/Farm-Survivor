@@ -187,7 +187,10 @@ public abstract class Monster : MonoBehaviour
         if(rand < 90)
         {
             int expIndex = data.Level <= 2 ? 0 : data.Level <= 5 ? Random.Range(0, 2) : Random.Range(0, 3);
-            Instantiate(exps[expIndex], transform.position, Quaternion.identity);
+            //Instantiate(exps[expIndex], transform.position, Quaternion.identity);
+            Bronze bc = ItemPooling.Instance.GetPBronzeCoin();
+            bc.transform.position = transform.position;
+            bc.transform.rotation = Quaternion.identity;
         }
         else
         {

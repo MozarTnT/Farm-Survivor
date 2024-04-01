@@ -13,7 +13,7 @@ public class KingSlime : Boss
     {
         data.Speed = 2.5f;
         data.Power = 10;
-        data.HP = 2000.0f;
+        data.HP = 200.0f;
         data.AttDelay = 0.5f;
         data.Defence = 0.63f;
 
