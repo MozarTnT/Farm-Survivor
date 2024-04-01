@@ -47,6 +47,8 @@ public class GameManager : MonoBehaviour
 
     public string gameID;
 
+    public float SetupPower { get; set; }
+    public float SetupDrop { get; set; }
 
     public int gamePoint { get; set; } = 1000;
 

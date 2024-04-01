@@ -14,27 +14,68 @@ using static UserDataConnection;
 
 public class UserDataConnection : MonoBehaviour
 {
+    public static UserDataConnection instance;
+
     [SerializeField] private TMP_Text idtext;
     [SerializeField] private TMP_InputField pwtext;
 
     [SerializeField] private GameObject loginAnnouncement;
     [SerializeField] private Text loginMessage;
     [SerializeField] private Text loginMessageWhy;
-    public class myParams
+
+    public bool isLogin = false;
+
+    //public class UserData
+    //{
+    //    public string UserID { get; set; }
+    //    public string UserPW { get; set; }
+    //    public string UserToken { get; set; }
+    //    public int UserScore { get; set; }
+    //}
+    //public UserData userdata;
+
+    public string userID;
+
+    public class loginParams // create, login
     {
         public string id { get; set; }
         public string pw { get; set; }
-        public int score { get; set; }
-        public string token { get; set; }
+
     }
 
-    myParams myparams;
-
-    public class MyRequest
+    public class loginRequest // create, login
     {
         public string api { get; set; }
-        public myParams @params { get; set; }
+        public loginParams @params { get; set; }
     }
+
+    public class MyLoginResponse
+    {
+        public string api { get; set; }
+        public int code { get; set; }
+
+        public MyLoginResponseData data;
+
+    }
+
+    public class MyLoginResponseData
+    {
+        public string token { get; set; }
+        public int score { get; set; }
+        public string msg { get; set; }
+       
+    }
+    public MyLoginResponseData myLoginResponseData;
+
+    void Start()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+    }
+
 
     public async void CreateAccountOnClicked()
     {
@@ -55,6 +96,8 @@ public class UserDataConnection : MonoBehaviour
         Debug.Log(str_id);
         Debug.Log(str_pw);
 
+        myLoginResponseData = new MyLoginResponseData();
+
         await api_login(str_id, str_pw); // 비동기 완료
 
        // Debug.Log(myparams.score);
@@ -71,10 +114,10 @@ public class UserDataConnection : MonoBehaviour
         {
 
             // 보낼 json 데이터 생성
-            MyRequest postdata = new MyRequest()
+            loginRequest postdata = new loginRequest()
             {
                 api = "create_account",
-                @params = new myParams()
+                @params = new loginParams()
                 {
                     id = id,
                     pw = pw
@@ -100,7 +143,6 @@ public class UserDataConnection : MonoBehaviour
                     Debug.Log("서버 응답:");
                     Debug.Log(responseBody);
 
-                    loginAnnouncement.SetActive(true);
                     loginMessage.text = "계정 생성이 완료되었습니다.";
                     loginMessageWhy.text = "";
                 }
@@ -111,23 +153,9 @@ public class UserDataConnection : MonoBehaviour
                     Debug.Log("서버 응답:");
                     Debug.Log(responseBody);
 
-                    loginAnnouncement.SetActive(true);
                     loginMessage.text = "계정 생성이 실패하였습니다.";
-                    //if(responseBody.Contains("Primary"))
-                    //{
-                    //    loginMessageWhy.text = "이미 존재하는 아이디입니다.";
-                    //}
-                    //else if (responseBody.Contains("too long"))
-                    //{
-                    //    loginMessageWhy.text = "아이디나 비밀번호가 너무 깁니다.";
-                    //}
-                    //else
-                    //{
-                    //    loginMessageWhy.text = "";
-
-                    //}
-
                 }
+                loginAnnouncement.SetActive(true);
             }
         }
         catch (Exception ex)
@@ -146,10 +174,10 @@ public class UserDataConnection : MonoBehaviour
         {
 
             // 보낼 json 데이터 생성
-            MyRequest postdata = new MyRequest()
+            loginRequest postdata = new loginRequest()
             {
                 api = "login",
-                @params = new myParams()
+                @params = new loginParams()
                 {
                     id = id,
                     pw = pw
@@ -175,54 +203,27 @@ public class UserDataConnection : MonoBehaviour
                     Debug.Log("서버 응답:");
                     Debug.Log(responseBody);
 
-                    JObject responseData = JObject.Parse(responseBody);
-                    JToken paramsToken = responseData;
-                    if (paramsToken != null)
-                    {
-                        // score 확인
-                        JToken scoreToken = paramsToken["score"];
-                        if (scoreToken != null)
-                        {
-                            if (int.TryParse(scoreToken.ToString(), out int scoreValue))
-                            {
-                                myparams.score = scoreValue;
-                            }
-                            else
-                            {
-                                // score를 정수로 변환할 수 없는 경우 예외 처리
-                                Debug.Log("Score를 정수로 변환할 수 없습니다.");
-                            }
-                        }
-                        else
-                        {
-                            // "score" 키가 없는 경우 예외 처리
-                            Debug.Log("Score 키가 존재하지 않습니다.");
-                        }
+                    // JSON을 객체로 역직렬화
+                    MyLoginResponse responseData = JsonConvert.DeserializeObject<MyLoginResponse>(responseBody);
 
-                        // token 확인
-                        JToken tokenToken = paramsToken["token"];
-                        if (tokenToken != null)
-                        {
-                            myparams.token = tokenToken.ToString();
-                        }
-                        else
-                        {
-                            // "token" 키가 없는 경우 예외 처리
-                            Debug.Log("Token 키가 존재하지 않습니다.");
-                        }
-                    }
-                    else
-                    {
-                        // "params" 키가 없는 경우 예외 처리
-                        Debug.Log("Params 키가 존재하지 않습니다.");
-                    }
+                    myLoginResponseData.token = responseData.data.token;
+                    myLoginResponseData.score = responseData.data.score;
+                    // 추가로 받아온 token과 score 출력
+                    userID = id;
 
-                    Debug.Log($" Score = {myparams.score.ToString()}");
-                    Debug.Log($" Token = {myparams.token}");
+                    Debug.Log("Given Score: " + responseData.data.score.ToString());
+                    Debug.Log("Current Score: " + myLoginResponseData.score.ToString());
 
-                    
 
-                    loginMessage.text = "로그인이 완료되었습니다.";
+                    Debug.Log("Given Token: " + responseData.data.token);
+                    Debug.Log("Current Token: " + myLoginResponseData.token);
+
+                    Debug.Log(userID);
+
+                    loginMessage.text = "로그인에 성공하였습니다.";
+                    isLogin = true;
+                    loginAnnouncement.SetActive(true);
+
                 }
                 else
                 {
@@ -230,19 +231,15 @@ public class UserDataConnection : MonoBehaviour
                     string responseBody = await response.Content.ReadAsStringAsync();
                     Debug.Log("서버 응답:");
                     Debug.Log(responseBody);
-
                     loginMessage.text = "로그인에 실패하였습니다.";
-
                 }
-
-
                 loginAnnouncement.SetActive(true);
 
             }
         }
         catch (Exception ex)
         {
-            Console.WriteLine("에러 발생: " + ex.Message);
+            Debug.Log("에러 발생: " + ex.Message);
         }
     }
 }
