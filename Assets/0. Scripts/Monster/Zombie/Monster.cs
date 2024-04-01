@@ -183,8 +183,8 @@ public abstract class Monster : MonoBehaviour
     {
         Collider2D collision = GetComponent<Collider2D>(); 
         GreenZombie gz = collision.GetComponent<GreenZombie>();
-        int rand = Random.Range(0, 100);
-        if(rand < 95)
+        int rand = Random.Range(0, 90);
+        if(rand < 90)
         {
             int expIndex = data.Level <= 2 ? 0 : data.Level <= 5 ? Random.Range(0, 2) : Random.Range(0, 3);
             Instantiate(exps[expIndex], transform.position, Quaternion.identity);
