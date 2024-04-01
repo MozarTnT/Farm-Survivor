@@ -5,6 +5,7 @@ using static UI;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
 
+
 public class TitleEvent : MonoBehaviour
 {
     [SerializeField] public GameObject loadGame;
@@ -12,6 +13,8 @@ public class TitleEvent : MonoBehaviour
     [SerializeField] private GameObject btnUI;
     [SerializeField] private GameObject settingUI;
     [SerializeField] private GameObject loginAnnouncementUI;
+
+    
 
     [SerializeField] TitleAnimation titleAnimation;
     void Start()
@@ -98,4 +101,5 @@ public class TitleEvent : MonoBehaviour
         settingUI.transform.DOMoveX(640, 0.5f).SetDelay(0.3f).SetEase(Ease.Linear);
     }
 
+    
 }

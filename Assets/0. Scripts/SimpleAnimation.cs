@@ -11,6 +11,8 @@ public class SimpleAnimation : MonoBehaviour
     private Image img;
     private int index = 0;
     private float timer = 0;
+
+    
   
 
     void Start()
@@ -32,5 +34,10 @@ public class SimpleAnimation : MonoBehaviour
 
             img.sprite = sprites[index];
         }
+    }
+
+    void OnDeSelect()
+    {
+        
     }
 }

@@ -60,9 +60,22 @@ public class CharSelect : MonoBehaviour
 
     public void CharSel(int index)
     {
+        
+
         GameManager.instance.charSelectIndex = index;
         GameManager.instance.OnGame();
     }
+
+    void OnDeSelect()
+    {
+        
+    }
+
+    void DeSelect()
+    {
+
+    }
+    
 
     public void HomeBtnOnClicked()
     {

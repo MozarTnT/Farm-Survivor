@@ -38,8 +38,13 @@ public abstract class Monster : MonoBehaviour
 
     private float attTimer;
 
+   
+
     // -- Test
     public Transform target;
+
+    public GameObject monDamageText;
+    public Transform monPos;
 
     public void SetTarget(Transform target)
     { 
@@ -60,9 +65,10 @@ public abstract class Monster : MonoBehaviour
         sa.SetSprite(run, 0.3f / data.Speed);
     }
 
-
+   
     void Update()
     {
+       
 
         if (GameManager.instance != null && GameManager.instance.state != GameState.Play)
             return;
@@ -125,9 +131,14 @@ public abstract class Monster : MonoBehaviour
             Bullet b = collision.GetComponent<Bullet>();
             data.HP -= GameManager.instance.P.data.Power * (1 - data.Defence);
 
+            GameObject monText = Instantiate(monDamageText);   ///// µ¥¹ÌÁö
+            monText.transform.position = monPos.position;
+            monText.GetComponent<DamageText>().damage = GameManager.instance.P.data.Power;
+
             state = State.Hit;
             data.HitDelay = 0.5f;
             sa.SetSprite(hit, 0.3f);
+            
 
             if(data.HP <= 0)
             {
@@ -176,7 +187,7 @@ public abstract class Monster : MonoBehaviour
 
     }
 
-
+   
 
 
     void End()
