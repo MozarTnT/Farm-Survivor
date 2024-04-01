@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using static UI;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
@@ -11,12 +12,15 @@ public class TitleEvent : MonoBehaviour
     [SerializeField] private GameObject TopUI;
     [SerializeField] private GameObject btnUI;
     [SerializeField] private GameObject settingUI;
-    [SerializeField] private GameObject loginAnnouncementUI;
+    [SerializeField] private GameObject loginInfoUI;
+    [SerializeField] private GameObject loginUI;
+    [SerializeField] private Text loginInfo;
 
     [SerializeField] TitleAnimation titleAnimation;
-    void Start()
+    [SerializeField] UserDataConnection userDataConnection;
+    private void OnEnable()
     {
-        
+        userDataConnection.isLogin = false;
     }
 
     void Update()
@@ -24,9 +28,18 @@ public class TitleEvent : MonoBehaviour
         
     }
 
+
     public void LoginExitBtnOnClicked()
     {
-        loginAnnouncementUI.SetActive(false);
+        if(UserDataConnection.instance.isLogin == true)
+        {
+            loginUI.SetActive(false);
+        }
+    }
+
+    public void InfoExitBtnOnClicked()
+    {
+        loginInfoUI.SetActive(false);
     }
     public void OnSelectNewGame() // 새 게임 시작
     {
