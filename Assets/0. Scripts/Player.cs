@@ -17,6 +17,7 @@ public class Player : MonoBehaviour
         public float BiblePower { get; set; }
         public float TridentPower { get; set; }
         public float itemDistanceLimit { get; set; }
+        public float Drop { get; set; }
     }
 
 
@@ -81,8 +82,6 @@ public class Player : MonoBehaviour
     public float staminaUpSpeed = 0.5f;
     public float staminaDownSpeed = 0.8f;
 
-
-
     void Start()
     {
         GameManager.instance.state = GameState.Play;
@@ -117,6 +116,8 @@ public class Player : MonoBehaviour
                 break;
         }
 
+        data.Power += GameManager.instance.SetupPower; // 시작 전에 적용한 능력치 추가.
+        data.Drop += GameManager.instance.SetupDrop;
     }
 
 

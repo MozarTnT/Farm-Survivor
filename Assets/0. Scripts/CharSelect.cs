@@ -10,8 +10,6 @@ public class CharSelect : MonoBehaviour
     [SerializeField] private Transform titleTrans;
     [SerializeField] private Transform[] charTrans;
 
-    [SerializeField] private Text moneyText;
-
     void Start()
     {
         foreach(var item in charTrans)
@@ -58,9 +56,10 @@ public class CharSelect : MonoBehaviour
 
     void Update()
     {
-        moneyText.text = GameManager.instance.gamePoint.ToString();
+       
     }
 
+   
     public void CharSel(int index)
     {
         GameManager.instance.charSelectIndex = index;
@@ -71,5 +70,8 @@ public class CharSelect : MonoBehaviour
     {
         SceneManager.LoadScene("Title");
     }
+
+ 
+
 
 }
