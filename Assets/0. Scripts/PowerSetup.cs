@@ -29,6 +29,10 @@ public class PowerSetup : MonoBehaviour
     void Update()
     {
         SetUserData();
+        if (minusMoney <= 0)
+        {
+            minusmoneyText.text = "";
+        }
     }
     public void SetUserData()
     {

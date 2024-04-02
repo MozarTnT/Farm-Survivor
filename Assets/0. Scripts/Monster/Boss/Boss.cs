@@ -188,18 +188,10 @@ public abstract class Boss : MonoBehaviour
     void End()
     {
 
-        int rand = Random.Range(0, 100);
-        if (rand < 95)
-        {
-            int expIndex = data.Level <= 2 ? 0 : data.Level <= 5 ? Random.Range(0, 2) : Random.Range(0, 3);
-            Gold gc = ItemPooling.Instance.GetPGoldCoin();
-            gc.transform.position = transform.position;
-            gc.transform.rotation = transform.rotation; 
-        }
-        else
-        {
-            // 아이템 박스
-        }
+        int expIndex = data.Level <= 2 ? 0 : data.Level <= 5 ? Random.Range(0, 2) : Random.Range(0, 3);
+        Gold gc = ItemPooling.Instance.GetPGoldCoin();
+        gc.transform.position = transform.position;
+        gc.transform.rotation = transform.rotation; 
 
         Destroy(gameObject);
         GameManager.instance.UI.bossHP.gameObject.SetActive(false);
