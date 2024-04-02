@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using DG.Tweening;
+
+
 
 public class DamageText : MonoBehaviour
 {
@@ -9,15 +12,25 @@ public class DamageText : MonoBehaviour
     public float alphaSpeed;
     public float destroyTime;
     TextMeshPro text;
+    
+
+   
+        
+
+    
     Color alpha;
     public float damage;
+
+    
    
     void Start()
     {
         text = GetComponent<TextMeshPro>();
-        text.text = damage.ToString();
+        text.text = damage.ToString("F0");
         alpha = text.color;
         Invoke("DestroyObject", destroyTime);
+
+        
     }
 
    

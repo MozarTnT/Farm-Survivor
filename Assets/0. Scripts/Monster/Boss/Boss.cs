@@ -38,6 +38,10 @@ public abstract class Boss : MonoBehaviour
 
     private float attTimer;
 
+    // -- 보스 데미지 텍스트
+    public GameObject bossDamageText;
+    public Transform bossPos;
+
     // -- Test
     public Transform target;
 
@@ -131,6 +135,10 @@ public abstract class Boss : MonoBehaviour
             data.HitDelay = 0.3f;
             sa.SetSprite(hit, 0.3f);
 
+            GameObject bossText = Instantiate(bossDamageText);   ///// 데미지 텍스트 생성
+            bossText.transform.position = bossPos.position;
+            bossText.GetComponent<DamageText>().damage = GameManager.instance.P.data.Power;
+
             if (data.HP <= 0)
             {
                 GetComponent<Collider2D>().enabled = false;
@@ -152,6 +160,10 @@ public abstract class Boss : MonoBehaviour
             data.HitDelay = 0.3f;
             sa.SetSprite(hit, 0.3f);
 
+            GameObject bossText = Instantiate(bossDamageText);   ///// 데미지 텍스트 생성
+            bossText.transform.position = bossPos.position;
+            bossText.GetComponent<DamageText>().damage = GameManager.instance.P.data.BiblePower;
+
             if (data.HP <= 0)
             {
                 GetComponent<Collider2D>().enabled = false;
@@ -170,6 +182,10 @@ public abstract class Boss : MonoBehaviour
             state = State.Hit;
             data.HitDelay = 0.3f;
             sa.SetSprite(hit, 0.3f);
+
+            GameObject bossText = Instantiate(bossDamageText);   ///// 데미지 텍스트 생성
+            bossText.transform.position = bossPos.position;
+            bossText.GetComponent<DamageText>().damage = GameManager.instance.P.data.TridentPower;
 
             if (data.HP <= 0)
             {

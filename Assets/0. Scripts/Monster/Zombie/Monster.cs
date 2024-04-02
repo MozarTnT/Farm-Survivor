@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using UnityEngine;
+using DG.Tweening;
+
 
 public abstract class Monster : MonoBehaviour
 {
@@ -131,10 +133,12 @@ public abstract class Monster : MonoBehaviour
             Bullet b = collision.GetComponent<Bullet>();
             data.HP -= GameManager.instance.P.data.Power * (1 - data.Defence);
 
-            GameObject monText = Instantiate(monDamageText);   ///// 데미지
+            GameObject monText = Instantiate(monDamageText);   ///// 데미지 텍스트 생성
             monText.transform.position = monPos.position;
             monText.GetComponent<DamageText>().damage = GameManager.instance.P.data.Power;
-
+            
+            
+            
             state = State.Hit;
             data.HitDelay = 0.5f;
             sa.SetSprite(hit, 0.3f);
@@ -151,6 +155,8 @@ public abstract class Monster : MonoBehaviour
             BulletPooling.Instance.AddpBullet(b); // 총알 삭제
         }
 
+            
+
         if (collision.CompareTag("Bible"))
         {
             data.HP -= GameManager.instance.P.data.BiblePower * (1 - data.Defence);
@@ -158,6 +164,10 @@ public abstract class Monster : MonoBehaviour
             state = State.Hit;
             data.HitDelay = 0.3f;
             sa.SetSprite(hit, 0.3f);
+
+            GameObject monText = Instantiate(monDamageText);   ///// 데미지 텍스트 생성
+            monText.transform.position = monPos.position;
+            monText.GetComponent<DamageText>().damage = GameManager.instance.P.data.BiblePower;
 
             if (data.HP <= 0)
             {
@@ -171,6 +181,10 @@ public abstract class Monster : MonoBehaviour
         if (collision.CompareTag("Trident"))
         {
             data.HP -= (int)GameManager.instance.P.data.TridentPower; // 창은 방어도 무시
+
+            GameObject monText = Instantiate(monDamageText);   ///// 데미지 텍스트 생성
+            monText.transform.position = monPos.position;
+            monText.GetComponent<DamageText>().damage = GameManager.instance.P.data.TridentPower;
 
             state = State.Hit;
             data.HitDelay = 0.1f;
