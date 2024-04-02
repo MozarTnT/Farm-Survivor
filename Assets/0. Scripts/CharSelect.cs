@@ -53,12 +53,6 @@ public class CharSelect : MonoBehaviour
 
 
     }
-
-    void Update()
-    {
-       
-    }
-
    
     public void CharSel(int index)
     {

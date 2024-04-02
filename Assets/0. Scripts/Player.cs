@@ -324,7 +324,9 @@ public class Player : MonoBehaviour
         if(data.HP <= 0)
         {
             isBooster = false;
+
             GameManager.instance.UI.DeadTitleStart();
+            UserDataConnection.instance.UserUpdateScore();
         }
 
     }
