@@ -37,15 +37,13 @@ public abstract class Exp : MonoBehaviour
         if(distance <= 0.1f)
         {
             GameManager.instance.UI.topUI.Exp += ExpValue;
-            if (GameObject.FindAnyObjectByType<Bronze>() != null )
+            if (GetComponent<Bronze>() != null)
             {
                 ItemPooling.Instance.AddpBronzeCoin(bc);
-
             }
-            else if (GameObject.FindAnyObjectByType<Gold>() != null)
+            else if (GetComponent<Gold>() != null)
             {
                 ItemPooling.Instance.AddpGoldCoin(gc);
-
             }
             else
             {
