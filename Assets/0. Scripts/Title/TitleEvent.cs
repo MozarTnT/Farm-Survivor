@@ -14,7 +14,7 @@ public class TitleEvent : MonoBehaviour
     [SerializeField] private GameObject settingUI;
     [SerializeField] private GameObject loginInfoUI;
     [SerializeField] private GameObject loginUI;
-    [SerializeField] private Text loginInfo;
+
 
     [SerializeField] TitleAnimation titleAnimation;
     [SerializeField] UserDataConnection userDataConnection;
@@ -59,11 +59,15 @@ public class TitleEvent : MonoBehaviour
     public void OnSelectExit() // 게임 종료
     {
 #if UNITY_EDITOR
+        UserDataConnection.instance.QuitGameOnClicked();
         UnityEditor.EditorApplication.isPlaying = false;
 #else
+        UserDataConnection.instance.QuitGameOnClicked();
         Application.Quit(); // 어플리케이션 종료
 #endif
+
     }
+
     public void LoadGameBackBtnOnclicked()
     {
         loadGame.SetActive(false);

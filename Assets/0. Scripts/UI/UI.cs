@@ -7,7 +7,6 @@ using DG.Tweening;
 using System.Linq;
 using static UI;
 
-
 public class UI : MonoBehaviour
 {
     [System.Serializable]
