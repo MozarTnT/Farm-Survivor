@@ -4,8 +4,14 @@ using UnityEngine;
 
 public class MonsterSpawn : MonoBehaviour
 {
-    float spawnTimer;
-    float spawnDelay;
+    float greenspawnTimer;
+    float greenspawnDelay;
+
+    float whitespawnTimer;
+    float whitespawnDelay;
+
+    float tombspawnTimer;
+    float tombspawnDelay;
 
     [SerializeField] private Monster m;
     [SerializeField] private Player player;
@@ -13,7 +19,9 @@ public class MonsterSpawn : MonoBehaviour
 
     void Start()
     {
-        spawnDelay = Random.Range(1, 3);
+        greenspawnDelay = Random.Range(1, 3);
+        whitespawnDelay = Random.Range(3, 5);
+        tombspawnDelay = Random.Range(5, 10);
     }
 
     void Update()
@@ -21,14 +29,32 @@ public class MonsterSpawn : MonoBehaviour
         if (GameManager.instance != null && GameManager.instance.state != GameState.Play)
             return;
 
-        spawnTimer += Time.deltaTime;
-        if(spawnTimer >= spawnDelay)
+        greenspawnTimer += Time.deltaTime;
+        whitespawnTimer += Time.deltaTime;
+        tombspawnTimer += Time.deltaTime;
+
+
+        if(greenspawnTimer >= greenspawnDelay)
         {
-            spawnTimer = 0;
-            spawnDelay = Random.Range(3, 5);
-            Spawn();
+            greenspawnTimer = 0;
+            greenspawnDelay = Random.Range(3, 5);
+            GreenSpawn();
         }
      
+        if (GameManager.instance.UI.topUI.Level >= 5 && whitespawnTimer >= whitespawnDelay)
+        {
+            whitespawnTimer = 0;
+            whitespawnDelay = Random.Range(3, 10);
+            WhiteSpawn();
+        }
+
+        if(GameManager.instance.UI.topUI.Level >= 10 && tombspawnTimer >= tombspawnDelay)
+        {
+            tombspawnTimer = 0;
+            tombspawnDelay = Random.Range(5, 12);
+            TombSpawn();
+        }
+
     }
 
     // ·£´ý ½ºÆù 
@@ -41,7 +67,7 @@ public class MonsterSpawn : MonoBehaviour
         rangeCollider = rangeObject.GetComponent<Collider2D>();
     }
 
-    public void Spawn()
+    public void GreenSpawn()
     {
         Monster mon = MonsterPooling.Instance.GetPGreenZombie();
         mon.GetComponent<Collider2D>().enabled = true;
@@ -50,6 +76,23 @@ public class MonsterSpawn : MonoBehaviour
         mon.SetExp(exps);
     }
 
+    public void WhiteSpawn()
+    {
+        Monster mon = MonsterPooling.Instance.GetPWhiteZombie();
+        mon.GetComponent<Collider2D>().enabled = true;
+        mon.transform.position = Return_RandomPosition();
+        mon.SetTarget(player.transform);
+        mon.SetExp(exps);
+    }
+
+    public void TombSpawn()
+    {
+        Monster mon = MonsterPooling.Instance.GetPTombZombie();
+        mon.GetComponent<Collider2D>().enabled = true;
+        mon.transform.position = Return_RandomPosition();
+        mon.SetTarget(player.transform);
+        mon.SetExp(exps);
+    }
 
     Vector3 Return_RandomPosition()
     {
