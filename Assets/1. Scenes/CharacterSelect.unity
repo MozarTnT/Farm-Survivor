@@ -9634,6 +9634,7 @@ GameObject:
   - component: {fileID: 476097030}
   - component: {fileID: 476097029}
   - component: {fileID: 476097028}
+  - component: {fileID: 476097031}
   m_Layer: 5
   m_Name: PowerSetButton
   m_TagString: Untagged
@@ -9756,6 +9757,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 476097026}
   m_CullTransparentMesh: 1
+--- !u!114 &476097031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 476097026}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3f9a136cc20ab54785f48cb05647ca9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttonScale: {fileID: 476097027}
 --- !u!1 &486858726
 GameObject:
   m_ObjectHideFlags: 0
@@ -10530,6 +10544,7 @@ GameObject:
   - component: {fileID: 842812046}
   - component: {fileID: 842812048}
   - component: {fileID: 842812047}
+  - component: {fileID: 842812049}
   m_Layer: 5
   m_Name: HomeBtn
   m_TagString: Untagged
@@ -10622,6 +10637,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 842812045}
   m_CullTransparentMesh: 1
+--- !u!114 &842812049
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 842812045}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3f9a136cc20ab54785f48cb05647ca9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttonScale: {fileID: 842812046}
 --- !u!1 &931687167
 GameObject:
   m_ObjectHideFlags: 0

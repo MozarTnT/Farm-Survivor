@@ -36,6 +36,7 @@ public class MonsterPooling : Singleton<MonsterPooling>
             Debug.Log("Reusing Zombie.");
             qGreenZombie = pGreenZombiesQueue.Dequeue();
             qGreenZombie.gameObject.SetActive(true);
+            qGreenZombie.tag = "Monster";
         }
         return qGreenZombie;
     }
@@ -66,6 +67,7 @@ public class MonsterPooling : Singleton<MonsterPooling>
             Debug.Log("Reusing White Zombie.");
             qWhiteZombie = pWhiteZombiesQueue.Dequeue();
             qWhiteZombie.gameObject.SetActive(true);
+            qWhiteZombie.tag = "Monster";
         }
         return qWhiteZombie;
     }
@@ -95,6 +97,7 @@ public class MonsterPooling : Singleton<MonsterPooling>
             Debug.Log("Reusing Tomb Zombie.");
             qTombZombie = pTombZombiesQueue.Dequeue();
             qTombZombie.gameObject.SetActive(true);
+            qTombZombie.tag = "Monster";
         }
         return qTombZombie;
     }

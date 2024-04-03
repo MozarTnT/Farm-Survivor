@@ -9766,6 +9766,8 @@ MonoBehaviour:
   loginMessage: {fileID: 634011412}
   loginMessageWhy: {fileID: 1571566982}
   isLogin: 0
+  scorePoint: 0
+  userID: 
 --- !u!1 &218278227
 GameObject:
   m_ObjectHideFlags: 0
@@ -21552,6 +21554,7 @@ GameObject:
   - component: {fileID: 499941328}
   - component: {fileID: 499941327}
   - component: {fileID: 499941326}
+  - component: {fileID: 499941329}
   m_Layer: 5
   m_Name: ExitButton
   m_TagString: Untagged
@@ -21674,6 +21677,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 499941324}
   m_CullTransparentMesh: 1
+--- !u!114 &499941329
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 499941324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3f9a136cc20ab54785f48cb05647ca9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttonScale: {fileID: 499941325}
 --- !u!1 &502287611
 GameObject:
   m_ObjectHideFlags: 0
@@ -56292,6 +56308,7 @@ GameObject:
   - component: {fileID: 871894905}
   - component: {fileID: 871894904}
   - component: {fileID: 871894903}
+  - component: {fileID: 871894906}
   m_Layer: 5
   m_Name: NewStartButton
   m_TagString: Untagged
@@ -56414,6 +56431,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 871894901}
   m_CullTransparentMesh: 1
+--- !u!114 &871894906
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 871894901}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3f9a136cc20ab54785f48cb05647ca9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttonScale: {fileID: 871894902}
 --- !u!1 &874023593
 GameObject:
   m_ObjectHideFlags: 0
@@ -111630,7 +111660,6 @@ MonoBehaviour:
   settingUI: {fileID: 243977915}
   loginInfoUI: {fileID: 914206697}
   loginUI: {fileID: 625654614}
-  loginInfo: {fileID: 0}
   titleAnimation: {fileID: 1017474000}
   userDataConnection: {fileID: 217875058}
 --- !u!1 &1869986360
@@ -117893,6 +117922,7 @@ GameObject:
   - component: {fileID: 1917585735}
   - component: {fileID: 1917585734}
   - component: {fileID: 1917585733}
+  - component: {fileID: 1917585736}
   m_Layer: 5
   m_Name: SettingButton
   m_TagString: Untagged
@@ -118014,6 +118044,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1917585731}
   m_CullTransparentMesh: 1
+--- !u!114 &1917585736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1917585731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3f9a136cc20ab54785f48cb05647ca9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttonScale: {fileID: 1917585732}
 --- !u!1 &1918304625
 GameObject:
   m_ObjectHideFlags: 0

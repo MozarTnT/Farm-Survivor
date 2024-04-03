@@ -24,7 +24,7 @@ public class BossSpawn : MonoBehaviour
 
         spawnTimer += Time.deltaTime;
 
-        if (GameManager.instance.UI.topUI.Level == 2 && !slimeSpawn)
+        if (GameManager.instance.UI.topUI.Level == 10 && !slimeSpawn)
         {
             slimeSpawn = true;
             Debug.Log(GameManager.instance.UI.topUI.Level);

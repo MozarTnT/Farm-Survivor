@@ -41,6 +41,10 @@ public abstract class Monster : MonoBehaviour
     // -- Test
     public Transform target;
 
+    public GameObject monDamageText;
+    public Transform monPos;
+
+
     public void SetTarget(Transform target)
     { 
         this.target = target;
@@ -125,6 +129,10 @@ public abstract class Monster : MonoBehaviour
             Bullet b = collision.GetComponent<Bullet>();
             data.HP -= GameManager.instance.P.data.Power * (1 - data.Defence);
 
+            GameObject monText = Instantiate(monDamageText);   ///// 데미지 텍스트 생성
+            monText.transform.position = monPos.position;
+            monText.GetComponent<DamageText>().damage = GameManager.instance.P.data.Power * (1 - data.Defence);
+
             state = State.Hit;
             data.HitDelay = 0.5f;
             sa.SetSprite(hit, 0.3f);
@@ -148,6 +156,10 @@ public abstract class Monster : MonoBehaviour
             data.HitDelay = 0.3f;
             sa.SetSprite(hit, 0.3f);
 
+            GameObject monText = Instantiate(monDamageText);   ///// 데미지 텍스트 생성
+            monText.transform.position = monPos.position;
+            monText.GetComponent<DamageText>().damage = GameManager.instance.P.data.BiblePower * (1 - data.Defence);
+
             if (data.HP <= 0)
             {
                 GetComponent<Collider2D>().enabled = false;
@@ -164,6 +176,10 @@ public abstract class Monster : MonoBehaviour
             state = State.Hit;
             data.HitDelay = 0.1f;
             sa.SetSprite(hit, 0.3f);
+
+            GameObject monText = Instantiate(monDamageText);   ///// 데미지 텍스트 생성
+            monText.transform.position = monPos.position;
+            monText.GetComponent<DamageText>().damage = GameManager.instance.P.data.TridentPower;
 
             if (data.HP <= 0)
             {
@@ -183,10 +199,13 @@ public abstract class Monster : MonoBehaviour
     {
         Collider2D collision = GetComponent<Collider2D>(); 
         GreenZombie gz = collision.GetComponent<GreenZombie>();
-        int rand = Random.Range(0, 90);
-        if(rand < 90)
+        WhiteZombie wz = collision.GetComponent<WhiteZombie>();
+        TombZombie tz = collision.GetComponent<TombZombie>();
+
+        int rand = Random.Range(0, 100);
+        if(rand < 97)
         {
-            int expIndex = data.Level <= 2 ? 0 : data.Level <= 5 ? Random.Range(0, 2) : Random.Range(0, 3);
+            //int expIndex = data.Level <= 2 ? 0 : data.Level <= 5 ? Random.Range(0, 2) : Random.Range(0, 3);
             //Instantiate(exps[expIndex], transform.position, Quaternion.identity);
             Bronze bc = ItemPooling.Instance.GetPBronzeCoin();
             bc.transform.position = transform.position;
@@ -194,10 +213,31 @@ public abstract class Monster : MonoBehaviour
         }
         else
         {
-            // 아이템 박스
+            Gold gc = ItemPooling.Instance.GetPGoldCoin();
+            gc.transform.position = transform.position;
+            gc.transform.rotation = Quaternion.identity;
         }
-        MonsterPooling.Instance.AddpGreenZombie(gz);
-       // Destroy(gameObject);
+
+
+        if (GetComponent<GreenZombie>() != null)
+        {
+            MonsterPooling.Instance.AddpGreenZombie(gz);
+        }
+        else if (GetComponent<WhiteZombie>() != null)
+        {
+            MonsterPooling.Instance.AddpWhiteZombie(wz);
+        }
+        else if (GetComponent<TombZombie>() != null)
+        {
+            MonsterPooling.Instance.AddpTombZombie(tz);
+        }
+        else
+        {
+
+        }
+
+        //MonsterPooling.Instance.AddpGreenZombie(gz);
+        // Destroy(gameObject);
     }
 
 }

@@ -54,7 +54,10 @@ public class UI : MonoBehaviour
                     exp = 0;
                     maxExp += 50;
                     Level++;
-                    GameManager.instance.UI.OnShowLevelUpPopUp(true);
+                    if (Level % 3 == 0)
+                    {
+                        GameManager.instance.UI.OnShowLevelUpPopUp(true);
+                    }
                 }
                 float val = exp / maxExp * 640;
                 expImg.rectTransform.sizeDelta = new Vector2(val + 10, 44);
@@ -120,6 +123,7 @@ public class UI : MonoBehaviour
     {
         public GameObject obj;
         public GameObject backObj;
+        public GameObject quitObj;
         public Image title;
 
         [HideInInspector]
@@ -147,6 +151,18 @@ public class UI : MonoBehaviour
 
 
     public ItemCount itemCount = new ItemCount();
+
+    [Header("----HowToPlay Obj----")]
+    [SerializeField] private GameObject gameInfo;
+
+    public Button HTPBtn; //물음표
+    public GameObject HTP_Pannel; // 게임방법 판넬
+    public Button[] HTPBtns; // 게임방법 버튼들
+    public GameObject[] HTP_Pannels; // 게임방법 설명판넬 오브젝트
+    public Button ExitBtn;   //나가기
+
+
+
 
     void Start()
     {
@@ -445,6 +461,7 @@ public class UI : MonoBehaviour
         GameManager.instance.state = GameState.Stop;
         result.obj.SetActive(true);
         result.backObj.SetActive(false);
+        result.quitObj.SetActive(false);
         result.title.fillAmount = 0;
         StopCoroutine("CDeadTitle");
         StartCoroutine("CDeadTitle");
@@ -463,8 +480,62 @@ public class UI : MonoBehaviour
 
         yield return new WaitForSeconds(0.2f);
         result.backObj.SetActive(true);
+        result.quitObj.SetActive(true);
 
     }
+
+
+    public void HowToPlayPannelOn(int index)
+    {
+
+        //gameEx.SetActive(isShow);
+
+        HTP_Pannels[index].gameObject.SetActive(true);
+        for (int i = 0; i < HTP_Pannels.Length; i++)
+        {
+            if (index != i)
+                HTP_Pannels[i].gameObject.SetActive(false);
+        }
+
+        if (HTPBtn != null)
+            HTPBtn.onClick.AddListener(() =>
+            {
+                HTP_Pannel.SetActive(true);
+            });
+        HTPBtns[0].onClick.AddListener(() => { HowToPlayPannelOn(0); });
+        HTPBtns[1].onClick.AddListener(() => { HowToPlayPannelOn(1); });
+        HTPBtns[2].onClick.AddListener(() => { HowToPlayPannelOn(2); });
+        HTPBtns[3].onClick.AddListener(() => { HowToPlayPannelOn(3); });
+        HTPBtns[4].onClick.AddListener(() => { HowToPlayPannelOn(4); });
+
+
+        //for (int i = 0; i < HTPBtns.Length; i++)
+        //{
+        //    int btnindex = i; // 클로저에서 사용하기 위해 인덱스 값을 저장
+
+        //    HTPBtns[i].onClick.AddListener(() => { HowToPlayPannelOn(index); });
+        //}
+
+
+    }
+
+    public void HowToPlayExitOn()
+    {
+        if (ExitBtn != null)
+            ExitBtn.onClick.AddListener(() =>
+            {
+                HTP_Pannel.SetActive(false);
+                GameManager.instance.state = GameState.Play;
+            });
+
+    }
+
+    public void HowToPlayStartOn(bool isOpen)
+    {
+        GameManager.instance.state = GameState.Stop;
+        gameInfo.SetActive(true);
+    }
+
 
 
 
