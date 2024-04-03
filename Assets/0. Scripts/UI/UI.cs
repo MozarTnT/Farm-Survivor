@@ -170,7 +170,7 @@ public class UI : MonoBehaviour
         topUI.Level = 1;
         topUI.KillCount = 0;
         topUI.Exp = 0;
-
+        killText = 0;
 
         if (GameManager.instance.P.isBooster == true)
         {
@@ -185,6 +185,7 @@ public class UI : MonoBehaviour
         SetTimer();
         itemLevelSetUP();
         BossHP();
+
 
         if (GameManager.instance.P.isBooster == true)
         {
