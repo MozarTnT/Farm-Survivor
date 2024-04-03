@@ -22,7 +22,7 @@ public enum ItemType
 }
 
 
-public class GameManager : MonoBehaviour
+public class GameManager : Singleton<GameManager>
 {
     public static GameManager instance;
 
