@@ -3,11 +3,11 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
 
-
 public enum GameState
 {
     Play,
     Stop,
+
 }
 
 public enum ItemType
@@ -20,8 +20,6 @@ public enum ItemType
     Magnet,
     Trident,
 }
-
-
 public class GameManager : Singleton<GameManager>
 {
     public static GameManager instance;
