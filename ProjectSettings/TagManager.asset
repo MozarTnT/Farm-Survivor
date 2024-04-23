@@ -9,6 +9,7 @@ TagManager:
   - Exp
   - Bible
   - Trident
+  - obstacle
   layers:
   - Default
   - TransparentFX

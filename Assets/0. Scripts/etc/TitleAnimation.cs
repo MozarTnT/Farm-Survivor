@@ -10,37 +10,54 @@ public class TitleAnimation : MonoBehaviour
     [SerializeField] private Transform buttonTrans;
     [SerializeField] private Transform cameraTrans;
 
+    [SerializeField] private Transform runner1Trans;
+    [SerializeField] private Transform runner2Trans;
+
     private Tween cameraTween;
     void Start()
     {
+
         Vector3 bigvector3 = new Vector3 (2f, 2f, 2f);
         Vector3 normalvector3 = new Vector3 (1f, 1f, 1f);
 
         SetAnimation();
         SetCamaraAnimation(10.0f);
 
-
+        InvokeRepeating("SetRunnerAnimation", 0.0f, 31.0f);
 
     }
 
     void Update()
     {
-        //if (cameraTrans.transform.position.x < -10)
-        //{
-        //    SetCamaraAnimation();
-        //}
    
     }
 
     void SetAnimation()
     {
-        topUITrans.DOMoveY(720, 1.0f).SetDelay(0.3f).SetEase(Ease.InQuad)
-            .OnComplete(() => buttonTrans.DOMoveY(70, 1.0f).SetDelay(0.3f).SetEase(Ease.InQuad));
-         
-         
-            //.OnComplete(() => )
-            
+
+        topUITrans.DOMoveY(720.0f, 1.5f).SetDelay(0.3f).SetEase(Ease.InQuad);
+
+
+            //.OnComplete(() => buttonTrans.DOMoveY(70, 1.0f).SetDelay(0.3f).SetEase(Ease.InQuad));
+
+
+        //.OnComplete(() => )
+
     }
+
+    void SetRunnerAnimation()
+    {
+        float targetX = 2500.0f;
+
+        runner1Trans.transform.position = new Vector3(-145f, 80f, -1f);
+        runner2Trans.transform.position = new Vector3(-497f, 376f, -1f);
+
+        runner1Trans.DOMoveX(targetX, 15.0f).SetDelay(1.0f).SetEase(Ease.Linear);
+
+        runner2Trans.DOMoveX(targetX, 15.0f).SetDelay(1.2f).SetEase(Ease.Linear);
+    
+    }
+
 
     void SetShaker()
     {
@@ -59,7 +76,7 @@ public class TitleAnimation : MonoBehaviour
                  }
              });
     }
-
+    
 
 
     private void OnDestroy()
@@ -69,6 +86,8 @@ public class TitleAnimation : MonoBehaviour
             cameraTween.Kill();
         }
     }
+
+
 
 
 }

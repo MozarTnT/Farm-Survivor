@@ -14,47 +14,42 @@ public class TitleEvent : MonoBehaviour
     [SerializeField] private GameObject settingUI;
     [SerializeField] private GameObject loginInfoUI;
     [SerializeField] private GameObject loginUI;
+    [SerializeField] private GameObject backPanel;
 
+    [SerializeField] private GameObject touchBtn; 
+    [SerializeField] private GameObject settingBtn; 
 
     [SerializeField] TitleAnimation titleAnimation;
     [SerializeField] UserDataConnection userDataConnection;
     private void OnEnable()
     {
-        userDataConnection.isLogin = false;
-    }
-
-    void Update()
-    {
-        
+        backPanel.SetActive(false);
     }
 
 
     public void LoginExitBtnOnClicked()
     {
-        if(UserDataConnection.instance.isLogin == true)
-        {
-            loginUI.SetActive(false);
-        }
+        backPanel.gameObject.SetActive(false);
+        loginUI.gameObject.SetActive(false);
+        touchBtn.gameObject.SetActive(true);
+        settingBtn.gameObject.SetActive(true);
     }
 
     public void InfoExitBtnOnClicked()
     {
         loginInfoUI.SetActive(false);
+
+        if(userDataConnection.isLogin == true)
+        {
+            SceneManager.LoadScene("CharacterSelect");
+        }
+
     }
     public void OnSelectNewGame() // 새 게임 시작
     {
         SceneManager.LoadScene("CharacterSelect");
     }
 
-    public void OnSelectLoadGame() // 새 게임 시작
-    {
-        loadGame.SetActive(true);
-        TopUI.SetActive(false);
-        btnUI.SetActive(false);
-
-        LoadGameAnimation();
-
-    }
 
     public void OnSelectExit() // 게임 종료
     {
@@ -68,6 +63,15 @@ public class TitleEvent : MonoBehaviour
 
     }
 
+    public void SetTouchToStart()
+    {
+        backPanel.gameObject.SetActive(true);
+        loginUI.gameObject.SetActive(true);
+        touchBtn.gameObject.SetActive(false);
+        settingBtn.gameObject.SetActive(false);
+    }
+
+
     public void LoadGameBackBtnOnclicked()
     {
         loadGame.SetActive(false);
@@ -77,6 +81,7 @@ public class TitleEvent : MonoBehaviour
 
     public void SettingBtnOnClicked()
     {
+        touchBtn.SetActive(false);
         settingUI.SetActive(true);
         TopUI.SetActive(false);
         btnUI.SetActive(false);
@@ -86,6 +91,7 @@ public class TitleEvent : MonoBehaviour
 
     public void SettingCfmOnClicked()
     {
+        touchBtn.SetActive(true);
         settingUI.SetActive(false);
         TopUI.SetActive(true);
         btnUI.SetActive(true);

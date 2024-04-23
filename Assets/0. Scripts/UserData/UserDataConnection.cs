@@ -23,7 +23,8 @@ public class UserDataConnection : MonoBehaviour
     [SerializeField] private Text loginMessage;
     [SerializeField] private Text loginMessageWhy;
 
-    public bool isLogin = false;
+    public bool isLogin { get; set; } = false;
+
     public int scorePoint;
 
     //public class UserData
@@ -134,6 +135,8 @@ public class UserDataConnection : MonoBehaviour
             DontDestroyOnLoad(gameObject);
         }
     }
+
+    
 
     public async void CreateAccountOnClicked()
     {
