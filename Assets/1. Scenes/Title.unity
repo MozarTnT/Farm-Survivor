@@ -9915,7 +9915,6 @@ MonoBehaviour:
   loginAnnouncement: {fileID: 914206697}
   loginMessage: {fileID: 634011412}
   loginMessageWhy: {fileID: 1571566982}
-  isLogin: 0
   scorePoint: 0
   userID: 
 --- !u!1 &218278227

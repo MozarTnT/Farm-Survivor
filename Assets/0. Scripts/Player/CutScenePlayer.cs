@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CutScenePlayer : MonoBehaviour
 {
@@ -23,7 +25,7 @@ public class CutScenePlayer : MonoBehaviour
 
     void Update()
     {
-        if (TalkManager.Instance.canMove == true)
+        if (CutSceneCharacterManager.Instance.canMove == true)
         {
             Move();
         }
@@ -60,5 +62,14 @@ public class CutScenePlayer : MonoBehaviour
         }
     }
 
+
+    public void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.CompareTag("Gate"))
+        {
+            Debug.Log("Ãæµ¹");
+            SceneManager.LoadScene("FarmScene");
+        }
+    }
 
 }

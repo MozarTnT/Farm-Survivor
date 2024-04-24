@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 779247644902205715}
   - component: {fileID: 779247644902205712}
   - component: {fileID: 779247644902205713}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GoblinZombie
   m_TagString: Monster
   m_Icon: {fileID: 0}
@@ -159,7 +159,7 @@ CapsuleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: -0.04}
@@ -175,7 +175,7 @@ GameObject:
   m_Component:
   - component: {fileID: 779247645431844893}
   - component: {fileID: 779247645431844892}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Shadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -258,7 +258,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4410385281554743628}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: gozPos
   m_TagString: Untagged
   m_Icon: {fileID: 0}

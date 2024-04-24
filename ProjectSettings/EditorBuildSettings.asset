@@ -20,4 +20,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/1. Scenes/CharacterSelect.unity
     guid: f0687f8b1989f1949a7e9a90d4a8c361
+  - enabled: 1
+    path: Assets/1. Scenes/CutScene/DreamScene.unity
+    guid: 807fc265ff0085649a8c860e10f262dc
+  - enabled: 1
+    path: Assets/1. Scenes/CutScene/FarmScene.unity
+    guid: 30fcd397bd87d8e49a752f0fb48aaa84
+  - enabled: 1
+    path: Assets/1. Scenes/CutScene/HouseScene.unity
+    guid: 0dfe31451dbff264cb889b9197ff931c
   m_configObjects: {}

@@ -43,13 +43,12 @@ public class TalkManager : MonoBehaviour
         }
     }
     private bool clickAble = false;
-    public bool canMove = false;
     void Start()
     {
 
         Instance = this;
 
-        canMove = false;
+        CutSceneCharacterManager.Instance.canMove = false;
 
         chattingObject.transform.DOMoveY(88f, 0.5f).SetDelay(0.5f).SetEase(Ease.Linear);
 
@@ -96,7 +95,6 @@ public class TalkManager : MonoBehaviour
         {
             NextText();
         }
-        Debug.Log(clickAble);
     }
 
 
@@ -148,7 +146,7 @@ public class TalkManager : MonoBehaviour
         {
             ChattingDown();
             clickAble = false;
-            canMove = true;
+            CutSceneCharacterManager.Instance.canMove = true;
             speechBubble.SetActive(false);
         }
     }
@@ -157,6 +155,7 @@ public class TalkManager : MonoBehaviour
     {
         chattingObject.transform.DOMoveY(-300f, 0.5f).SetEase(Ease.Linear);
     }
+
 
 
 }

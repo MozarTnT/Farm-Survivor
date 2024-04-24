@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8749725884462266995}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: tzPos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41,7 +41,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6828706437094745209}
   - component: {fileID: 6828706437094745208}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Shadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -129,7 +129,7 @@ GameObject:
   - component: {fileID: 6828706438698130807}
   - component: {fileID: 6828706438698130804}
   - component: {fileID: 6828706438698130805}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TombZombie
   m_TagString: Monster
   m_Icon: {fileID: 0}
@@ -270,7 +270,7 @@ CapsuleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: -0.04}

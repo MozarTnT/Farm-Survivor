@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6974557576166148155}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: lzPos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45,7 +45,7 @@ GameObject:
   - component: {fileID: 7166450502114198706}
   - component: {fileID: 7166450502114198705}
   - component: {fileID: 7166450502114198704}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: LightGreenZombie
   m_TagString: Monster
   m_Icon: {fileID: 0}
@@ -190,7 +190,7 @@ CapsuleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: -0.04}
@@ -206,7 +206,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7166450503719402940}
   - component: {fileID: 7166450503719402941}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Shadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}

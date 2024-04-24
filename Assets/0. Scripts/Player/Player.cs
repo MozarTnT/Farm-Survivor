@@ -86,6 +86,8 @@ public class Player : MonoBehaviour
     {
         GameManager.instance.state = GameState.Play;
 
+        transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+
         // 캐릭터 선택에 따른 Sprite 적용
         int index = GameManager.instance.charSelectIndex;
 
@@ -168,7 +170,7 @@ public class Player : MonoBehaviour
     {
         Vector3 newPosition = transform.position;
 
-        newPosition.y = transform.position.y -1f;
+        newPosition.y = transform.position.y -1.4f;
 
         backHpRect.position = newPosition;
     }
@@ -242,18 +244,18 @@ public class Player : MonoBehaviour
         float x = Input.GetAxisRaw("Horizontal") * Time.deltaTime * data.Speed;
         float y = Input.GetAxisRaw("Vertical") * Time.deltaTime * data.Speed;
 
-        float cX = Mathf.Clamp(transform.position.x + x, -19f, 19f);
-        float cY = Mathf.Clamp(transform.position.y + y, -19.2f, 19.4f);
+        float cX = Mathf.Clamp(transform.position.x + x, -22.3f, 23f);
+        float cY = Mathf.Clamp(transform.position.y + y, -20.2f, 23.7f);
 
         transform.position = new Vector2(cX, cY);
 
         if (x < 0)
         {
-            transform.localScale = new Vector3(-1, 1, 1);
+            transform.localScale = new Vector3(-1.5f, 1.5f, 1.5f);
         }
         else if (x > 0)
         {
-            transform.localScale = Vector3.one;
+            transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
         }
 
         // Animation
