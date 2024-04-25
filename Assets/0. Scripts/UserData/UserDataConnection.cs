@@ -197,7 +197,7 @@ public class UserDataConnection : MonoBehaviour
 
         try
         {
-
+            
             // 보낼 json 데이터 생성
             loginRequest postdata = new loginRequest()
             {

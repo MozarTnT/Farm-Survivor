@@ -15,7 +15,7 @@ public class BattleFollowCam : MonoBehaviour
         pos.y = Mathf.Clamp(pos.y, -16.8f, 19.6f);
 
         // 타겟을 타겟의 위치에 따라 따라다니기
-        transform.position = Vector3.Lerp(transform.position, pos, Time.deltaTime * 5f);
+        //transform.position = Vector3.Lerp(transform.position, pos, Time.deltaTime * 5f);
 
     }
 }
