@@ -5,10 +5,7 @@ using UnityEngine;
 public class FollowCam : MonoBehaviour
 {
     public Transform target;
-    void Start()
-    {
-        
-    }
+
 
     void Update()
     {

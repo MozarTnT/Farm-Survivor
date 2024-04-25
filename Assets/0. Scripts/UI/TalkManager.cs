@@ -91,14 +91,14 @@ public class TalkManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0) && clickAble && chattingIndex < dialogueData.lines.Length - 1)
+        if ((Input.GetMouseButtonDown(0) || Input.GetKey(KeyCode.B)) && clickAble && chattingIndex < dialogueData.lines.Length - 1)
         {
             NextText();
         }
     }
 
 
-    IEnumerator textPrint(float d)
+    IEnumerator textPrint(float d) // 한 글자씩 출력
     {
         int count = 0;
 
@@ -115,7 +115,7 @@ public class TalkManager : MonoBehaviour
         clickAble = true;
     }
 
-    void NextText()
+    void NextText() // 다음 지문으로 넘어감
     {
         clickAble = false;
         chattingIndex++;
