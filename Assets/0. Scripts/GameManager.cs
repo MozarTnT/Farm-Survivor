@@ -101,6 +101,10 @@ public class GameManager : Singleton<GameManager>
             instance = this;
             DontDestroyOnLoad(gameObject);
         }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     

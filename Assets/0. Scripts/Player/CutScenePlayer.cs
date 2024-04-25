@@ -6,10 +6,14 @@ using UnityEngine.SceneManagement;
 
 public class CutScenePlayer : MonoBehaviour
 {
+    [SerializeField] private GameObject key;
+
     [SerializeField] private List<Sprite> stand;
     [SerializeField] private List<Sprite> run;
 
     private float speed = 4.5f;
+
+    private bool isNearGate = false;
 
     State state = State.Stand;
 
@@ -28,6 +32,11 @@ public class CutScenePlayer : MonoBehaviour
         if (CutSceneCharacterManager.Instance.canMove == true)
         {
             Move();
+        }
+
+        if (isNearGate == true && Input.GetKey(KeyCode.B))
+        {
+            FadeInLoadScene();
         }
     }
 
@@ -68,8 +77,30 @@ public class CutScenePlayer : MonoBehaviour
         if(collision.CompareTag("Gate"))
         {
             Debug.Log("충돌");
-            SceneManager.LoadScene("FarmScene");
+            key.SetActive(true);
+            key.GetComponent<KeyAnnounce>().KeyAniamation();
+            isNearGate = true;
         }
     }
 
+    public void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Gate"))
+        {
+            Debug.Log("충돌 끝");
+            key.SetActive(false);
+            isNearGate = false;
+        }
+    }
+
+    void FadeInLoadScene()
+    {
+        StartCoroutine(DoFadeInAndLoadScene());
+    }
+
+    IEnumerator DoFadeInAndLoadScene()
+    {
+        yield return StartCoroutine(Fader.Instance.FadeIn()); // FadeIn 코루틴이 끝날 때까지 기다립니다.
+        SceneManager.LoadScene("FarmScene");
+    }
 }

@@ -8,12 +8,16 @@ public class CutSceneCharacterManager : MonoBehaviour
 
     public bool canMove = false;
 
-    void Start()
+    void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
         }
     }
 
