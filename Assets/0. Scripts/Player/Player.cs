@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+
+    public static Player Instance;
     public class Data
     {
         public int HP { get; set; }
@@ -16,6 +18,8 @@ public class Player : MonoBehaviour
         public float Power { get; set; }
         public float BiblePower { get; set; }
         public float TridentPower { get; set; }
+        public float WaterPower { get; set; }
+        public float WaterPopPower { get; set; }
         public float itemDistanceLimit { get; set; }
         public float Drop { get; set; }
     }
@@ -37,6 +41,8 @@ public class Player : MonoBehaviour
         public float c_Boots = 0.5f;
         public float c_Magnet = 0.73f;
         public float c_Trident = 5.0f;
+        public float c_Water = 5.0f;
+        public float c_WaterPop = 3.0f;
     }
 
     State state = State.Stand;
@@ -45,10 +51,21 @@ public class Player : MonoBehaviour
     private List<Sprite> run;
     private List<Sprite> dead;
 
+    [Header("Character UI")]
+    [Space]
     [SerializeField] private RectTransform backHpRect;
     [SerializeField] public RectTransform hpRect;
     [SerializeField] public Transform magnetScale;
 
+    public float Stamina { get; set; } = 1;
+    private int maxStamina = 1;
+    private int minStamina = 0;
+
+    public float staminaUpSpeed = 0.5f;
+    public float staminaDownSpeed = 0.8f;
+
+    [Header("Weapon")]
+    [Space]
     [SerializeField] public Transform firePos;
     [SerializeField] private Bullet bullet;
 
@@ -58,11 +75,24 @@ public class Player : MonoBehaviour
     [SerializeField] private GameObject trident;
     [SerializeField] public Transform tridentPos;
 
-    [SerializeField] public Transform zombie_Parent;
+    [SerializeField] private GameObject water;
+    [SerializeField] public Transform waterPos;
 
     [SerializeField] public GameObject magnet;
 
+    [SerializeField] public Transform weaponParent;
+
+    public bool isTridentOn = false;
+    public bool isWaterOn = false;
+
+    public bool isBooster = false;
+
+
+
+    [Header("Monster")]
+    [Space]
     [SerializeField] public KingSlime kingSlime;
+    [SerializeField] public Transform zombie_Parent;
 
     public Transform target;
 
@@ -71,19 +101,18 @@ public class Player : MonoBehaviour
 
     private float fireTimer = 0;
 
-    public bool isTridentOn = false;
+    private float waterTimer = 0;
+    private float watertDelay = 0.1f;
 
-    public bool isBooster = false;
+    public float waterReload = 10.0f;
+    float waterFireTime = 2.3f;
 
-    public float Stamina { get; set; } = 1;
-    private int maxStamina = 1;
-    private int minStamina = 0;
-
-    public float staminaUpSpeed = 0.5f;
-    public float staminaDownSpeed = 0.8f;
+    float waterReloadTimer = 0;
 
     void Start()
     {
+        Instance = this;
+
         GameManager.instance.state = GameState.Play;
 
         transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
@@ -120,6 +149,7 @@ public class Player : MonoBehaviour
 
         data.Power += GameManager.instance.SetupPower; // 시작 전에 적용한 능력치 추가.
         data.Drop += GameManager.instance.SetupDrop;
+
     }
 
 
@@ -138,13 +168,49 @@ public class Player : MonoBehaviour
             FireRotate();
             Fire();
         }
+
         FindExp();
 
         bibleTrans.position = transform.position;
         bibleTrans.Rotate(Vector3.back * Time.deltaTime * 300f);
 
+
+        if(isWaterOn)
+        {
+            WaterTimer();
+            waterPos.position = transform.position;
+            waterPos.Rotate(Vector3.forward * Time.deltaTime * 150f);
+        }
+
     }
 
+    public void WaterTimer()
+    {
+        if (waterReloadTimer < waterReload)
+        {
+            waterReloadTimer += Time.deltaTime;
+            if (waterReloadTimer < waterFireTime)
+            {
+                WaterAdd();
+            }
+        }
+        else
+        {
+            waterReloadTimer = 0;
+        }
+    }
+
+    public void WaterAdd()
+    {
+        waterTimer += Time.deltaTime;
+        if (waterTimer >= watertDelay)
+        {
+            waterTimer = 0;
+
+            Instantiate(water, weaponParent);
+
+        }
+    }
     public float FindKingSlime(float hp)
     {
         KingSlime king = FindAnyObjectByType<KingSlime>();
@@ -163,6 +229,8 @@ public class Player : MonoBehaviour
         data.Power = 20.0f;
         data.BiblePower = 50.0f;
         data.TridentPower = 30.0f;
+        data.WaterPower = 15.0f;
+        data.WaterPopPower = 10.0f;
         data.itemDistanceLimit = 1.5f;
     }
 
@@ -170,7 +238,7 @@ public class Player : MonoBehaviour
     {
         Vector3 newPosition = transform.position;
 
-        newPosition.y = transform.position.y -1.4f;
+        newPosition.y = transform.position.y - 1.4f;
 
         backHpRect.position = newPosition;
     }
@@ -183,12 +251,12 @@ public class Player : MonoBehaviour
         SetBible();
     }
 
-    public void BibleDelete()
-    {
-        Destroy(bibleTrans.GetChild(bibleTrans.childCount - 1).gameObject);
+    //public void BibleDelete()
+    //{
+    //    Destroy(bibleTrans.GetChild(bibleTrans.childCount - 1).gameObject);
 
-        SetBible();
-    }
+    //    SetBible();
+    //}
 
     void SetBible()
     {
@@ -201,8 +269,13 @@ public class Player : MonoBehaviour
             bibleTrans.GetChild(i).rotation = Quaternion.Euler(0f, 0f, addRot);
             addRot += rot;
         }
-
     }
+
+    void SetWaterTrans()
+    {
+        waterPos.rotation = Quaternion.identity;
+    }
+
 
     private void SetTrident()
     {
@@ -236,8 +309,8 @@ public class Player : MonoBehaviour
         SetTrident();
         GameObject newTrident = Instantiate(trident);
     }
-   
-   
+
+
     private void Move()
     {
         // Move
@@ -307,7 +380,7 @@ public class Player : MonoBehaviour
             fireTimer = 0;
             Bullet b = BulletPooling.Instance.GetPBullet();
             b.transform.SetParent(BulletPooling.Instance.pBulletParent);
-            b.SetPower(power:data.Power);
+            b.SetPower(power: data.Power);
         }
     }
 
@@ -323,7 +396,7 @@ public class Player : MonoBehaviour
 
         Debug.Log($"Player HP : {data.HP} ");
 
-        if(data.HP <= 0)
+        if (data.HP <= 0)
         {
             isBooster = false;
 
@@ -339,14 +412,14 @@ public class Player : MonoBehaviour
         target = null;
         GameObject[] objs = GameObject.FindGameObjectsWithTag("Monster");
 
-        if(objs.Length > 0)
+        if (objs.Length > 0)
         {
             float distance = float.MaxValue;
             int findIndex = -1;
             for (int i = 0; i < objs.Length; i++)
             {
                 float dis = Vector2.Distance(objs[i].transform.position, transform.position);
-                if(dis <= 6)
+                if (dis <= 6)
                 {
                     if (dis <= distance)
                     {
@@ -356,7 +429,7 @@ public class Player : MonoBehaviour
                 }
             }
 
-            if(findIndex != -1)
+            if (findIndex != -1)
             {
                 target = objs[findIndex].transform;
             }
@@ -367,13 +440,13 @@ public class Player : MonoBehaviour
     {
         GameObject[] objs = GameObject.FindGameObjectsWithTag("Exp");
 
-        if(objs.Length > 0) 
+        if (objs.Length > 0)
         {
-            foreach(var item in objs.Select((value, index) => (value, index)))
+            foreach (var item in objs.Select((value, index) => (value, index)))
             {
                 float distance = Vector2.Distance(transform.position, item.value.transform.position);
 
-                if(distance <= data.itemDistanceLimit)
+                if (distance <= data.itemDistanceLimit)
                 {
                     item.value.GetComponent<Exp>().Target = transform;
 

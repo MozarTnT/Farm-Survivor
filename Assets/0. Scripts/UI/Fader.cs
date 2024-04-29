@@ -31,7 +31,6 @@ public class Fader : MonoBehaviour
         panel.color = endColor;
     }
 
-
     public IEnumerator FadeOut()
     {
         Debug.Log("Fade Out");
@@ -62,8 +61,6 @@ public class Fader : MonoBehaviour
         yield return StartCoroutine(FadeIn());
         yield return StartCoroutine(FadeOut());
     }
-
-
 
 }
 

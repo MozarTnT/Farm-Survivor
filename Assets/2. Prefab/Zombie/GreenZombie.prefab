@@ -17,7 +17,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!224 &2908045569779897455
 RectTransform:
@@ -171,7 +171,7 @@ GameObject:
   m_TagString: Monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &578718056198520253
 Transform:
@@ -215,6 +215,8 @@ MonoBehaviour:
   target: {fileID: 0}
   monDamageText: {fileID: 5649121830402799819, guid: ace360501f106ce4b959ea2a4da1d5a3, type: 3}
   monPos: {fileID: 4580761497590592961}
+  wpop: {fileID: 3607901845555001539, guid: 7cfc1c74e0e6ff64485ee367956b2b6d, type: 3}
+  agent: {fileID: 0}
 --- !u!114 &578718056198520262
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -331,7 +333,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &578718057806152884
 Transform:
@@ -417,7 +419,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 0
 --- !u!224 &6917735331014858841
 RectTransform:
@@ -515,7 +517,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &4580761497590592961
 Transform:

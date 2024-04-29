@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 560524516389093096}
   - component: {fileID: 560524516389093094}
   - component: {fileID: 560524516389093097}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bible
   m_TagString: Bible
   m_Icon: {fileID: 0}
@@ -110,7 +110,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 560524516496504473}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bible
   m_TagString: Bible
   m_Icon: {fileID: 0}

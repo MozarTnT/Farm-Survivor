@@ -19,6 +19,8 @@ public enum ItemType
     Boots,
     Magnet,
     Trident,
+    Water,
+    WaterPop,
 }
 
 

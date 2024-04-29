@@ -41,7 +41,6 @@ public class BattleTalkManager : MonoBehaviour
         set
         {
             chattingIndex = value;
-
         }
     }
     private bool clickAble = false;

@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class CutScenePlayer : MonoBehaviour
 {
     [SerializeField] private GameObject key;
+    [SerializeField] private GameObject water;
 
     [SerializeField] private List<Sprite> stand;
     [SerializeField] private List<Sprite> run;
@@ -79,6 +80,8 @@ public class CutScenePlayer : MonoBehaviour
             Debug.Log("Ãæµ¹");
             key.SetActive(true);
             key.GetComponent<KeyAnnounce>().KeyAniamation();
+            water.GetComponent<Water>().WaterAniamation();
+            
             isNearGate = true;
         }
     }

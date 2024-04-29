@@ -11,6 +11,9 @@ TagManager:
   - Trident
   - obstacle
   - Gate
+  - HealthSprite
+  - Water
+  - WaterPop
   layers:
   - Default
   - TransparentFX
@@ -18,7 +21,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - Weapon
   - Player
   - Monster
   - Grass
