@@ -145,9 +145,11 @@ MonoBehaviour:
   - {fileID: 1151968089, guid: 4104ee12b4d54f54b91b3ba875787837, type: 3}
   dead:
   - {fileID: 297993398, guid: 4104ee12b4d54f54b91b3ba875787837, type: 3}
+  potion: {fileID: 2343775239596852711, guid: 4220fbe6e6bd4ce4e9824c86f573e69c, type: 3}
   target: {fileID: 0}
   monDamageText: {fileID: 5649121830402799819, guid: ace360501f106ce4b959ea2a4da1d5a3, type: 3}
   monPos: {fileID: 8752201047678365492}
+  wpop: {fileID: 8417303159444617685, guid: 7cfc1c74e0e6ff64485ee367956b2b6d, type: 3}
 --- !u!114 &1047608995708563568
 MonoBehaviour:
   m_ObjectHideFlags: 0

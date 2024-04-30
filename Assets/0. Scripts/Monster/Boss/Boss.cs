@@ -36,7 +36,11 @@ public abstract class Boss : MonoBehaviour
     private SpriteAnimation sa;
     private State state = State.Run;
 
+    public WaterPop wpop;
+
     private float attTimer;
+
+    public static Vector3 waterPopVec = new Vector3();
 
     // -- Test
     public Transform target;
@@ -180,9 +184,68 @@ public abstract class Boss : MonoBehaviour
             }
         }
 
+        if (collision.CompareTag("Water"))
+        {
+            data.HP -= GameManager.instance.P.data.WaterPower * (1 - data.Defence);
+
+            state = State.Hit;
+            data.HitDelay = 0.1f;
+            sa.SetSprite(hit, 0.2f);
+
+            Destroy(collision.gameObject);
+            waterPopVec = collision.transform.position;
+
+
+            float aX = Mathf.Abs(waterPopVec.x);
+            float aY = Mathf.Abs(waterPopVec.y);
+
+            // Instantiate(wpop, Player.Instance.weaponParent); // 보스에서는 물폭탄 미 생성
+
+
+            if (data.HP <= 0)
+            {
+                GetComponent<Collider2D>().enabled = false;
+                tag = "Untagged";
+                sa.SetSprite(dead, 0.1f, 1.0f, End); // Enemy 제거           
+                GameManager.instance.killCount++;
+            }
+        }
     }
 
+    private float damageInterval = 0.5f; // 데미지 간격을 설정합니다.
+    private float timeSinceLastDamage = 0f; // 마지막 데미지가 입혀진 후의 시간입니다.
 
+    private void OnTriggerStay2D(Collider2D collision) // 물방울 지속시간 trigger
+    {
+
+        if (collision.CompareTag("WaterPop"))
+        {
+            timeSinceLastDamage += Time.deltaTime;
+
+            if (timeSinceLastDamage >= damageInterval)
+            {
+                data.HP -= GameManager.instance.P.data.WaterPopPower * (1 - data.Defence);
+
+                Debug.Log(data.HP);
+
+                timeSinceLastDamage = 0f;
+
+                state = State.Hit;
+                data.HitDelay = 0.1f;
+                sa.SetSprite(hit, 0.1f);
+
+                if (data.HP <= 0)
+                {
+                    GetComponent<Collider2D>().enabled = false;
+                    tag = "Untagged";
+                    sa.SetSprite(dead, 0.1f, 1.0f, End); // Enemy 제거           
+                    GameManager.instance.killCount++;
+                }
+
+            }
+        }
+
+    }
 
 
     void End()

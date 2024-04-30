@@ -29,6 +29,9 @@ public abstract class Monster : MonoBehaviour
     [SerializeField] protected List<Sprite> hit;
     [SerializeField] protected List<Sprite> dead;
 
+    [SerializeField] private Potion potion;
+
+
     private Exp[] exps;
 
     protected Data data = new Data();
@@ -45,7 +48,7 @@ public abstract class Monster : MonoBehaviour
     public GameObject monDamageText;
     public Transform monPos;
 
-    public GameObject wpop;
+    public WaterPop wpop;
 
     public static Vector3 waterPopVec = new Vector3();
 
@@ -66,12 +69,6 @@ public abstract class Monster : MonoBehaviour
         sa = GetComponent<SpriteAnimation>();
 
         sa.SetSprite(run, 0.3f / data.Speed);
-    }
-
-
-    private void Start()
-    {
-
     }
 
     void Update()
@@ -215,16 +212,6 @@ public abstract class Monster : MonoBehaviour
             float aY = Mathf.Abs(waterPopVec.y);
 
             Instantiate(wpop, Player.Instance.weaponParent);
-
-            //if (collision)
-            //{
-            //    Debug.Log("물체 감지");
-            //}
-            //else
-            //{
-            //    Instantiate(wpop, Player.Instance.weaponParent);
-            //}
-            
             
 
             if (data.HP <= 0)
@@ -281,7 +268,7 @@ public abstract class Monster : MonoBehaviour
         TombZombie tz = collision.GetComponent<TombZombie>();
 
         int rand = Random.Range(0, 100);
-        if (rand < 97)
+        if (rand < 96) // bronze coin 96%
         {
             //int expIndex = data.Level <= 2 ? 0 : data.Level <= 5 ? Random.Range(0, 2) : Random.Range(0, 3);
             //Instantiate(exps[expIndex], transform.position, Quaternion.identity);
@@ -289,7 +276,11 @@ public abstract class Monster : MonoBehaviour
             bc.transform.position = transform.position;
             bc.transform.rotation = Quaternion.identity;
         }
-        else
+        else if (rand == 96) // potion 1%
+        {
+            Instantiate(potion, transform.position, Quaternion.identity);
+        }
+        else // gold 3%
         {
             Gold gc = ItemPooling.Instance.GetPGoldCoin();
             gc.transform.position = transform.position;

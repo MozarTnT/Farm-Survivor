@@ -15,7 +15,7 @@ public class Water : MonoBehaviour
 
     private float waterLifeTimer = 0;
     private float waterLife = 1.0f;
-
+ 
     void Start()
     {
         Quaternion quaternion = GameManager.instance.P.waterPos.transform.rotation;
@@ -37,6 +37,7 @@ public class Water : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
 
     public void Move()
     {

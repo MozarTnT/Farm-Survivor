@@ -15,6 +15,7 @@ TagManager:
   - Water
   - WaterPop
   - Gate2
+  - Potion
   layers:
   - Default
   - TransparentFX

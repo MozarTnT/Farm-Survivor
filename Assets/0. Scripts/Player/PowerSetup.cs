@@ -22,7 +22,6 @@ public class PowerSetup : MonoBehaviour
     private int damagePoint;
 
 
-
     void Update()
     {
         SetUserData();

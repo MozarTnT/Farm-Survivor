@@ -9,6 +9,7 @@ public abstract class Exp : MonoBehaviour
     private float speed;
 
     private Transform target;
+
     public Transform Target
     { 
         get { return target; } 
@@ -18,6 +19,7 @@ public abstract class Exp : MonoBehaviour
             speed = target.GetComponent<Player>().data.Speed * 2f;
         }
     }
+
     void Update()
     {
         Collider2D collision = GetComponent<Collider2D>();
@@ -49,8 +51,6 @@ public abstract class Exp : MonoBehaviour
             {
 
             }
-
-            //Destroy(gameObject);
         }
     }
 

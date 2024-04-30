@@ -170,6 +170,7 @@ public class Player : MonoBehaviour
         }
 
         FindExp();
+        FindPotion();
 
         bibleTrans.position = transform.position;
         bibleTrans.Rotate(Vector3.back * Time.deltaTime * 300f);
@@ -449,7 +450,24 @@ public class Player : MonoBehaviour
                 if (distance <= data.itemDistanceLimit)
                 {
                     item.value.GetComponent<Exp>().Target = transform;
+                }
+            }
+        }
+    }
 
+    public void FindPotion()
+    {
+        GameObject[] objs = GameObject.FindGameObjectsWithTag("Potion");
+
+        if (objs.Length > 0)
+        {
+            foreach (var item in objs.Select((value, index) => (value, index)))
+            {
+                float distance = Vector2.Distance(transform.position, item.value.transform.position);
+
+                if (distance <= data.itemDistanceLimit)
+                {
+                    item.value.GetComponent<Potion>().Target = transform;
                 }
             }
         }
