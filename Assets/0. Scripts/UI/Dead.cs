@@ -10,7 +10,7 @@ public class Dead : MonoBehaviour
     
     public void ToMainBtnClicked()
     {
-        SceneManager.LoadScene("CharacterSelect");
+        UIManager.Instance.FadeInLoadCharSelectScene();
     }
 
     public void ToExitBtnClicked()

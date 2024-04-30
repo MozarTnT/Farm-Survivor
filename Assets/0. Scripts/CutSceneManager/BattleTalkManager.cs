@@ -136,19 +136,23 @@ public class BattleTalkManager : MonoBehaviour
             StartCoroutine(BattleSceneManager.Instance.MoveCamera(monsterVector));
             chattingIndex = 6;
         }
-
-        if (chattingIndex == 8)
+        else if (chattingIndex >= 8 && chattingIndex <= 10)
         {
             StartCoroutine(BattleSceneManager.Instance.MoveCamera(playerVector));
-            chattingIndex = 9;
+            //chattingIndex = 9;
         }
-
-        if (chattingIndex > 10)
+        else if (chattingIndex > 10)
         {
             ChattingDown();
-            //clickAble = false;
-            //CutSceneCharacterManager.Instance.canMove = true;
+            clickAble = false;
+            BattleSceneManager.Instance.FadeInLoadCharSelectScene();
         }
+        else
+        {
+
+        }
+
+
     }
 
     void ChattingDown()

@@ -7,7 +7,6 @@ using UnityEngine.SceneManagement;
 public class CutScenePlayer : MonoBehaviour
 {
     [SerializeField] private GameObject key;
-    [SerializeField] private GameObject water;
 
     [SerializeField] private List<Sprite> stand;
     [SerializeField] private List<Sprite> run;
@@ -37,7 +36,18 @@ public class CutScenePlayer : MonoBehaviour
 
         if (isNearGate == true && Input.GetKey(KeyCode.B))
         {
-            FadeInLoadScene();
+            if(key.tag == "Gate")
+            {
+                HouseSceneManager.Instance.FadeInLoadFarmScene();
+            }
+            else if (key.tag == "Gate2")
+            {
+                FarmSceneManager.Instance.FadeInLoadBattleScene();
+            }
+            else
+            {
+
+            }
         }
     }
 
@@ -80,10 +90,19 @@ public class CutScenePlayer : MonoBehaviour
             Debug.Log("충돌");
             key.SetActive(true);
             key.GetComponent<KeyAnnounce>().KeyAniamation();
-            water.GetComponent<Water>().WaterAniamation();
             
             isNearGate = true;
         }
+
+        if (collision.CompareTag("Gate2"))
+        {
+            Debug.Log("충돌2");
+            key.SetActive(true);
+            key.GetComponent<KeyAnnounce>().KeyAniamation();
+
+            isNearGate = true;
+        }
+
     }
 
     public void OnTriggerExit2D(Collider2D collision)
@@ -94,16 +113,14 @@ public class CutScenePlayer : MonoBehaviour
             key.SetActive(false);
             isNearGate = false;
         }
+
+        if (collision.CompareTag("Gate2"))
+        {
+            Debug.Log("충돌 끝");
+            key.SetActive(false);
+            isNearGate = false;
+        }
     }
 
-    void FadeInLoadScene()
-    {
-        StartCoroutine(DoFadeInAndLoadScene());
-    }
-
-    IEnumerator DoFadeInAndLoadScene()
-    {
-        yield return StartCoroutine(Fader.Instance.FadeIn()); // FadeIn 코루틴이 끝날 때까지 기다립니다.
-        SceneManager.LoadScene("FarmScene");
-    }
+   
 }

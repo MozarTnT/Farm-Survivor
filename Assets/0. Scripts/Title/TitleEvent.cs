@@ -41,10 +41,21 @@ public class TitleEvent : MonoBehaviour
 
         if(userDataConnection.isLogin == true)
         {
-            SceneManager.LoadScene("CharacterSelect");
+            TitleManager.Instance.FadeInLoadCharSelectScene();
         }
 
     }
+    public void StoryBtnOnClicked()
+    {
+        loginInfoUI.SetActive(false);
+
+        if (userDataConnection.isLogin == true)
+        {
+            TitleManager.Instance.FadeInLoadHouseScene();
+        }
+    }
+
+
     public void OnSelectNewGame() // 새 게임 시작
     {
         SceneManager.LoadScene("CharacterSelect");
@@ -100,7 +111,6 @@ public class TitleEvent : MonoBehaviour
     public void SendMessageBtn()
     {
         Application.OpenURL("https://mozartnt.tistory.com/");
-    
     }
 
 

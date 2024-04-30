@@ -141,13 +141,16 @@ public class TalkManager : MonoBehaviour
 
             chattingIndex = 6;
         }
-
-        if (chattingIndex > 8)
+        else if (chattingIndex > 8)
         {
             ChattingDown();
             clickAble = false;
             CutSceneCharacterManager.Instance.canMove = true;
             speechBubble.SetActive(false);
+        }
+        else
+        {
+            
         }
     }
 

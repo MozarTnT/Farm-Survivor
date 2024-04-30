@@ -29,6 +29,7 @@ public class Fader : MonoBehaviour
     {
         panel = GetComponentInChildren<Image>();
         panel.color = endColor;
+        FadeOut();
     }
 
     public IEnumerator FadeOut()

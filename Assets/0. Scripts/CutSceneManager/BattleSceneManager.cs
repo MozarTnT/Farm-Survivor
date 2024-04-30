@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using static UnityEngine.GraphicsBuffer;
 
 public class BattleSceneManager : MonoBehaviour
@@ -38,5 +39,14 @@ public class BattleSceneManager : MonoBehaviour
     }
 
 
+    public void FadeInLoadCharSelectScene()
+    {
+        StartCoroutine(DoFadeInAndLoadCharSelectScene());
+    }
 
+    IEnumerator DoFadeInAndLoadCharSelectScene()
+    {
+        yield return StartCoroutine(Fader.Instance.FadeIn()); // FadeIn 코루틴이 끝날 때까지 기다립니다.
+        SceneManager.LoadScene("CharacterSelect");
+    }
 }

@@ -21,10 +21,7 @@ public class PowerSetup : MonoBehaviour
     private int dropPoint;
     private int damagePoint;
 
-    void Start()
-    {
-        
-    }
+
 
     void Update()
     {
