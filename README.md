@@ -26,7 +26,7 @@ RPG 적인 요소도 추가 됩니다!
 
 ---
 
-<img src="./InGameImg/Image1.png", height="100x", width="100px">
+![poster1](./InGameImg/Image1.png)
 
 ---
 
