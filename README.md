@@ -5,6 +5,13 @@
 추후에는 농사, 채집 등의 컨텐츠와 스토리를 추가해 플레이어를 성장시키는 재미를 느낄 수 있는
 RPG 적인 요소도 추가 됩니다!
 
+
+<p align="left">
+  <img src="https://github.com/MozarTnT/VSLike2D_Project_1/assets/148767887/aa0a9019-7e5c-4158-b497-2eaea946c8d0",  height="400x", width="150px">
+  <img src="https://github.com/MozarTnT/VSLike2D_Project_1/assets/148767887/e03654d3-1902-45f6-9941-1526a57d3915",  height="400x", width="150px">
+</p>
+
+
 ---
 
 * 목적 : Farm Survivor Project 개발
@@ -26,9 +33,11 @@ RPG 적인 요소도 추가 됩니다!
 
 ---
 
-![poster1](./InGameImg/Image1.png)
 
----
+<p align="left">
+  <img src="https://github.com/MozarTnT/VSLike2D_Project_1/assets/148767887/336da96c-19b8-4a0e-b165-c4b2ce62cb1d",  height="400x", width="150px">
+  <img src="https://github.com/MozarTnT/VSLike2D_Project_1/assets/148767887/1d399cbb-9781-4fd1-9041-515e1bd69992",  height="400x", width="150px">
+</p>
 
 ## **목차** 
 Farm Survivor Project
@@ -52,3 +61,10 @@ Farm Survivor Project
 
 <a name="howtoplay"></a>
 ## **플레이 방식** 
+
+* [조작법] : 캐릭터 이동 방식
+
+| 이동방향  | 상단 | 하단 | 좌측 | 우측 | 상호작용 |
+|---------|-----|-----|-----|-----|-----|
+| 키보드 | W | S | A | D | B | 
+
