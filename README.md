@@ -6,13 +6,6 @@
 RPG 적인 요소도 추가 됩니다!
 
 
-<p align="left">
-  <img src="https://github.com/MozarTnT/VSLike2D_Project_1/assets/148767887/aa0a9019-7e5c-4158-b497-2eaea946c8d0",  height="400x", width="150px">
-  <img src="https://github.com/MozarTnT/VSLike2D_Project_1/assets/148767887/e03654d3-1902-45f6-9941-1526a57d3915",  height="400x", width="150px">
-</p>
-
-
----
 
 * 목적 : Farm Survivor Project 개발
 * 작성자 : allen.jeon
@@ -21,7 +14,60 @@ RPG 적인 요소도 추가 됩니다!
 * 문서 Version : 1.1.04
 
 
-주요 수정사항 
+## **기술 스택**
+
+<img src="https://img.shields.io/badge/C%23-512BD4?style=for-the-badge&logo=c-sharp&logoColor=white"> <img src="https://img.shields.io/badge/Unity-000000?style=for-the-badge&logo=unity&logoColor=white">
+
+
+
+
+## **목차** 
+Farm Survivor Project
+* [1. 개요](#outline)
+* [2. 게임 설명](#gameinfo)
+* [3. 플레이 방식](#howtoplay)
+* [4. 주요 수정 사항](#update)
+
+
+<a name="outline"></a>
+## **개요** 
+* [프로젝트 이름] : Farm Survivor Project
+* [프로젝트 기간] : 2024.03.18 ~ 
+* [개발 엔진 및 언어] : Unity / C# 
+* [개발자] : 전용준
+
+
+
+
+<a name="gameinfo"></a>
+## **게임 설명** 
+
+* [게임 장르] : 2D로 플레이하는 Vampire Survivor 형식의 디펜스 게임입니다.
+
+* [로그인 / 회원가입] : 나만의 계정을 만들어 좀비를 소탕하고 포인트를 모아 강력한 캐릭터를 만드세요 !
+
+* [좀비 디펜스] : 사방에서 몰려드는 좀비를 해치우고 경험치가 쌓이면 특수한 무기를 획득할 수 있습니다 !
+
+* [보스] : 일정 레벨 이상 부터는 보스 몬스터가 등장합니다. 획득한 무기를 바탕으로 해치우세요 !
+
+  
+
+<a name="howtoplay"></a>
+## **플레이 방식** 
+
+* [조작법] : 캐릭터 이동 방식
+
+| 이동방향  | 상단 | 하단 | 좌측 | 우측 | 상호작용 |
+|---------|-----|-----|-----|-----|-----|
+| 키보드 | W | S | A | D | B | 
+
+
+
+
+---
+
+<a name="update"></a>
+## **주요 수정사항**
 
 | revision | date | description |
 |--------|----------|--------------------------------------------------------------------------|
@@ -33,38 +79,16 @@ RPG 적인 요소도 추가 됩니다!
 
 ---
 
+<p align="left">
+  <img src="https://github.com/MozarTnT/VSLike2D_Project_1/assets/148767887/aa0a9019-7e5c-4158-b497-2eaea946c8d0",  height="400x", width="150px">
+  <img src="https://github.com/MozarTnT/VSLike2D_Project_1/assets/148767887/e03654d3-1902-45f6-9941-1526a57d3915",  height="400x", width="150px">
+</p>
 
 <p align="left">
   <img src="https://github.com/MozarTnT/VSLike2D_Project_1/assets/148767887/336da96c-19b8-4a0e-b165-c4b2ce62cb1d",  height="400x", width="150px">
   <img src="https://github.com/MozarTnT/VSLike2D_Project_1/assets/148767887/1d399cbb-9781-4fd1-9041-515e1bd69992",  height="400x", width="150px">
 </p>
 
-## **목차** 
-Farm Survivor Project
-* [1. 개요](#outline)
-* [2. 게임 설명](#gameinfo)
-* [3. 플레이 방식](#howtoplay)
 
 
-<a name="outline"></a>
-## **개요** 
-* [프로젝트 이름] : Farm Survivor Project
-* [프로젝트 기간] : 2024.03.18 ~ 
-* [개발 엔진 및 언어] : Unity / C# 
-* [개발자] : 전용준
-
-
-<a name="gameinfo"></a>
-## **게임 설명** 
-
-* [게임 장르] : 2D로 플레이하는 Vampire Survivor 형식의 디펜스 게임입니다.
-
-<a name="howtoplay"></a>
-## **플레이 방식** 
-
-* [조작법] : 캐릭터 이동 방식
-
-| 이동방향  | 상단 | 하단 | 좌측 | 우측 | 상호작용 |
-|---------|-----|-----|-----|-----|-----|
-| 키보드 | W | S | A | D | B | 
 
