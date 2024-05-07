@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class BulletPooling : Singleton<BulletPooling>
 {
-
     [SerializeField] private Bullet pBullet;
     [SerializeField] public Transform pBulletParent;
 

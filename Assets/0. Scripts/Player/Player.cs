@@ -18,6 +18,7 @@ public class Player : MonoBehaviour
         public float Power { get; set; }
         public float BiblePower { get; set; }
         public float TridentPower { get; set; }
+        public float TridentDelay { get; set; }
         public float WaterPower { get; set; }
         public float WaterPopPower { get; set; }
         public float itemDistanceLimit { get; set; }
@@ -100,6 +101,7 @@ public class Player : MonoBehaviour
     public WeaponValue weaponValue = new WeaponValue();
 
     private float fireTimer = 0;
+    public float tridentTimer = 0;
 
     private float waterTimer = 0;
     private float watertDelay = 0.1f;
@@ -150,6 +152,7 @@ public class Player : MonoBehaviour
         data.Power += GameManager.instance.SetupPower; // 시작 전에 적용한 능력치 추가.
         data.Drop += GameManager.instance.SetupDrop;
 
+
     }
 
 
@@ -175,8 +178,20 @@ public class Player : MonoBehaviour
         bibleTrans.position = transform.position;
         bibleTrans.Rotate(Vector3.back * Time.deltaTime * 300f);
 
+        if(isTridentOn)
+        {
+            tridentTimer += Time.deltaTime;
+            if (tridentTimer >= data.TridentDelay)
+            {
+                AddTrident();
+            }
+            else
+            {
+                tridentTimer = 0;
+            }
+        }
 
-        if(isWaterOn)
+        if (isWaterOn)
         {
             WaterTimer();
             waterPos.position = transform.position;
@@ -230,6 +245,7 @@ public class Player : MonoBehaviour
         data.Power = 20.0f;
         data.BiblePower = 50.0f;
         data.TridentPower = 30.0f;
+        data.TridentDelay = 2.5f;
         data.WaterPower = 15.0f;
         data.WaterPopPower = 10.0f;
         data.itemDistanceLimit = 1.5f;
@@ -252,13 +268,6 @@ public class Player : MonoBehaviour
         SetBible();
     }
 
-    //public void BibleDelete()
-    //{
-    //    Destroy(bibleTrans.GetChild(bibleTrans.childCount - 1).gameObject);
-
-    //    SetBible();
-    //}
-
     void SetBible()
     {
         bibleTrans.rotation = Quaternion.identity;
@@ -272,12 +281,8 @@ public class Player : MonoBehaviour
         }
     }
 
-    void SetWaterTrans()
-    {
-        waterPos.rotation = Quaternion.identity;
-    }
 
-
+ 
     private void SetTrident()
     {
         trident.transform.position = tridentPos.position;
@@ -308,8 +313,11 @@ public class Player : MonoBehaviour
     {
         Debug.Log("AddTrident");
         SetTrident();
-        GameObject newTrident = Instantiate(trident);
+        Trident t = TridentPooling.Instance.GetPTrident();
+        t.transform.SetParent(weaponParent);
+        
     }
+
 
 
     private void Move()

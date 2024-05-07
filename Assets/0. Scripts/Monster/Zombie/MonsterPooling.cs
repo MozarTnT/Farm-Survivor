@@ -41,7 +41,7 @@ public class MonsterPooling : Singleton<MonsterPooling>
         return qGreenZombie;
     }
 
-    public void AddpGreenZombie(GreenZombie gz)
+    public void AddpGreenZombie(GreenZombie gz) // 좀비 비활성화
     {
         gz.gameObject.SetActive(false);
         pGreenZombiesQueue.Enqueue(gz);

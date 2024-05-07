@@ -10,13 +10,15 @@ public class Trident : MonoBehaviour
 
     Vector2 moveDirection;
 
+    private float lifeTime;
+    private float lifeTimeEnd = 0.5f;
+
+
     void Start()
     {
         Speed = 20.0f;
         Power = GameManager.instance.P.data.TridentPower;
         SetMoveDirection();
-
-        Destroy(gameObject, 0.5f); // 3ÃÊ ÈÄ ÆÄ±«
     }
 
     void Update()
@@ -26,6 +28,11 @@ public class Trident : MonoBehaviour
 
         transform.Translate(moveDirection * Time.deltaTime * Speed);
 
+        lifeTime += Time.deltaTime;
+        if(lifeTime >= lifeTimeEnd)
+        {
+            TridentPooling.Instance.AddpTrident(this);
+        }
     }
 
     void SetMoveDirection()
