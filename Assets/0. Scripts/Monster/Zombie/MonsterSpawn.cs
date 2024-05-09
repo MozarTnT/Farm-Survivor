@@ -1,17 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class MonsterSpawn : MonoBehaviour
 {
-    float greenspawnTimer;
-    float greenspawnDelay;
+    private float greenspawnTimer;
+    private float greenspawnDelay;
 
-    float whitespawnTimer;
-    float whitespawnDelay;
+    private float whitespawnTimer;
+    private float whitespawnDelay;
 
-    float tombspawnTimer;
-    float tombspawnDelay;
+    private float tombspawnTimer;
+    private float tombspawnDelay;
 
     [SerializeField] private Monster m;
     [SerializeField] private Player player;
@@ -34,7 +35,7 @@ public class MonsterSpawn : MonoBehaviour
         tombspawnTimer += Time.deltaTime;
 
 
-        if(greenspawnTimer >= greenspawnDelay)
+        if (greenspawnTimer >= greenspawnDelay)
         {
             greenspawnTimer = 0;
             greenspawnDelay = Random.Range(3, 5);
@@ -106,4 +107,7 @@ public class MonsterSpawn : MonoBehaviour
 
         return originPosition + new Vector3(range_X, range_Y, 0f);
     }
+
+
+    
 }
