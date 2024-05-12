@@ -10,7 +10,7 @@ using SimpleJSON;
 public class TalkManager : MonoBehaviour
 {
     public static TalkManager Instance;
-    public class DialogueData
+    public class DialogueData // 대화 Json 파일 class
     {
         public int scene;
         public int index;
@@ -30,33 +30,24 @@ public class TalkManager : MonoBehaviour
     [SerializeField] private Text talkText;
     [SerializeField] GameObject speechBubble;
 
-    private float delay = 0.07f;
+    private float delay = 0.07f; // 한글자씩 글자 출력용 Delay
     private string text;
     private int chattingIndex = 0;
-    public int ChattingIndex 
-    {
-        get  { return chattingIndex; } 
-        set 
-        {  
-            chattingIndex = value; 
-
-        }
-    }
+   
     private bool clickAble = false;
     void Start()
     {
-
         Instance = this;
 
-        CutSceneCharacterManager.Instance.canMove = false;
+        CutSceneCharacterManager.Instance.canMove = false; // 움직임 고정
 
-        chattingObject.transform.DOMoveY(88f, 0.5f).SetDelay(0.5f).SetEase(Ease.Linear);
+        chattingObject.transform.DOMoveY(88f, 0.5f).SetDelay(0.5f).SetEase(Ease.Linear); // 채팅창 올리기
 
-        string filePath = "Assets/Resources/Json/talk.json";
+        string filePath = "Assets/Resources/Json/talk.json"; // json 파일 주소값
 
-        string jsonString = File.ReadAllText(filePath);
+        string jsonString = File.ReadAllText(filePath); // 읽어오기
 
-        JSONNode json = JSON.Parse(jsonString);
+        JSONNode json = JSON.Parse(jsonString); // 파싱
 
         // DialogueData 객체 생성 후 값 할당
         dialogueData.scene = json["scene"].AsInt;
@@ -79,21 +70,19 @@ public class TalkManager : MonoBehaviour
             Debug.Log(line);
         }
 
-        Debug.Log(dialogueData.lines.Length);
-
         talkText.text = "";
         text = dialogueData.lines[chattingIndex].line;
-        text = text.Replace("\\n", "\n");
+        text = text.Replace("\\n", "\n"); // \n 중복 인식 변환
 
-        StartCoroutine(textPrint(delay));
-        
+        StartCoroutine(textPrint(delay)); // 한글자씩 출력
     }
 
     private void Update()
     {
+        // 클릭 검사
         if ((Input.GetMouseButtonDown(0) || Input.GetKey(KeyCode.B)) && clickAble && chattingIndex < dialogueData.lines.Length - 1)
         {
-            NextText();
+            NextText(); // 다음 채팅 출력
         }
     }
 
@@ -154,11 +143,8 @@ public class TalkManager : MonoBehaviour
         }
     }
 
-    void ChattingDown()
+    void ChattingDown() // 채팅창 내리기
     {
         chattingObject.transform.DOMoveY(-300f, 0.5f).SetEase(Ease.Linear);
     }
-
-
-
 }

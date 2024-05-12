@@ -6,7 +6,7 @@ public class CutSceneCharacterManager : MonoBehaviour
 {
     public static CutSceneCharacterManager Instance;
 
-    public bool canMove = false;
+    public bool canMove = false; // 이동 통제용 boll
 
     void Awake()
     {
@@ -19,10 +19,5 @@ public class CutSceneCharacterManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-    }
-
-    void Update()
-    {
-        
     }
 }

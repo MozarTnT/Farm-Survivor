@@ -20,7 +20,7 @@ public class HouseSceneManager : MonoBehaviour
     }
 
 
-    public void FadeInLoadFarmScene()
+    public void FadeInLoadFarmScene() // Áý¿ë Fade In Out
     {
         StartCoroutine(DoFadeInAndLoadFarmScene());
     }

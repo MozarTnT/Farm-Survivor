@@ -7,11 +7,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.IO;
 
-
 public class BattleTalkManager : MonoBehaviour
 {
     public static BattleTalkManager Instance;
-    public class DialogueData
+    public class DialogueData // 대화 JSon 파일용 class
     {
         public int scene;
         public int index;
@@ -24,8 +23,6 @@ public class BattleTalkManager : MonoBehaviour
             public string line;
         }
     }
-
-
 
     private DialogueData dialogueData = new DialogueData();
 
@@ -50,18 +47,17 @@ public class BattleTalkManager : MonoBehaviour
 
     void Start()
     {
-
         Instance = this;
 
-        CutSceneCharacterManager.Instance.canMove = false;
+        CutSceneCharacterManager.Instance.canMove = false; // 움직임 고정
 
-        chattingObject.transform.DOMoveY(88f, 0.5f).SetDelay(0.5f).SetEase(Ease.Linear);
+        chattingObject.transform.DOMoveY(88f, 0.5f).SetDelay(0.5f).SetEase(Ease.Linear); // 대화창 올리기
 
-        string filePath = "Assets/Resources/Json/battletalk.json";
+        string filePath = "Assets/Resources/Json/battletalk.json"; // Json 파일 주소값
 
-        string jsonString = File.ReadAllText(filePath);
+        string jsonString = File.ReadAllText(filePath); // Json 파일 읽어오기
 
-        JSONNode json = JSON.Parse(jsonString);
+        JSONNode json = JSON.Parse(jsonString); // 파싱
 
         // DialogueData 객체 생성 후 값 할당
         dialogueData.scene = json["scene"].AsInt;
@@ -84,18 +80,16 @@ public class BattleTalkManager : MonoBehaviour
             Debug.Log(line);
         }
 
-        Debug.Log(dialogueData.lines.Length);
-
         talkText.text = "";
         text = dialogueData.lines[chattingIndex].line;
         text = text.Replace("\\n", "\n");
 
-        StartCoroutine(textPrint(delay));
-
+        StartCoroutine(textPrint(delay)); // 한글자씩 시간 간격 두고 프린트
     }
 
     void Update()
     {
+        // 클릭 확인
         if ((Input.GetMouseButtonDown(0) || Input.GetKey(KeyCode.B)) && clickAble && chattingIndex <= dialogueData.lines.Length)
         {
             NextText();
@@ -151,11 +145,9 @@ public class BattleTalkManager : MonoBehaviour
         {
 
         }
-
-
     }
 
-    void ChattingDown()
+    void ChattingDown() // 대화 종료 후 채팅창 내리기
     {
         chattingObject.transform.DOMoveY(-300f, 0.5f).SetEase(Ease.Linear);
     }

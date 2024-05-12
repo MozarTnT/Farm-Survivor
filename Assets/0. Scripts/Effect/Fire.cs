@@ -14,7 +14,7 @@ public class Fire : MonoBehaviour
     {
         GetComponent<SpriteRenderer>().enabled = false;
     }
-    void FireAnimation()
+    void FireAnimation() 
     {   
         if (GetComponent<SpriteRenderer>().enabled == false)
         {

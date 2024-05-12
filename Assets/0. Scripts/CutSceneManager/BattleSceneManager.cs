@@ -6,10 +6,8 @@ using static UnityEngine.GraphicsBuffer;
 
 public class BattleSceneManager : MonoBehaviour
 {
-    public static BattleSceneManager Instance;
+    public static BattleSceneManager Instance; // ½Ì±ÛÅæ¿ë Instance
 
-    Vector3 playerVector = new Vector3(-13.8f, 0.2f, -10f);
-    Vector3 monsterVector = new Vector3(14.83f, 0.2f, -10f);
     void Start()
     {
         Instance = this;
@@ -39,7 +37,7 @@ public class BattleSceneManager : MonoBehaviour
     }
 
 
-    public void FadeInLoadCharSelectScene()
+    public void FadeInLoadCharSelectScene() // FadeIn 
     {
         StartCoroutine(DoFadeInAndLoadCharSelectScene());
     }

@@ -19,7 +19,7 @@ public class FarmSceneManager : MonoBehaviour
         }
     }
 
-    public void FadeInLoadBattleScene()
+    public void FadeInLoadBattleScene() // ³óÀå¿ë Fade In Out
     {
         StartCoroutine(DoFadeInAndLoadBattleScene());
     }

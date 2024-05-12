@@ -151,8 +151,6 @@ public class Player : MonoBehaviour
 
         data.Power += GameManager.instance.SetupPower; // 시작 전에 적용한 능력치 추가.
         data.Drop += GameManager.instance.SetupDrop;
-
-
     }
 
 
