@@ -431,9 +431,11 @@ public class UI : MonoBehaviour
 
         itemCount.tridentCnt++;
 
-        if(itemCount.tridentCnt == 1)
+        if(itemCount.tridentCnt <= 1)
         {
-            GameManager.instance.P.isTridentOn = true;
+            Player player = GameManager.instance.P;
+            player.isTridentOn = true;
+            player.InvokeRepeating("AddTrident", 0, 2.5f);
         }
 
         else if (itemCount.tridentCnt > 1 && itemCount.bootsCnt <= 4)

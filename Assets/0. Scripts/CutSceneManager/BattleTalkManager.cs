@@ -10,7 +10,7 @@ using System.IO;
 public class BattleTalkManager : MonoBehaviour
 {
     public static BattleTalkManager Instance;
-    public class DialogueData // 대화 JSon 파일용 class
+    public class DialogueData // 대화 Json 파일용 class
     {
         public int scene;
         public int index;
