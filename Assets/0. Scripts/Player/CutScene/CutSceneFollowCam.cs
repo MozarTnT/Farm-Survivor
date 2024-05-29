@@ -16,8 +16,8 @@ public class CutSceneFollowCam : MonoBehaviour
         pos.z = -10;
 
         // 범위 지정
-        pos.x = Mathf.Clamp(pos.x, -8.75f, 9.7f);
-        pos.y = Mathf.Clamp(pos.y, -13.9f, 17f);
+        pos.x = Mathf.Clamp(pos.x, -10.35f, 11.5f);
+        pos.y = Mathf.Clamp(pos.y, -5.97f, 5.97f);
 
         // 타겟을 타겟의 위치에 따라 따라다니기
         transform.position = Vector3.Lerp(transform.position, pos, Time.deltaTime * 5f);
