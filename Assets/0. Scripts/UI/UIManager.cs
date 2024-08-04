@@ -18,15 +18,6 @@ public class UIManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    void Start()
-    {
-        
-    }
-
-    void Update()
-    {
-        
-    }
 
     public void FadeInLoadCharSelectScene()
     {

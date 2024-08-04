@@ -27,15 +27,6 @@ public class UserDataConnection : MonoBehaviour
 
     public int scorePoint;
 
-    //public class UserData
-    //{
-    //    public string UserID { get; set; }
-    //    public string UserPW { get; set; }
-    //    public string UserToken { get; set; }
-    //    public int UserScore { get; set; }
-    //}
-    //public UserData userdata;
-
     public string userID;
     public MyLoginResponseData myLoginResponseData;
     public updateParams myUpdateParams;

@@ -27,22 +27,10 @@ public class TitleAnimation : MonoBehaviour
 
     }
 
-    void Update()
-    {
-   
-    }
 
     void SetAnimation()
     {
-
         topUITrans.DOMoveY(720.0f, 1.5f).SetDelay(0.3f).SetEase(Ease.InQuad);
-
-
-            //.OnComplete(() => buttonTrans.DOMoveY(70, 1.0f).SetDelay(0.3f).SetEase(Ease.InQuad));
-
-
-        //.OnComplete(() => )
-
     }
 
     void SetRunnerAnimation()
@@ -86,8 +74,4 @@ public class TitleAnimation : MonoBehaviour
             cameraTween.Kill();
         }
     }
-
-
-
-
 }

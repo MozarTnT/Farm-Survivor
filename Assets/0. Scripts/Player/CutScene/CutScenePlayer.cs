@@ -36,7 +36,7 @@ public class CutScenePlayer : MonoBehaviour
 
         if (isNearGate == true && Input.GetKey(KeyCode.B))
         {
-            if(key.tag == "Gate")
+            if (key.tag == "Gate")
             {
                 HouseSceneManager.Instance.FadeInLoadFarmScene();
             }
@@ -57,8 +57,6 @@ public class CutScenePlayer : MonoBehaviour
         float x = Input.GetAxisRaw("Horizontal") * Time.deltaTime * speed;
         float y = Input.GetAxisRaw("Vertical") * Time.deltaTime * speed;
 
-        //float cX = Mathf.Clamp(transform.position.x + x, -10.5f, 10.5f);
-        //float cY = Mathf.Clamp(transform.position.y + y, -4.3f, 3.3f);
         transform.position = new Vector2(transform.position.x + x, transform.position.y + y);
 
         if (x < 0)

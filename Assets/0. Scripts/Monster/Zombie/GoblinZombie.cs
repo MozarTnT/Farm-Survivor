@@ -21,7 +21,6 @@ public class GoblinZombie : Monster
         data.AttDelay = 1.3f;
         data.Defence = 0.5f + (GameManager.instance.UI.topUI.Level / 100.0f);
 
-        //Debug.Log(0.1f + (GameManager.instance.UI.topUI.Level / 100.0f));
 
         base.Init();
     }

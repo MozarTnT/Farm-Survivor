@@ -305,8 +305,6 @@ public abstract class Monster : MonoBehaviour
 
         }
 
-        //MonsterPooling.Instance.AddpGreenZombie(gz);
-        // Destroy(gameObject);
     }
 
 
