@@ -184,7 +184,7 @@ public class UserDataConnection : MonoBehaviour
     public async Task api_create_account(string id, string pw) // 비동기 대기 (백그라운드에서 시행되는 방식)
     {
         // POST할 URL
-        string url = "http://ted-rpi4-dev.duckdns.org:62431/api/create_account";
+        string url = "http://ted-rpi4-dev.duckdns.org:65500/api/create_account";
 
         try
         {
@@ -244,7 +244,7 @@ public class UserDataConnection : MonoBehaviour
     public async Task api_login(string id, string pw) 
     {
         // POST할 URL
-        string url = "http://ted-rpi4-dev.duckdns.org:62431/api/login";
+        string url = "http://ted-rpi4-dev.duckdns.org:65500/api/login";
 
         try
         {
@@ -322,7 +322,7 @@ public class UserDataConnection : MonoBehaviour
     public async Task api_logout(string id, string token)
     {
         // POST할 URL
-        string url = "http://ted-rpi4-dev.duckdns.org:62431/api/logout";
+        string url = "http://ted-rpi4-dev.duckdns.org:65500/api/logout";
 
         try
         {
@@ -386,7 +386,7 @@ public class UserDataConnection : MonoBehaviour
     public async Task api_update_score(string id, string token, int point)
     {
         // POST할 URL
-        string url = "http://ted-rpi4-dev.duckdns.org:62431/api/update_score";
+        string url = "http://ted-rpi4-dev.duckdns.org:65500/api/update_score";
 
         try
         {

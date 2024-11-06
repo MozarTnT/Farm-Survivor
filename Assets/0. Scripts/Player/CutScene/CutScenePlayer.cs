@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class CutScenePlayer : MonoBehaviour
 {
     [SerializeField] private GameObject key;
+    [SerializeField] private GameObject key2;
 
     [SerializeField] private List<Sprite> stand;
     [SerializeField] private List<Sprite> run;
@@ -42,13 +43,15 @@ public class CutScenePlayer : MonoBehaviour
             }
             else if (key.tag == "Gate2")
             {
-                FarmSceneManager.Instance.FadeInLoadBattleScene();
+                
             }
             else
             {
 
             }
         }
+
+
     }
 
 
@@ -95,8 +98,8 @@ public class CutScenePlayer : MonoBehaviour
         if (collision.CompareTag("Gate2"))
         {
             Debug.Log("충돌2");
-            key.SetActive(true);
-            key.GetComponent<KeyAnnounce>().KeyAniamation();
+            key2.SetActive(true);
+            key2.GetComponent<KeyAnnounce>().KeyAniamation();
 
             isNearGate = true;
         }
@@ -115,7 +118,7 @@ public class CutScenePlayer : MonoBehaviour
         if (collision.CompareTag("Gate2"))
         {
             Debug.Log("충돌 끝");
-            key.SetActive(false);
+            key2.SetActive(false);
             isNearGate = false;
         }
     }
