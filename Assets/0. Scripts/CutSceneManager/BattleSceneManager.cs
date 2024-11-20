@@ -6,7 +6,7 @@ using static UnityEngine.GraphicsBuffer;
 
 public class BattleSceneManager : MonoBehaviour
 {
-    public static BattleSceneManager Instance; // ½Ì±ÛÅæ¿ë Instance
+    public static BattleSceneManager Instance; // ì¸ìŠ¤í„´ìŠ¤
 
     void Start()
     {
@@ -15,27 +15,24 @@ public class BattleSceneManager : MonoBehaviour
         Camera.main.transform.position = new Vector3(-13.8f, 0.2f, -10f);
     }
 
-
-
-    public IEnumerator MoveCamera(Vector3 destination) // Ä«¸Ş¶ó ÀÌµ¿
+    public IEnumerator MoveCamera(Vector3 destination) // ì¹´ë©”ë¼ ì´ë™
     {
-        // ÇöÀç Ä«¸Ş¶óÀÇ À§Ä¡¿Í ¸ñÇ¥ À§Ä¡ »çÀÌÀÇ °Å¸®¸¦ °è»êÇÕ´Ï´Ù.
+        // í˜„ì¬ ìœ„ì¹˜ì™€ ëª©í‘œ ìœ„ì¹˜ ê°„ì˜ ê±°ë¦¬ ê³„ì‚°
         float distance = Vector3.Distance(Camera.main.transform.position, destination);
 
-        // Ä«¸Ş¶ó¸¦ ¸ñÇ¥ À§Ä¡·Î ÀÌµ¿½ÃÅ°´Â µ¿¾È ¹İº¹ÇÕ´Ï´Ù.
+        // ì¹´ë©”ë¼ê°€ ëª©í‘œ ìœ„ì¹˜ì— ë„ë‹¬í•  ë•Œê¹Œì§€ ì´ë™
         while (distance > 0.01f)
         {
-            // ÇöÀç À§Ä¡¿¡¼­ ¸ñÇ¥ À§Ä¡·Î ÀÌµ¿ÇÕ´Ï´Ù.
+            // ì¹´ë©”ë¼ ìœ„ì¹˜ ì´ë™
             Camera.main.transform.position = Vector3.MoveTowards(Camera.main.transform.position, destination, 25.0f * Time.deltaTime);
 
-            // ´ÙÀ½ ÇÁ·¹ÀÓ±îÁö ´ë±âÇÕ´Ï´Ù.
+            // ë‹¤ìŒ í”„ë ˆì„ ëŒ€ê¸°
             yield return null;
 
-            // Ä«¸Ş¶óÀÇ ÇöÀç À§Ä¡¿Í ¸ñÇ¥ À§Ä¡ »çÀÌÀÇ °Å¸®¸¦ ´Ù½Ã °è»êÇÕ´Ï´Ù.
+            // ê±°ë¦¬ ë‹¤ì‹œ ê³„ì‚°
             distance = Vector3.Distance(Camera.main.transform.position, destination);
         }
     }
-
 
     public void FadeInLoadCharSelectScene() // FadeIn 
     {
@@ -44,7 +41,7 @@ public class BattleSceneManager : MonoBehaviour
 
     IEnumerator DoFadeInAndLoadCharSelectScene()
     {
-        yield return StartCoroutine(Fader.Instance.FadeIn()); // FadeIn ÄÚ·çÆ¾ÀÌ ³¡³¯ ¶§±îÁö ±â´Ù¸³´Ï´Ù.
+        yield return StartCoroutine(Fader.Instance.FadeIn()); // FadeIn í›„ ìºë¦­í„° ì„ íƒ ì”¬ ë¡œë“œ
         SceneManager.LoadScene("CharacterSelect");
     }
 }

@@ -28,9 +28,6 @@ public abstract class Animal : MonoBehaviour
         public float AttDelay { get; set; }
     }
 
-    //private State state = State.Idle;
-
-
     protected Data data = new Data();
 
     public Transform target;
@@ -58,45 +55,4 @@ public abstract class Animal : MonoBehaviour
     }
 
 
-
-    //public void OnTriggerEnter2D(Collider2D collision)
-    //{
-    //    if (data.HP < 0)
-    //    {
-    //        return;
-    //    }
-    //    if (collision.CompareTag("pBullet"))
-    //    {
-    //        Bullet b = collision.GetComponent<Bullet>();
-    //        data.HP -= (int)b.Power;
-
-    //        state = State.Hit;
-    //        data.HitDelay = 0.5f;
-    //        sa.SetSprite(hit, 0.1f);
-
-    //        if (data.HP <= 0)
-    //        {
-    //            GetComponent<Collider2D>().enabled = false;
-    //            tag = "Untagged";
-    //            sa.SetSprite(dead, 0.1f, 1.0f, End); // Enemy 제거
-    //        }
-
-    //        Destroy(collision.gameObject); // 총알 삭제
-    //    }
-    //    if (collision.CompareTag("Bible"))
-    //    {
-    //        data.HP -= (int)GameManager.instance.P.data.BiblePower;
-
-    //        state = State.Hit;
-    //        data.HitDelay = 0.3f;
-    //        sa.SetSprite(hit, 0.1f);
-
-    //        if (data.HP <= 0)
-    //        {
-    //            GetComponent<Collider2D>().enabled = false;
-    //            tag = "Untagged";
-    //            sa.SetSprite(dead, 0.1f, 1.0f, End); // Enemy 제거           
-    //        }
-    //    }
-    //}
 }

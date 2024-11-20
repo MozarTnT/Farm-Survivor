@@ -5,30 +5,28 @@ using UnityEngine.SceneManagement;
 
 public class HouseSceneManager : MonoBehaviour
 {
-    public static HouseSceneManager Instance;
+    public static HouseSceneManager Instance; // 인스턴스
 
     void Awake()
     {
         if (Instance == null)
         {
-            Instance = this;
+            Instance = this; // 인스턴스 설정
         }
         else
         {
-            Destroy(gameObject);
+            Destroy(gameObject); // 중복 인스턴스 제거
         }
     }
 
-
-    public void FadeInLoadFarmScene() // ���� Fade In Out
+    public void FadeInLoadFarmScene() // 농장 씬 로드
     {
-        StartCoroutine(DoFadeInAndLoadFarmScene());
+        StartCoroutine(DoFadeInAndLoadFarmScene()); // 코루틴 시작
     }
 
-    IEnumerator DoFadeInAndLoadFarmScene()
+    IEnumerator DoFadeInAndLoadFarmScene() // 농장 씬 로드 코루틴
     {
-        yield return StartCoroutine(Fader.Instance.FadeIn()); // FadeIn �ڷ�ƾ�� ���� ������ ��ٸ��ϴ�.
-        SceneManager.LoadScene("FarmScene");
+        yield return StartCoroutine(Fader.Instance.FadeIn()); // 페이드 인
+        SceneManager.LoadScene("FarmScene"); // 농장 씬 로드
     }
-
 }

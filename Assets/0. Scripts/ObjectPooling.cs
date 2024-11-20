@@ -28,40 +28,21 @@ public class ObjectPooling : MonoBehaviour
 
     }
 
-    //private void Init()
-    //{
-    //    Pool = new ObjectPool<GameObject>(CreatePooledItem, OnTakeFromPool, OnReturnedToPool,
-    //    OnDestroyPoolObject, true, defaultCapacity, maxPoolSize);
+   
 
-    //    // ¹Ì¸® ¿ÀºêÁ§Æ® »ý¼º ÇØ³õ±â
-    //    for (int i = 0; i < defaultCapacity; i++)
-    //    {
-    //        Trident trident = CreatePooledItem().GetComponent<Trident>();
-    //        trident.Pool.Release(bullet.gameObject);
-    //    }
-    //}
-
-    //// »ý¼º
-    //private GameObject CreatePooledItem()
-    //{
-    //    GameObject poolGo = Instantiate(tridentPrefab);
-    //    poolGo.GetComponent<Trident>().Pool = this.Pool;
-    //    return poolGo;
-    //}
-
-    // »ç¿ë
+    // ï¿½ï¿½ï¿½
     private void OnTakeFromPool(GameObject poolGo)
     {
         poolGo.SetActive(true);
     }
 
-    // ¹ÝÈ¯
+    // ï¿½ï¿½È¯
     private void OnReturnedToPool(GameObject poolGo)
     {
         poolGo.SetActive(false);
     }
 
-    // »èÁ¦
+    // ï¿½ï¿½ï¿½ï¿½
     private void OnDestroyPoolObject(GameObject poolGo)
     {
         Destroy(poolGo);

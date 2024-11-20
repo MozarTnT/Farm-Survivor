@@ -10,17 +10,17 @@ using System.IO;
 public class BattleTalkManager : MonoBehaviour
 {
     public static BattleTalkManager Instance;
-    public class DialogueData // ´ëÈ­ Json ÆÄÀÏ¿ë class
+    public class DialogueData // ëŒ€í™” ë°ì´í„° í´ë˜ìŠ¤
     {
-        public int scene;
-        public int index;
-        public string name;
-        public DialogueLine[] lines;
+        public int scene; // ì¥ë©´
+        public int index; // ì¸ë±ìŠ¤
+        public string name; // ì´ë¦„
+        public DialogueLine[] lines; // ëŒ€í™” ì¤„ ë°°ì—´
 
         [System.Serializable]
-        public class DialogueLine
+        public class DialogueLine // ëŒ€í™” ì¤„ í´ë˜ìŠ¤
         {
-            public string line;
+            public string line; // ëŒ€í™” ë‚´ìš©
         }
     }
 
@@ -47,24 +47,30 @@ public class BattleTalkManager : MonoBehaviour
 
     void Start()
     {
+        // ì¸ìŠ¤í„´ìŠ¤ ì„¤ì •
         Instance = this;
 
-        CutSceneCharacterManager.Instance.canMove = false; // ¿òÁ÷ÀÓ °íÁ¤
+        // ìºë¦­í„° ì´ë™ ë¶ˆê°€
+        CutSceneCharacterManager.Instance.canMove = false;
 
-        chattingObject.transform.DOMoveY(88f, 0.5f).SetDelay(0.5f).SetEase(Ease.Linear); // ´ëÈ­Ã¢ ¿Ã¸®±â
+        // ëŒ€í™”ì°½ ìœ„ì¹˜ ì´ë™
+        chattingObject.transform.DOMoveY(88f, 0.5f).SetDelay(0.5f).SetEase(Ease.Linear);
 
-        string filePath = "Assets/Resources/Json/battletalk.json"; // Json ÆÄÀÏ ÁÖ¼Ò°ª
+        // JSON íŒŒì¼ ê²½ë¡œ
+        string filePath = "Assets/Resources/Json/battletalk.json";
 
-        string jsonString = File.ReadAllText(filePath); // Json ÆÄÀÏ ÀĞ¾î¿À±â
+        // JSON íŒŒì¼ ì½ê¸°
+        string jsonString = File.ReadAllText(filePath);
 
-        JSONNode json = JSON.Parse(jsonString); // ÆÄ½Ì
+        // JSON íŒŒì‹±
+        JSONNode json = JSON.Parse(jsonString);
 
-        // DialogueData °´Ã¼ »ı¼º ÈÄ °ª ÇÒ´ç
+        // DialogueData ê°ì²´ ì´ˆê¸°í™”
         dialogueData.scene = json["scene"].AsInt;
         dialogueData.index = json["index"].AsInt;
         dialogueData.name = json["name"];
 
-        // lines ¹è¿­ Ã³¸®
+        // lines ë°°ì—´ ì´ˆê¸°í™”
         JSONArray linesArray = json["lines"].AsArray;
         dialogueData.lines = new DialogueData.DialogueLine[linesArray.Count];
         for (int i = 0; i < linesArray.Count; i++)
@@ -73,30 +79,32 @@ public class BattleTalkManager : MonoBehaviour
             dialogueData.lines[i].line = linesArray[i]["line"];
         }
 
-        // lines ¹è¿­ ¼øÈ¸ÇÏ¸ç °ª Ãâ·Â
+        // lines ë°°ì—´ ì¶œë ¥
         foreach (JSONNode lineNode in linesArray)
         {
             string line = lineNode["line"];
             Debug.Log(line);
         }
 
+        // í…ìŠ¤íŠ¸ ì´ˆê¸°í™”
         talkText.text = "";
         text = dialogueData.lines[chattingIndex].line;
         text = text.Replace("\\n", "\n");
 
-        StartCoroutine(textPrint(delay)); // ÇÑ±ÛÀÚ¾¿ ½Ã°£ °£°İ µÎ°í ÇÁ¸°Æ®
+        // í…ìŠ¤íŠ¸ ì¶œë ¥ ì‹œì‘
+        StartCoroutine(textPrint(delay));
     }
 
     void Update()
     {
-        // Å¬¸¯ È®ÀÎ
+        // Å¬ È®
         if ((Input.GetMouseButtonDown(0) || Input.GetKey(KeyCode.B)) && clickAble && chattingIndex <= dialogueData.lines.Length)
         {
             NextText();
         }
     }
 
-    IEnumerator textPrint(float d) // ÇÑ ±ÛÀÚ¾¿ Ãâ·Â
+    IEnumerator textPrint(float d) // í…ìŠ¤íŠ¸ ì¶œë ¥
     {
         int count = 0;
 
@@ -113,7 +121,7 @@ public class BattleTalkManager : MonoBehaviour
         clickAble = true;
     }
 
-    void NextText() // ´ÙÀ½ Áö¹®À¸·Î ³Ñ¾î°¨
+    void NextText() // ë‹¤ìŒ í…ìŠ¤íŠ¸
     {
         clickAble = false;
         chattingIndex++;
@@ -133,7 +141,6 @@ public class BattleTalkManager : MonoBehaviour
         else if (chattingIndex >= 8 && chattingIndex <= 10)
         {
             StartCoroutine(BattleSceneManager.Instance.MoveCamera(playerVector));
-            //chattingIndex = 9;
         }
         else if (chattingIndex > 10)
         {
@@ -141,13 +148,9 @@ public class BattleTalkManager : MonoBehaviour
             clickAble = false;
             BattleSceneManager.Instance.FadeInLoadCharSelectScene();
         }
-        else
-        {
-
-        }
     }
 
-    void ChattingDown() // ´ëÈ­ Á¾·á ÈÄ Ã¤ÆÃÃ¢ ³»¸®±â
+    void ChattingDown() // ëŒ€í™”ì°½ ë‚´ë¦¬ê¸°
     {
         chattingObject.transform.DOMoveY(-300f, 0.5f).SetEase(Ease.Linear);
     }
