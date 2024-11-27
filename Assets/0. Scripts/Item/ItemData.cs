@@ -5,25 +5,24 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Item Data", menuName = "Data/ItemData")]
 public class ItemData : ScriptableObject
 {
-    // ÀÌ¸§
+    // ì•„ì´í…œ ì´ë¦„
     [SerializeField] private string itemName;
     public string ItemName { get { return itemName; } }
 
-    // Å¸ÀÔ
+    // ì•„ì´í…œ íƒ€ì…
     [SerializeField] private ItemType type;
     public ItemType Type { get { return type; } }
 
-    // ¾ÆÀÌÄÜ
+    // ì•„ì´í…œ ì•„ì´ì½˜
     [SerializeField] private Sprite icon;
     public Sprite Icon { get { return icon; } }
 
-    // Á¦¸ñ
+    // ì•„ì´í…œ ì œëª©
     [SerializeField] private string title;
     public string Title { get { return title; } }
 
-    // ¾ÆÀÌÅÛ ¼³¸í
+    // ì•„ì´í…œ ì„¤ëª…
     [TextArea]
     [SerializeField] private string desc;
     public string Desc { get { return desc; } }
-
 }
